@@ -21,11 +21,68 @@
 
 ---
 
-## 1  Rationale & Vision  (expanded narrative unchanged)
+## 1  Rationale & Vision – The Long Read
+
+**1.1 Why abandon a utility token?**  Our pilot with AYO revealed two pain points: (a) **budget volatility**—a 15 % token price swing in one week scrambled semester invoices; (b) **accounting headaches**—schools requested **hard XOF figures**, not fluctuating token values.  A fiat‑pegged stablecoin surgically removes both frictions.
+
+**1.2 Why peg to the CFA franc (XOF)?**  94 % of tuition invoices inside Sèmè City are denominated in XOF, and BCEAO regulations mandate local‑currency settlement for educational services.  Pegging to USD or EUR would merely re‑insert an FX layer.  **Local peg = local trust.**
+
+**1.3 Why the name “SOMA”?**  *Soma* is a verb—*learn!*—and a call to action.  Unlike techy acronyms, it resonates emotionally with parents and students. It is also **short for: Social Opportunity, Monetary Access**.
+
+**1.4 Vision 2030.**  By 2030 every learner in WAEMU can swipe a phone and pay tuition or receive a scholarship in **seconds**, with **zero FX drift**, and **auditable public ledgers** proving every centime is backed 1:1.
 
 ---
 
-## 2  White‑paper – *see attached PDF link* (unchanged; link now points to v4.0 PDF)
+## 2  SOMA Stablecoin – White‑paper (Expanded Highlights)
+
+> *Full 44‑page PDF hosted at [https://soma.finance/whitepaper.pdf](https://soma.finance/whitepaper.pdf). Key high‑density takeaways below.*
+
+### 2.1 Peg Mechanics (Verbose)
+
+* **Hard peg:** **1 SOMA = 1 XOF**.  The peg is enforced by an automated **Mint & Redeem Arb‑Bot** (see §3) and 100 %+ on‑ledger proof of reserves.
+* **Collateral composition:**
+
+  * 70 % demand deposits at **Ecobank Benin** and **UBA Benin** (two‑bank model ↓ counter‑party risk).
+  * 25 % BCEAO **T‑Bills ≤ 90 days** (liquid, zero credit risk, positive yield).
+  * 5 % instant‑settlement cash at **Wave Money** for real‑time mobile payouts.
+
+### 2.2 Mint / Burn Process – Step Level Narrative
+
+| # | Actor                   | Off‑chain Event                                                                          | On‑chain Footprint | Latency Target |
+| - | ----------------------- | ---------------------------------------------------------------------------------------- | ------------------ | -------------- |
+| 1 | Sponsor                 | Sends **50 000 XOF** via Wave                                                            | –                  | ≤10 s          |
+| 2 | PSP                     | Webhook `status=ACCEPTED`                                                                | –                  | ≤500 ms        |
+| 3 | **Minter Bot**          | Generates XRPL `Payment` **50 000 SOMA** → sponsor; inserts `MemoData="MINT:WAVE:TX123"` | Tx hash in ledger  | ≤5 s           |
+| 4 | Proof‑of‑Reserve Oracle | Adds deposit to Merkle tree leaf; posts root hash in `ReserveOracle.hook`                | `SetHook` emit     | ≤30 s          |
+| 5 | Dashboard               | Grafana panel updates “Backed 100.12 %”                                                  | –                  | ≤60 s          |
+| 6 | User                    | Receives SMS + XRPLScan link                                                             | –                  | ≤2 min         |
+
+### 2.3 Reserve Yield Allocations
+
+Annualised 90‑day T‑Bill yield (\~3.5 %) produces predictable inflow.  Policy: **80 %** of net interest **auto‑routes** to *Scholarship Grant Pool* each quarter; **20 %** covers auditing & ops.
+
+### 2.4 Fee Model (Exploded)
+
+* **Mint fee 0.20 %** = PSP <0.15 %> + 0.05 % protocol surplus.
+* **Redeem fee 0.30 %** = Bank wire <0.20 %> + 0.10 % protocol surplus.
+* **Net margin** channels 50/50 into (1) grant pool top‑up, (2) OPEX hedge.
+
+### 2.5 Governance (Deep‑dive)
+
+| Layer                   | Pre‑2027                        | Post‑2027 (DAO Phase α)               |
+| ----------------------- | ------------------------------- | ------------------------------------- |
+| Board                   | 5 members, majority independent | DAO Treasury Council (token‑weighted) |
+| Reserve Policy          | Board vote monthly              | On‑chain vote, 7‑day delay            |
+| Smart‑contract Upgrades | Multi‑sig 4‑of‑7                | DAO vote + 48 h timelock              |
+| Emergency Pause         | 4‑of‑7 multisig                 | DAO Security Council (quorum 4)       |
+
+### 2.6 Regulatory Status (Verbose)
+
+1. **Benin:** Licence dossier filed 15 Apr 2025; BCEAO sandbox slot Q3‑2025; deposit‑insurance MoU signed.
+2. **EU MiCA:** White‑paper pre‑notification submitted to AMF (France) 30 Apr 2025; seeking EMT status; 2 % capital buffer parked at Caisse des Dépôts.
+3. **US:** FinCEN MSB; no “significant” EMT activity → no OCC special purpose charter needed.
+
+*(White‑paper continues with sections on Legal Opinion excerpts, ESG alignment, Carbon footprint, Accessibility features, etc.)*
 
 ---
 
