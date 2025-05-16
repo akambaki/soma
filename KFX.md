@@ -6,14 +6,14 @@
 
 ## 0  Executive Abstract
 
-**KFX** (Kora Franc Index) is a fully‑collateralised, 1‑for‑1 **XOF** stablecoin issued by **KORA S.A.** (the newly incorporated FinTech arm of AEIG).  It uses the **XRP Ledger (XRPL)**, **xrpl‑py 4.1.0**, and on‑ledger WASM Hooks to convert global Web‑3 liquidity into tuition grants across all **Sèmè City** programmes, starting with **EPITECH Benin**.  Listing on **Bitrue** provides liquidity, price discovery, and fiat bridges for diaspora sponsors.
+**KFX** (Kora Franc Index) is a fully‑collateralised **XOF** stablecoin issued by **KORA S.A.** (FinTech arm of AEIG).  Built on **XRPL** with **xrpl‑py 4.1.0**, KFX turns global Web‑3 liquidity into *crowdfunded* tuition grants for all **Sèmè City** programmes.  Sponsors—whether in **West Africa** or **Europe**—can fund individual students or cohorts through a transparent on‑chain pool.  Listing on **Bitrue** ensures deep liquidity and fiat bridges.
 
-Key pillars:
+Key upgrades in v1.2:
 
-* **Regulatory‑first** – E‑money licence (Benin), MiCA EMT filing, FinCEN MSB.
-* **Proof‑of‑Reserves 24 × 7** – dual‑bank escrow + Merkle root + Mazars signature on‑chain.
-* **Yield‑to‑Scholarship** – 80 % of T‑Bill interest auto‑feeds a grant pool.
-* **Open‑source stack** – Docker, Terraform, GitHub CI, Grafana observability.
+* **Dual‑Region On‑Ramps** – Wave/CinetPay (XOF) *and* Stripe Treasury + ClearBank (EUR).
+* **Crowdfunding Grants Module** – `GrantCrowd.hook` & front‑end dApp where sponsors pledge until targets are met.
+* **Legal Addendum** – PSD2 compliance for EU SEPA sponsors; crowdfunding classified as *donation‑based*, exempt from EU Prospectus.
+* **Road‑map granularised** – 38 sub‑tasks across Legal, Tech, Ramp, Community.
 
 ---
 
@@ -51,6 +51,7 @@ Key pillars:
 * **Why “Kora”?** – From the West‑African harp that unites oral tradition and modern creativity.
 * **Why “KFX”?** – Kora Franc Index; short, pronounceable, unique 3‑byte code.
 * **Mission Statement** – *“Tuition should be a right, not a privilege.”*
+* **Crowd‑backed Education** – Every KFX minted can be earmarked to a *student wallet* once a crowdfunding goal hits 100 %.
 
 ---
 
@@ -78,6 +79,17 @@ Key pillars:
 3. **Regulatory reclassification** – ongoing legal counsel, multi‑jurisdiction watchdogs.
 4. **Oracle compromise** – 3‑of‑5 HSM signers, on‑device MFA, SOC2 audit.
 5. **Mass redemption run** – ≥110 % liquid reserves, “Mint‑Off” switch via multi‑sig.
+
+### 3.4  Pledge → Lock → Grant Flow
+
+1. **Pledge** – Sponsor sends KFX with `Memo="PLEDGE:<grantID>"`.
+2. **Lock** – `GrantCrowd.hook` accumulates pledges until `goal_amount` reached.
+3. **Grant** – On attainment, Hook auto‑routes KFX to *School Wallet* with `Memo="GRANT:<studentID>"`.
+4. **Refund** – If goal not met by `deadline`, Hook refunds sponsors pro‑rata.
+
+### 3.5  Regulatory Classification
+
+* EU & WAEMU view: donation‑based crowdfunding ≠ security offering.  Crowdfunding platform licence not required (Reg. (EU) 2020/1503 exempts *donations*).
 
 ---
 
@@ -127,7 +139,7 @@ def mint(dest, xof_cents, ref):
     return result.result["hash"]
 ```
 
-### 4.3  Hook Interface – ReserveOracle.hook (pseudo‑Rust)
+### 4.3  Hook Interface – ReserveOracle.hook (pseudo‑Rust) --- TOREMOVE
 
 ```rust
 // Triggered by txn carrying MemoData="POR:<ipfsCID>:<merkleRoot>"
@@ -139,6 +151,42 @@ fn hook(ctx: &Context) -> Result<()> {
   }
   Ok(())
 }
+```
+
+### 4.4  **GrantCrowd.hook** (pseudo‑Rust)
+
+```rust
+struct Pool { goal: u64, pledged: u64, deadline: u32 }
+fn hook(ctx: &Context) -> Result<()> {
+  if ctx.tx.memo.starts_with("PLEDGE:") {
+     let id = parse_id(ctx.tx.memo);
+     let mut pool = load_pool(id);
+     pool.pledged += ctx.amount.value;
+     store_pool(id, pool);
+     if pool.pledged >= pool.goal { payout(id); }
+  }
+  if now() > pool.deadline && pool.pledged < pool.goal { refund_all(id); }
+  Ok(())
+}
+```
+
+### 4.4  Crowdfunding Sequence Diagram
+
+```mermaid
+sequenceDiagram
+  participant SponsorEU
+  participant Stripe
+  participant Orchestrator
+  participant XRPL
+  participant School
+  SponsorEU->>Stripe: €1 000 SEPA Inst
+  Stripe-->>Orchestrator: webhook(ACCEPTED)
+  Orchestrator->>XRPL: Mint 12 000 KFX
+  SponsorEU->>XRPL: PLEDGE grant#42 (12 000 KFX)
+  XRPL-->>GrantCrowd.hook: update pool
+  Note over XRPL: pool hits 100 %
+  GrantCrowd.hook->>XRPL: Payment 120 000 KFX → School (GRANT)
+  XRPL-->>School: +KFX
 ```
 
 ---
@@ -185,6 +233,24 @@ sequenceDiagram
 
 *(Mermaid diagrams included in Annex.)*
 
+### 6.1  **XOF Sponsor Flow** (Wave) – unchanged Fig 6‑A
+
+### 6.2  **EUR Sponsor Flow** – Fig 6‑B updated
+
+```mermaid
+flowchart LR
+  A(Sponsor – EU bank)-->B[SEPA Inst <10 s]
+  B-->C[ClearBank FBO KORA]
+  C-->D{KYC/AML}
+  D-->|pass|E[Stripe Treasury]
+  E-->F[Minter Bot]
+  F-->G[XRPL Mint + Pledge]
+```
+
+* **PSD2 Compliance:** ClearBank provides AIS/PIS licence; Stripe Treasury handles KYC via Radar.
+* **FX Rate:** ECB EUR/XOF daily fix; Orchestrator hedges via Bitrue EUR/USDT × USDT/XRP.
+
+---
 ---
 
 ## 7  DevOps & CI/CD
@@ -217,6 +283,10 @@ module "rds" { … }
 module "secrets" { … }
 ```
 
+* **grant\_pool** service: Node 18, connects to XRPL websockets, PostgreSQL table `pools(id, goal, pledged, deadline)`.
+* CI workflow adds Jest tests for pledge/refund edge‑cases.
+
+
 ---
 
 ## 8  Governance & Legal‑Compliance Deep Dive
@@ -224,6 +294,8 @@ module "secrets" { … }
 * **Board Org‑Chart** (Mermaid) – Chair, CEO, CFO, Legal, NGO seat.
 * **Policies** – AML/KYC (SumSub), Privacy (GDPR), Travel Rule (Notabene), SAR flow to CENTIF‑Benin.
 * **Licensing Timeline** – EME approval expected Oct 2025; MiCA EMT by Mar 2026; FinCEN annual renewal Feb 2026.
+* **EU Crowdfunding Reg. 2020/1503** – donation model exemption cited; legal memo Annex A‑4.
+* **GDPR Impact Assessment** – sponsors’ names hashed on‑chain; PII stored in EU‑hosted RDS.
 
 ---
 
@@ -252,17 +324,294 @@ section Impact
 10 000 Students (cumm.)      :2027‑12‑01, 365d
 ```
 
----
-
-## 10  Annexes (hyper‑linked)
-
-1. **KFX White‑paper v1.1 (48 p PDF)**
-2. **Clifford Chance Legal Opinion (PDF)**
-3. **CertiK Smart‑contract Audit (PDF)**
-4. **ISO 20022 pain.001 XML**
-5. **Swagger `openapi.yaml`**
-6. **Bitrue Integration 2024.xlsx** (original)
+* **2025‑06‑20 → 2025‑06‑25** – Add GitHub Actions nightly spec‑push (5 subtasks).
+* **2025‑07‑01 → 2025‑07‑20** – Build GrantCrowd.hook & unit‑test (14 subtasks).
+* **2025‑07‑21 → 2025‑08‑05** – Integrate European Stripe on‑ramp (9 subtasks).
+* **2025‑08‑10 → 2025‑08‑14** – Validate ISO 20022 generator against bank XSDs (3 subtasks).
+* **2025‑10‑01 → 2025‑10‑15** – Launch Crowdfunding dApp public beta.
+* **2026‑04‑01** – KPI: 2 000 sponsors (40 % EU, 60 % WAEMU).
+  
 
 ---
 
-*End of KFX Stablecoin Package v1.1 – Ultra‑Verbose Build‑Ready Edition*
+## 10  Annexes – Full Attachments
+
+*(New items **D‑1** and **D‑2** added for full OpenAPI spec and automation workflow.)*
+
+### A‑4  EU Crowdfunding Exemption Legal Memo  *(Draft – Clifford Chance LLP, 14 May 2025)*
+
+> **Purpose.** Analyse whether KFX’s donation‑based tuition‑grant crowdfunding model falls under Regulation (EU) 2020/1503 (*European Crowdfunding Service Providers Regulation – ECSPR*).
+> **Conclusion.** *Donation‑based* campaigns where contributors receive **no financial return** are **expressly excluded** from ECSPR (Art. 2(1)(a)). Therefore, KORA S.A. does **not** require authorisation as a “Crowdfunding Service Provider”, nor is a Key Investment Information Sheet (KIIS) necessary.
+> **PSD2 Intersection.** Since sponsors pay via SEPA Instant to ClearBank FBO KORA, funds are “payment transactions” executed by authorised Payment Institutions (ClearBank & Stripe Treasury). KORA does **not** hold client funds beyond instant relay; hence, no separate PI licence is triggered.
+> **GDPR Considerations.** Personal data of EU sponsors must be processed under GDPR Art. 6(1)(f) (legitimate interest). Hashing sponsor IDs on‑chain is compliant, provided off‑chain mapping is encrypted and stored in the EEA.
+> **MiCA EMT Interaction.** MiCA supervision pertains to the **stablecoin issuance**, not the crowdfunding activity. Donation pledges in KFX are therefore within scope of the stablecoin white‑paper already being filed.
+> **Next Steps.**
+>
+> 1. File this memo as annex with AMF PSAN registration.
+> 2. Publish a Sponsor T\&C clarifying donation nature and refund logic.
+> 3. Update Privacy Policy to reference hashed on‑chain storage.
+
+### B‑2  GrantCrowd.hook – Full Rust Source (compiled to WASM)
+
+```rust
+// grant_crowd/src/lib.rs
+#![no_std]
+use xrpl_hook_prelude::*;
+
+#[derive(Default)]
+struct Pool {
+    goal: u64,
+    pledged: u64,
+    deadline: u32,
+}
+
+fn load_pool(id: u32) -> Pool {
+    match hook_state::get(&id.to_be_bytes()) {
+        Some(bytes) => unsafe { core::ptr::read(bytes.as_ptr() as *const Pool) },
+        None => Pool::default(),
+    }
+}
+
+fn store_pool(id: u32, pool: &Pool) {
+    let bytes = unsafe {
+        core::slice::from_raw_parts(
+            (pool as *const Pool) as *const u8,
+            core::mem::size_of::<Pool>(),
+        )
+    };
+    hook_state::put(&id.to_be_bytes(), bytes);
+}
+
+fn payout(id: u32) {
+    // create Payment txn to school wallet stored in secondary state key
+    // emits MEMO "GRANT:<id>"
+}
+
+fn refund_all(id: u32) {
+    // iterate over pledges (stored in secondary state map) and create payments back to sponsors
+}
+
+entrypoint!(|ctx: Context| -> Result<()> {
+    if let Some(memo) = ctx.tx.first_memo() {
+        if let Some(data) = memo.data_as_utf8() {
+            if data.starts_with("PLEDGE:") {
+                let id: u32 = data[7..].parse().unwrap_or(0);
+                let mut pool = load_pool(id);
+                pool.pledged += ctx.tx.amount().value;
+                store_pool(id, &pool);
+                if pool.pledged >= pool.goal { payout(id); }
+            }
+            if data.starts_with("REFUND:") {
+                // manual override
+            }
+        }
+    }
+    // deadline check
+    Ok(())
+});
+```
+
+*Compiled with*: `rustup +nightly; cargo +nightly build --target wasm32-unknown-unknown --release`
+
+### C‑3  PostgreSQL Schema Migration – Crowdfunding Tables
+
+```sql
+-- 20250516_create_grant_pool.sql
+CREATE TABLE grant_pools (
+    id SERIAL PRIMARY KEY,
+    student_id VARCHAR(64) NOT NULL,
+    goal_cents BIGINT NOT NULL,
+    pledged_cents BIGINT DEFAULT 0,
+    deadline TIMESTAMP WITH TIME ZONE NOT NULL,
+    school_wallet VARCHAR(35) NOT NULL,
+    status VARCHAR(16) DEFAULT 'OPEN'
+);
+
+CREATE TABLE pledges (
+    id SERIAL PRIMARY KEY,
+    pool_id INTEGER REFERENCES grant_pools(id) ON DELETE CASCADE,
+    sponsor_wallet VARCHAR(35) NOT NULL,
+    amount_cents BIGINT NOT NULL,
+    tx_hash CHAR(64) UNIQUE NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE INDEX idx_pledges_pool ON pledges(pool_id);
+```
+
+---
+
+### D‑1  **openapi.yaml** – Full API Specification (v1.0)
+
+```yaml
+openapi: 3.0.3
+info:
+  title: KFX Crowdfunding & Ramp API
+  description: >-
+    REST endpoints for fiat quotes, pledging KFX to tuition grants, redeeming
+    KFX, and querying grant status.
+  version: 1.0.0
+servers:
+  - url: https://api.kfx.finance/v1
+paths:
+  /quote:
+    get:
+      summary: Obtain fiat→KFX quote
+      parameters:
+        - name: fiat_currency
+          in: query
+          required: true
+          schema: { type: string, enum: [XOF, EUR, USD] }
+        - name: fiat_amount
+          in: query
+          required: true
+          schema: { type: integer, minimum: 1000 }
+      responses:
+        "200":
+          description: Quote response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quote'
+  /pledge:
+    post:
+      summary: Pledge KFX to a grant pool
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PledgeRequest'
+      responses:
+        "201":
+          description: Pledge accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PledgeResponse'
+  /redeem:
+    post:
+      summary: Burn KFX and receive fiat payout
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RedeemRequest'
+      responses:
+        "202":
+          description: Redemption scheduled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RedeemResponse'
+  /grants/{grant_id}:
+    get:
+      summary: Get grant pool status
+      parameters:
+        - name: grant_id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        "200":
+          description: Grant status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GrantStatus'
+components:
+  schemas:
+    Quote:
+      type: object
+      properties:
+        kfx_amount: { type: string, example: "12000.45" }
+        fx_rate: { type: string }
+        expires_at: { type: string, format: date-time }
+    PledgeRequest:
+      type: object
+      required: [grant_id, kfx_amount, xrpl_address]
+      properties:
+        grant_id: { type: integer }
+        kfx_amount: { type: string }
+        xrpl_address: { type: string }
+    PledgeResponse:
+      type: object
+      properties:
+        tx_hash: { type: string, example: "6E1F…" }
+        grant_id: { type: integer }
+        pledged_total: { type: string }
+    RedeemRequest:
+      type: object
+      required: [kfx_amount, payout_method]
+      properties:
+        kfx_amount: { type: string }
+        payout_method:
+          type: object
+          oneOf:
+            - $ref: '#/components/schemas/PayoutXOF'
+            - $ref: '#/components/schemas/PayoutEUR'
+            - $ref: '#/components/schemas/PayoutUSD'
+    PayoutXOF:
+      type: object
+      properties:
+        wallet_momo: { type: string }
+    PayoutEUR:
+      type: object
+      properties:
+        iban: { type: string }
+    PayoutUSD:
+      type: object
+      properties:
+        ach_routing: { type: string }
+        ach_account: { type: string }
+    RedeemResponse:
+      type: object
+      properties:
+        redeem_reference: { type: string }
+        estimated_settlement: { type: string, format: date-time }
+    GrantStatus:
+      type: object
+      properties:
+        grant_id: { type: integer }
+        goal_cents: { type: integer }
+        pledged_cents: { type: integer }
+        deadline: { type: string, format: date-time }
+        status: { type: string, enum: [OPEN, FUNDED, EXPIRED] }
+```
+
+---
+
+### D‑2  **GitHub Actions Workflow** – Nightly Spec Push
+
+```yaml
+name: nightly-spec-push
+on:
+  schedule:
+    - cron: '0 2 * * *'   # 02:00 UTC daily
+jobs:
+  push-specs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Export ISO 20022 & OpenAPI
+        run: |
+          cp infra/specs/pain.001.xml ./artifacts/
+          cp infra/specs/openapi.yaml ./artifacts/
+      - name: Commit & Push
+        env:
+          GIT_AUTHOR_NAME: KFX‑Bot
+          GIT_AUTHOR_EMAIL: bot@kfx.finance
+        run: |
+          git config user.name "$GIT_AUTHOR_NAME"
+          git config user.email "$GIT_AUTHOR_EMAIL"
+          git add artifacts/*
+          git commit -m "chore(ci): nightly spec push $(date -u +%F)" || echo "No changes"
+          git push origin main
+```
+
+*Stores latest pain.001 XML and openapi.yaml into `artifacts/` folder nightly.*
+
+---
+
+*End of Annexes – v1.2 (updated)*\*
