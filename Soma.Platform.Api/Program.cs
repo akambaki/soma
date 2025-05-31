@@ -136,9 +136,17 @@ using (var scope = app.Services.CreateScope())
     
     try
     {
-        // Apply any pending migrations
-        context.Database.Migrate();
-        logger.LogInformation("Database migrations applied successfully");
+        // Apply any pending migrations (only for relational databases)
+        if (context.Database.IsRelational())
+        {
+            context.Database.Migrate();
+            logger.LogInformation("Database migrations applied successfully");
+        }
+        else
+        {
+            context.Database.EnsureCreated();
+            logger.LogInformation("In-memory database initialized successfully");
+        }
         
         // Seed initial data
         await DataSeeder.SeedAsync(scope.ServiceProvider, logger);
@@ -151,3 +159,6 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.Run();
+
+// Make the implicit Program class public for integration tests
+public partial class Program { }
