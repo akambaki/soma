@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/runner/work/soma/soma/Soma.Platform.Core/Soma.Platform.Core.csproj": {}
+    "/Users/e.bongo/Documents/soma/Soma.Platform.Core/Soma.Platform.Core.csproj": {}
   },
   "projects": {
-    "/home/runner/work/soma/soma/Soma.Platform.Core/Soma.Platform.Core.csproj": {
+    "/Users/e.bongo/Documents/soma/Soma.Platform.Core/Soma.Platform.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/runner/work/soma/soma/Soma.Platform.Core/Soma.Platform.Core.csproj",
+        "projectUniqueName": "/Users/e.bongo/Documents/soma/Soma.Platform.Core/Soma.Platform.Core.csproj",
         "projectName": "Soma.Platform.Core",
-        "projectPath": "/home/runner/work/soma/soma/Soma.Platform.Core/Soma.Platform.Core.csproj",
-        "packagesPath": "/home/runner/.nuget/packages/",
-        "outputPath": "/home/runner/work/soma/soma/Soma.Platform.Core/obj/",
+        "projectPath": "/Users/e.bongo/Documents/soma/Soma.Platform.Core/Soma.Platform.Core.csproj",
+        "packagesPath": "/Users/e.bongo/.nuget/packages/",
+        "outputPath": "/Users/e.bongo/Documents/soma/Soma.Platform.Core/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/runner/.nuget/NuGet/NuGet.Config"
+          "/Users/e.bongo/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -67,7 +67,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.116/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet@8/8.0.16/libexec/sdk/8.0.116/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -169,10 +169,10 @@ namespace Soma.Platform.Api.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("BOOLEAN");
 
                     b.Property<bool>("EmailVerified")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("BOOLEAN");
 
                     b.Property<string>("FirstName")
                         .HasMaxLength(100)
@@ -183,7 +183,7 @@ namespace Soma.Platform.Api.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("Is2FARequired")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("BOOLEAN");
 
                     b.Property<DateTime?>("LastLoginAt")
                         .HasColumnType("TEXT");
@@ -193,7 +193,7 @@ namespace Soma.Platform.Api.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("BOOLEAN");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("TEXT");
@@ -213,10 +213,10 @@ namespace Soma.Platform.Api.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("BOOLEAN");
 
                     b.Property<bool>("PhoneNumberVerified")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("BOOLEAN");
 
                     b.Property<string>("ProfileImageUrl")
                         .HasMaxLength(500)
@@ -226,7 +226,7 @@ namespace Soma.Platform.Api.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("BOOLEAN");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)

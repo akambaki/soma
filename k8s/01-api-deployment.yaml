@@ -32,11 +32,21 @@ spec:
               key: DatabaseProvider
         - name: DB_HOST
           value: "soma-postgres-service"
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: soma-postgres-secret
+              key: database
         - name: DB_USER
           valueFrom:
             secretKeyRef:
               name: soma-postgres-secret
               key: username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: soma-postgres-secret
+              key: password
         - name: ASPNETCORE_ENVIRONMENT
           value: "Development"
       - name: soma-seed
@@ -55,11 +65,21 @@ spec:
               key: DatabaseProvider
         - name: DB_HOST
           value: "soma-postgres-service"
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: soma-postgres-secret
+              key: database
         - name: DB_USER
           valueFrom:
             secretKeyRef:
               name: soma-postgres-secret
               key: username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: soma-postgres-secret
+              key: password
         - name: ASPNETCORE_ENVIRONMENT
           value: "Development"
       containers:
