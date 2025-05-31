@@ -79,7 +79,13 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowBlazorApp", policy =>
     {
-        policy.WithOrigins("https://localhost:5001", "https://localhost:7001")
+        policy.WithOrigins(
+                "https://localhost:5001", 
+                "https://localhost:7001",
+                "http://localhost:5001",
+                "http://localhost:30080",
+                "http://soma-web:8080"
+              )
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
@@ -95,7 +101,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// Only use HTTPS redirection in non-containerized environments
+if (!app.Environment.IsProduction() && Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") != "true")
+{
+    app.UseHttpsRedirection();
+}
 app.UseCors("AllowBlazorApp");
 
 app.UseAuthentication();

@@ -1,0 +1,100 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: soma-api
+  namespace: soma-platform
+  labels:
+    app: soma-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: soma-api
+  template:
+    metadata:
+      labels:
+        app: soma-api
+    spec:
+      containers:
+      - name: soma-api
+        image: soma-api:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+          name: http
+        env:
+        - name: ConnectionStrings__DefaultConnection
+          valueFrom:
+            configMapKeyRef:
+              name: soma-api-config
+              key: ConnectionStrings__DefaultConnection
+        - name: Jwt__Key
+          valueFrom:
+            configMapKeyRef:
+              name: soma-api-config
+              key: Jwt__Key
+        - name: Jwt__Issuer
+          valueFrom:
+            configMapKeyRef:
+              name: soma-api-config
+              key: Jwt__Issuer
+        - name: Jwt__Audience
+          valueFrom:
+            configMapKeyRef:
+              name: soma-api-config
+              key: Jwt__Audience
+        - name: ASPNETCORE_ENVIRONMENT
+          valueFrom:
+            configMapKeyRef:
+              name: soma-api-config
+              key: ASPNETCORE_ENVIRONMENT
+        - name: ASPNETCORE_URLS
+          valueFrom:
+            configMapKeyRef:
+              name: soma-api-config
+              key: ASPNETCORE_URLS
+        volumeMounts:
+        - name: soma-db-storage
+          mountPath: /app/data
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          failureThreshold: 3
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+      volumes:
+      - name: soma-db-storage
+        persistentVolumeClaim:
+          claimName: soma-db-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: soma-api-service
+  namespace: soma-platform
+  labels:
+    app: soma-api
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  selector:
+    app: soma-api

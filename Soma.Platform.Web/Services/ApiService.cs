@@ -23,7 +23,7 @@ public class ApiService : IApiService
         _httpClient = httpClient;
         _configuration = configuration;
         
-        var baseUrl = _configuration["ApiBaseUrl"] ?? "https://localhost:7073";
+        var baseUrl = _configuration["ApiService:BaseUrl"] ?? "https://localhost:7073";
         _httpClient.BaseAddress = new Uri(baseUrl);
     }
 

@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  soma-api:
+    build:
+      context: .
+      dockerfile: Soma.Platform.Api/Dockerfile
+    container_name: soma-api
+    ports:
+      - "7073:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+      - ConnectionStrings__DefaultConnection=Data Source=/app/data/soma.db
+      - Jwt__Key=SomaSecretKeyForJWTTokenGeneration2024!
+      - Jwt__Issuer=Soma.Platform
+      - Jwt__Audience=Soma.Platform.Users
+    volumes:
+      - soma-db:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - soma-network
+
+  soma-web:
+    build:
+      context: .
+      dockerfile: Soma.Platform.Web/Dockerfile
+    container_name: soma-web
+    ports:
+      - "5001:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+      - ApiService__BaseUrl=http://soma-api:8080
+    depends_on:
+      soma-api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - soma-network
+
+volumes:
+  soma-db:
+    driver: local
+
+networks:
+  soma-network:
+    driver: bridge

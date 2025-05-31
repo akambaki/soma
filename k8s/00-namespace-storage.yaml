@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: soma-platform
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: soma-db-pv
+  namespace: soma-platform
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  local:
+    path: /tmp/soma-db
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - docker-desktop
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: soma-db-pvc
+  namespace: soma-platform
+spec:
+  accessModes:
+  - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: local-storage
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: soma-api-config
+  namespace: soma-platform
+data:
+  ConnectionStrings__DefaultConnection: "Data Source=/app/data/soma.db"
+  Jwt__Key: "SomaSecretKeyForJWTTokenGeneration2024!"
+  Jwt__Issuer: "Soma.Platform"
+  Jwt__Audience: "Soma.Platform.Users"
+  ASPNETCORE_ENVIRONMENT: "Development"
+  ASPNETCORE_URLS: "http://+:8080"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: soma-web-config
+  namespace: soma-platform
+data:
+  ASPNETCORE_ENVIRONMENT: "Development"
+  ASPNETCORE_URLS: "http://+:8080"
+  ApiService__BaseUrl: "http://soma-api-service:8080"

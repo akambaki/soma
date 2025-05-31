@@ -30,7 +30,11 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+// Only use HTTPS redirection in non-containerized environments
+if (!app.Environment.IsProduction() && Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") != "true")
+{
+    app.UseHttpsRedirection();
+}
 
 app.UseStaticFiles();
 app.UseAntiforgery();
