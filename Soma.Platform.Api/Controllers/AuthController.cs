@@ -292,6 +292,110 @@ public class AuthController : ControllerBase
         }
     }
 
+    [HttpPost("verify-2fa")]
+    public async Task<IActionResult> Verify2FA([FromBody] TwoFactorDto model)
+    {
+        try
+        {
+            var user = await _userManager.FindByIdAsync(model.UserId);
+            if (user == null)
+            {
+                return BadRequest(new { message = "Invalid user" });
+            }
+
+            // For now, use a simple 2FA verification (in production, integrate with TOTP)
+            var isValid = await _userManager.VerifyTwoFactorTokenAsync(
+                user, "Email", model.Code);
+
+            if (isValid)
+            {
+                var token = await GenerateJwtToken(user);
+                user.LastLoginAt = DateTime.UtcNow;
+                await _userManager.UpdateAsync(user);
+
+                return Ok(new 
+                { 
+                    token = token,
+                    userId = user.Id,
+                    firstName = user.FirstName,
+                    lastName = user.LastName,
+                    email = user.Email
+                });
+            }
+
+            return BadRequest(new { message = "Invalid verification code" });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error during 2FA verification");
+            return StatusCode(500, new { message = "An error occurred during verification" });
+        }
+    }
+
+    [HttpPost("setup-2fa")]
+    [Authorize]
+    public async Task<IActionResult> Setup2FA()
+    {
+        try
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.FindByIdAsync(userId!);
+            
+            if (user == null)
+            {
+                return NotFound(new { message = "User not found" });
+            }
+
+            await _userManager.SetTwoFactorEnabledAsync(user, true);
+            
+            // Generate setup key (in production, use proper TOTP setup)
+            var setupKey = await _userManager.GenerateNewTwoFactorRecoveryCodesAsync(user, 10);
+            
+            return Ok(new 
+            { 
+                message = "Two-factor authentication enabled",
+                recoveryCodes = setupKey
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error setting up 2FA");
+            return StatusCode(500, new { message = "An error occurred" });
+        }
+    }
+
+    [HttpPost("disable-2fa")]
+    [Authorize]
+    public async Task<IActionResult> Disable2FA([FromBody] DisableTwoFactorDto model)
+    {
+        try
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.FindByIdAsync(userId!);
+            
+            if (user == null)
+            {
+                return NotFound(new { message = "User not found" });
+            }
+
+            // Verify password before disabling 2FA
+            var passwordValid = await _userManager.CheckPasswordAsync(user, model.Password);
+            if (!passwordValid)
+            {
+                return BadRequest(new { message = "Invalid password" });
+            }
+
+            await _userManager.SetTwoFactorEnabledAsync(user, false);
+            
+            return Ok(new { message = "Two-factor authentication disabled" });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error disabling 2FA");
+            return StatusCode(500, new { message = "An error occurred" });
+        }
+    }
+
     private async Task<string> GenerateJwtToken(ApplicationUser user)
     {
         var claims = new List<Claim>
@@ -328,4 +432,9 @@ public class VerifyEmailDto
 {
     public string UserId { get; set; } = string.Empty;
     public string Token { get; set; } = string.Empty;
+}
+
+public class DisableTwoFactorDto
+{
+    public string Password { get; set; } = string.Empty;
 }

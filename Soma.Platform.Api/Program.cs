@@ -2,8 +2,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Soma.Platform.Api.Services;
 using Soma.Platform.Core.Data;
 using Soma.Platform.Core.Models;
+using Soma.Platform.Core.Services;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -67,6 +69,10 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddAuthorization();
+
+// Register notification services (mock implementations for now)
+builder.Services.AddScoped<IEmailService, MockEmailService>();
+builder.Services.AddScoped<ISmsService, MockSmsService>();
 
 // CORS configuration
 builder.Services.AddCors(options =>
