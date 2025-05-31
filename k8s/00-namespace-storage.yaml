@@ -16,8 +16,8 @@ spec:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
-  local:
-    path: /tmp/soma-postgres
+  hostPath:
+    path: /Users/e.bongo/Documents/soma/soma-volume/postgres
   nodeAffinity:
     required:
       nodeSelectorTerms:
