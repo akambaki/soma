@@ -46,6 +46,7 @@ pids
 # Dependency directories
 node_modules/
 packages/
+nuget-cache/
 
 # Environment variables
 .env

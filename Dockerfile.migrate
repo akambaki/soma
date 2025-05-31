@@ -1,44 +1,122 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0
 
-WORKDIR /src
+WORKDIR /app
 
-# Copy solution and project files
-COPY Soma.Platform.sln ./
-COPY Soma.Platform.Core/Soma.Platform.Core.csproj Soma.Platform.Core/
-COPY Soma.Platform.Api/Soma.Platform.Api.csproj Soma.Platform.Api/
-
-# Restore dependencies
-RUN dotnet restore
-
-# Copy source code
+# Copy the full source code first
 COPY . .
 
-# Build the application
-RUN dotnet build -c Release --no-restore
+# Build the projects locally to ensure dependencies are available
+RUN dotnet build Soma.Platform.Core/Soma.Platform.Core.csproj -c Release
 
-# Install EF tool
-RUN dotnet tool install --global dotnet-ef
-ENV PATH="$PATH:/root/.dotnet/tools"
+# Create migration application directory
+RUN mkdir -p MigrationApp
+
+# Create standalone migration program
+RUN echo 'using Microsoft.Extensions.DependencyInjection;\n\
+using Microsoft.Extensions.Hosting;\n\
+using Microsoft.Extensions.Logging;\n\
+using Microsoft.EntityFrameworkCore;\n\
+using Microsoft.AspNetCore.Identity;\n\
+using Soma.Platform.Core.Data;\n\
+using Soma.Platform.Core.Models;\n\
+\n\
+var host = Host.CreateDefaultBuilder(args)\n\
+    .ConfigureServices((context, services) =>\n\
+    {\n\
+        var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection") ?? "Host=localhost;Database=soma;Username=postgres;Password=postgres";\n\
+        var databaseProvider = Environment.GetEnvironmentVariable("DatabaseProvider") ?? "postgresql";\n\
+        \n\
+        services.AddDbContext<ApplicationDbContext>(options =>\n\
+        {\n\
+            if (databaseProvider.ToLower() == "postgresql")\n\
+            {\n\
+                options.UseNpgsql(connectionString);\n\
+            }\n\
+            else\n\
+            {\n\
+                options.UseSqlite(connectionString);\n\
+            }\n\
+        });\n\
+        \n\
+        services.AddIdentity<ApplicationUser, IdentityRole>()\n\
+            .AddEntityFrameworkStores<ApplicationDbContext>();\n\
+    })\n\
+    .Build();\n\
+\n\
+var logger = host.Services.GetRequiredService<ILogger<Program>>();\n\
+\n\
+try\n\
+{\n\
+    logger.LogInformation("Starting database migration...");\n\
+    using var scope = host.Services.CreateScope();\n\
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();\n\
+    await context.Database.MigrateAsync();\n\
+    logger.LogInformation("Migration completed successfully");\n\
+}\n\
+catch (Exception ex)\n\
+{\n\
+    logger.LogError(ex, "Migration failed: {Message}", ex.Message);\n\
+    Environment.Exit(1);\n\
+}\n\
+' > MigrationApp/Program.cs
+
+# Create project file for migration app
+RUN echo '<Project Sdk="Microsoft.NET.Sdk">\n\
+  <PropertyGroup>\n\
+    <OutputType>Exe</OutputType>\n\
+    <TargetFramework>net8.0</TargetFramework>\n\
+    <Nullable>enable</Nullable>\n\
+    <ImplicitUsings>enable</ImplicitUsings>\n\
+  </PropertyGroup>\n\
+  <ItemGroup>\n\
+    <ProjectReference Include="../Soma.Platform.Core/Soma.Platform.Core.csproj" />\n\
+  </ItemGroup>\n\
+  <ItemGroup>\n\
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />\n\
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />\n\
+  </ItemGroup>\n\
+</Project>' > MigrationApp/MigrationApp.csproj
+
+# Build migration app
+RUN dotnet build MigrationApp/MigrationApp.csproj -c Release
+
+# Install postgresql-client for pg_isready
+RUN apt-get update && apt-get install -y postgresql-client && rm -rf /var/lib/apt/lists/*
 
 # Create migration script
 RUN echo '#!/bin/bash\n\
 set -e\n\
 echo "Starting database migration..."\n\
-echo "Waiting for database to be ready..."\n\
 \n\
-# Wait for PostgreSQL to be ready\n\
-until pg_isready -h $DB_HOST -p 5432 -U $DB_USER; do\n\
-    echo "PostgreSQL is unavailable - sleeping"\n\
+# Set default values if environment variables are not provided\n\
+DB_HOST=${DB_HOST:-postgres}\n\
+DB_USER=${DB_USER:-postgres}\n\
+DB_PASSWORD=${DB_PASSWORD:-postgres}\n\
+DB_NAME=${DB_NAME:-soma}\n\
+\n\
+# Create connection string if not provided\n\
+if [ -z "$ConnectionStrings__DefaultConnection" ]; then\n\
+    export ConnectionStrings__DefaultConnection="Host=$DB_HOST;Database=$DB_NAME;Username=$DB_USER;Password=$DB_PASSWORD"\n\
+fi\n\
+\n\
+echo "Waiting for database to be ready at $DB_HOST..."\n\
+\n\
+# Wait for PostgreSQL to be ready with better error handling\n\
+until pg_isready -h "$DB_HOST" -p 5432 -U "$DB_USER" 2>/dev/null; do\n\
+    echo "PostgreSQL is unavailable - sleeping for 2 seconds"\n\
     sleep 2\n\
 done\n\
 \n\
 echo "PostgreSQL is up - executing migrations"\n\
-cd /src/Soma.Platform.Api\n\
-dotnet ef database update --no-build --verbose\n\
-echo "Migration completed successfully"\n\
+cd /app/MigrationApp\n\
+\n\
+# Run with proper error handling\n\
+if dotnet run --no-build -c Release; then\n\
+    echo "Migration completed successfully"\n\
+else\n\
+    echo "Migration failed with exit code $?"\n\
+    exit 1\n\
+fi\n\
 ' > /usr/local/bin/migrate.sh && chmod +x /usr/local/bin/migrate.sh
-
-# Install postgresql-client for pg_isready
-RUN apt-get update && apt-get install -y postgresql-client && rm -rf /var/lib/apt/lists/*
 
 ENTRYPOINT ["/usr/local/bin/migrate.sh"]

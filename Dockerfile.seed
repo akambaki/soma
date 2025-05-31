@@ -1,22 +1,17 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0
 
-WORKDIR /src
+WORKDIR /app
 
-# Copy solution and project files
-COPY Soma.Platform.sln ./
-COPY Soma.Platform.Core/Soma.Platform.Core.csproj Soma.Platform.Core/
-COPY Soma.Platform.Api/Soma.Platform.Api.csproj Soma.Platform.Api/
-
-# Restore dependencies
-RUN dotnet restore
-
-# Copy source code
+# Copy the full source code first
 COPY . .
 
-# Build the application
-RUN dotnet build -c Release --no-restore
+# Build the projects locally to ensure dependencies are available
+RUN dotnet build Soma.Platform.Core/Soma.Platform.Core.csproj -c Release
 
-# Create seeding application
+# Create seeding application directory
+RUN mkdir -p SeedApp
+
+# Create standalone seeding program
 RUN echo 'using Microsoft.Extensions.DependencyInjection;\n\
 using Microsoft.Extensions.Hosting;\n\
 using Microsoft.Extensions.Logging;\n\
@@ -29,7 +24,7 @@ using Soma.Platform.Core.Services;\n\
 var host = Host.CreateDefaultBuilder(args)\n\
     .ConfigureServices((context, services) =>\n\
     {\n\
-        var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection");\n\
+        var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection") ?? "Host=localhost;Database=soma;Username=postgres;Password=postgres";\n\
         var databaseProvider = Environment.GetEnvironmentVariable("DatabaseProvider") ?? "postgresql";\n\
         \n\
         services.AddDbContext<ApplicationDbContext>(options =>\n\
@@ -53,18 +48,19 @@ var logger = host.Services.GetRequiredService<ILogger<Program>>();\n\
 \n\
 try\n\
 {\n\
+    logger.LogInformation("Starting database seeding...");\n\
     await DataSeeder.SeedAsync(host.Services, logger);\n\
     logger.LogInformation("Seeding completed successfully");\n\
 }\n\
 catch (Exception ex)\n\
 {\n\
-    logger.LogError(ex, "Seeding failed");\n\
+    logger.LogError(ex, "Seeding failed: {Message}", ex.Message);\n\
     Environment.Exit(1);\n\
 }\n\
-' > /src/SeedApp/Program.cs
+' > SeedApp/Program.cs
 
 # Create project file for seeding app
-RUN mkdir -p /src/SeedApp && echo '<Project Sdk="Microsoft.NET.Sdk">\n\
+RUN echo '<Project Sdk="Microsoft.NET.Sdk">\n\
   <PropertyGroup>\n\
     <OutputType>Exe</OutputType>\n\
     <TargetFramework>net8.0</TargetFramework>\n\
@@ -78,10 +74,10 @@ RUN mkdir -p /src/SeedApp && echo '<Project Sdk="Microsoft.NET.Sdk">\n\
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />\n\
     <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />\n\
   </ItemGroup>\n\
-</Project>' > /src/SeedApp/SeedApp.csproj
+</Project>' > SeedApp/SeedApp.csproj
 
 # Build seeding app
-RUN dotnet build /src/SeedApp/SeedApp.csproj -c Release
+RUN dotnet build SeedApp/SeedApp.csproj -c Release
 
 # Install postgresql-client for pg_isready
 RUN apt-get update && apt-get install -y postgresql-client && rm -rf /var/lib/apt/lists/*
@@ -90,18 +86,36 @@ RUN apt-get update && apt-get install -y postgresql-client && rm -rf /var/lib/ap
 RUN echo '#!/bin/bash\n\
 set -e\n\
 echo "Starting database seeding..."\n\
-echo "Waiting for database to be ready..."\n\
 \n\
-# Wait for PostgreSQL to be ready\n\
-until pg_isready -h $DB_HOST -p 5432 -U $DB_USER; do\n\
-    echo "PostgreSQL is unavailable - sleeping"\n\
+# Set default values if environment variables are not provided\n\
+DB_HOST=${DB_HOST:-postgres}\n\
+DB_USER=${DB_USER:-postgres}\n\
+DB_PASSWORD=${DB_PASSWORD:-postgres}\n\
+DB_NAME=${DB_NAME:-soma}\n\
+\n\
+# Create connection string if not provided\n\
+if [ -z "$ConnectionStrings__DefaultConnection" ]; then\n\
+    export ConnectionStrings__DefaultConnection="Host=$DB_HOST;Database=$DB_NAME;Username=$DB_USER;Password=$DB_PASSWORD"\n\
+fi\n\
+\n\
+echo "Waiting for database to be ready at $DB_HOST..."\n\
+\n\
+# Wait for PostgreSQL to be ready with better error handling\n\
+until pg_isready -h "$DB_HOST" -p 5432 -U "$DB_USER" 2>/dev/null; do\n\
+    echo "PostgreSQL is unavailable - sleeping for 2 seconds"\n\
     sleep 2\n\
 done\n\
 \n\
 echo "PostgreSQL is up - executing seeding"\n\
-cd /src/SeedApp\n\
-dotnet run --no-build -c Release\n\
-echo "Seeding completed successfully"\n\
+cd /app/SeedApp\n\
+\n\
+# Run with proper error handling\n\
+if dotnet run --no-build -c Release; then\n\
+    echo "Seeding completed successfully"\n\
+else\n\
+    echo "Seeding failed with exit code $?"\n\
+    exit 1\n\
+fi\n\
 ' > /usr/local/bin/seed.sh && chmod +x /usr/local/bin/seed.sh
 
 ENTRYPOINT ["/usr/local/bin/seed.sh"]
