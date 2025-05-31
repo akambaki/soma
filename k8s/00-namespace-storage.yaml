@@ -17,15 +17,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
   hostPath:
-    path: ./soma-data/
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: kubernetes.io/hostname
-          operator: In
-          values:
-          - docker-desktop
+    path: /Users/e.bongo/Documents/soma/soma-volume/postgres
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
