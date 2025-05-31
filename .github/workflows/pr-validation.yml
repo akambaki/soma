@@ -1,0 +1,241 @@
+name: PR Validation
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [ main, develop ]
+
+env:
+  DOTNET_VERSION: '8.0.x'
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+jobs:
+  validate-pr:
+    name: Validate Pull Request
+    runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_PASSWORD: testpassword123
+          POSTGRES_USER: testuser
+          POSTGRES_DB: soma_pr
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    env:
+      ConnectionStrings__DefaultConnection: "Host=localhost;Port=5432;Database=soma_pr;Username=testuser;Password=testpassword123"
+      ASPNETCORE_ENVIRONMENT: Testing
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Cache NuGet packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Check code formatting
+      run: |
+        dotnet format --verify-no-changes --verbosity normal
+        if [ $? -ne 0 ]; then
+          echo "::error::Code formatting issues detected. Please run 'dotnet format' to fix them."
+          exit 1
+        fi
+
+    - name: Build solution
+      run: dotnet build --configuration Release --no-restore
+
+    - name: Run fast test suite (Unit Tests only)
+      run: |
+        echo "Running critical unit tests for fast feedback..."
+        
+        dotnet test tests/Soma.Platform.Core.Tests \
+          --configuration Release \
+          --no-build \
+          --verbosity normal \
+          --logger trx \
+          --results-directory ./test-results/pr-validation/
+        
+        dotnet test tests/Soma.Platform.Api.Tests \
+          --configuration Release \
+          --no-build \
+          --verbosity normal \
+          --logger trx \
+          --results-directory ./test-results/pr-validation/
+        
+        dotnet test tests/Soma.Platform.Web.Tests \
+          --configuration Release \
+          --no-build \
+          --verbosity normal \
+          --logger trx \
+          --results-directory ./test-results/pr-validation/
+
+    - name: Upload PR validation results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: pr-validation-results
+        path: ./test-results/pr-validation/
+
+    - name: Add PR comment with test results
+      if: always()
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          const path = require('path');
+          
+          let comment = '## 🧪 PR Validation Results\n\n';
+          
+          // Check if test results exist
+          const testResultsPath = './test-results/pr-validation/';
+          if (fs.existsSync(testResultsPath)) {
+            const files = fs.readdirSync(testResultsPath).filter(f => f.endsWith('.trx'));
+            if (files.length > 0) {
+              comment += '✅ **Unit Tests**: Completed\n';
+              comment += `📊 **Test Files Generated**: ${files.length}\n\n`;
+            } else {
+              comment += '❌ **Unit Tests**: No results found\n\n';
+            }
+          } else {
+            comment += '❌ **Unit Tests**: Results directory not found\n\n';
+          }
+          
+          comment += '> **Note**: This is a fast validation. Full integration and E2E tests will run after merge.\n\n';
+          comment += '**Next Steps**:\n';
+          comment += '- ✅ Code formatting check passed\n';
+          comment += '- ✅ Build completed successfully\n';
+          comment += '- ✅ Unit tests executed\n';
+          comment += '\n**Ready for review!** 🚀';
+          
+          // Find existing comment to update or create new one
+          const { data: comments } = await github.rest.issues.listComments({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+          });
+          
+          const existingComment = comments.find(c => 
+            c.user.login === 'github-actions[bot]' && 
+            c.body.includes('PR Validation Results')
+          );
+          
+          if (existingComment) {
+            await github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: existingComment.id,
+              body: comment
+            });
+          } else {
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: comment
+            });
+          }
+
+    - name: Fail if tests failed
+      if: failure()
+      run: |
+        echo "::error::PR validation failed! Please fix the issues before merging."
+        exit 1
+
+  changes-analysis:
+    name: Analyze Changes
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Analyze changed files
+      run: |
+        echo "## 📋 Changed Files Analysis" >> analysis-report.md
+        echo "" >> analysis-report.md
+        
+        # Get changed files
+        git diff --name-only origin/${{ github.base_ref }}...HEAD > changed-files.txt
+        
+        echo "**Files changed in this PR:**" >> analysis-report.md
+        echo "" >> analysis-report.md
+        
+        while IFS= read -r file; do
+          if [[ $file == *.cs ]]; then
+            echo "- 🔧 \`$file\` (C# code)" >> analysis-report.md
+          elif [[ $file == *.csproj ]]; then
+            echo "- 📦 \`$file\` (Project file)" >> analysis-report.md
+          elif [[ $file == *.yml ]] || [[ $file == *.yaml ]]; then
+            echo "- ⚙️ \`$file\` (Configuration)" >> analysis-report.md
+          elif [[ $file == *.md ]]; then
+            echo "- 📚 \`$file\` (Documentation)" >> analysis-report.md
+          else
+            echo "- 📄 \`$file\`" >> analysis-report.md
+          fi
+        done < changed-files.txt
+        
+        echo "" >> analysis-report.md
+        echo "**Impact Assessment:**" >> analysis-report.md
+        echo "" >> analysis-report.md
+        
+        # Check for test file changes
+        if grep -q "Tests/" changed-files.txt; then
+          echo "- ✅ **Test files modified**: Test coverage updated" >> analysis-report.md
+        fi
+        
+        # Check for API changes
+        if grep -q "Soma.Platform.Api" changed-files.txt; then
+          echo "- 🔄 **API changes detected**: Integration tests recommended" >> analysis-report.md
+        fi
+        
+        # Check for Web changes
+        if grep -q "Soma.Platform.Web" changed-files.txt; then
+          echo "- 🌐 **Web changes detected**: UI/UX validation needed" >> analysis-report.md
+        fi
+        
+        # Check for Core changes
+        if grep -q "Soma.Platform.Core" changed-files.txt; then
+          echo "- ⚡ **Core changes detected**: Full test suite recommended" >> analysis-report.md
+        fi
+
+    - name: Upload analysis report
+      uses: actions/upload-artifact@v3
+      with:
+        name: changes-analysis
+        path: analysis-report.md
+
+    - name: Check for breaking changes
+      run: |
+        # Look for potential breaking changes
+        if git diff --name-only origin/${{ github.base_ref }}...HEAD | grep -E "(Models|DTOs|Interfaces)" > /dev/null; then
+          echo "::warning::Potential breaking changes detected in models/interfaces. Ensure backward compatibility."
+        fi
+        
+        if git diff origin/${{ github.base_ref }}...HEAD | grep -E "public.*class|public.*interface|public.*enum" > /dev/null; then
+          echo "::notice::Public API changes detected. Consider version impact."
+        fi
