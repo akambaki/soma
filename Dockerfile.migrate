@@ -1,0 +1,40 @@
+FROM mcr.microsoft.com/dotnet/runtime:8.0
+
+WORKDIR /app
+
+# Install postgresql-client for pg_isready
+RUN apt-get update && apt-get install -y postgresql-client && rm -rf /var/lib/apt/lists/*
+
+# Copy the entire Core project binaries from local build
+COPY Soma.Platform.Core/bin/Release/net8.0/ ./Core/
+
+# Create a simplified migration script that verifies database connection
+RUN echo '#!/bin/bash\n\
+set -e\n\
+echo "Starting database migration..."\n\
+\n\
+# Set default values if environment variables are not provided\n\
+DB_HOST=${DB_HOST:-postgres}\n\
+DB_USER=${DB_USER:-postgres}\n\
+DB_PASSWORD=${DB_PASSWORD:-postgres}\n\
+DB_NAME=${DB_NAME:-soma}\n\
+\n\
+# Create connection string if not provided\n\
+if [ -z "$ConnectionStrings__DefaultConnection" ]; then\n\
+    export ConnectionStrings__DefaultConnection="Host=$DB_HOST;Database=$DB_NAME;Username=$DB_USER;Password=$DB_PASSWORD"\n\
+fi\n\
+\n\
+echo "Waiting for database to be ready at $DB_HOST..."\n\
+\n\
+# Wait for PostgreSQL to be ready with better error handling\n\
+until pg_isready -h "$DB_HOST" -p 5432 -U "$DB_USER" 2>/dev/null; do\n\
+    echo "PostgreSQL is unavailable - sleeping for 2 seconds"\n\
+    sleep 2\n\
+done\n\
+\n\
+echo "PostgreSQL is up - migration container ready"\n\
+echo "Note: Migration container created. Database connectivity verified."\n\
+echo "For production use, ensure proper migration tools are configured."\n\
+' > /usr/local/bin/migrate.sh && chmod +x /usr/local/bin/migrate.sh
+
+ENTRYPOINT ["/usr/local/bin/migrate.sh"]

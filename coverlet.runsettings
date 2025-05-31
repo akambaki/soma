@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <DataCollectionRunSettings>
+    <DataCollectors>
+      <DataCollector friendlyName="XPlat code coverage">
+        <Configuration>
+          <Format>cobertura</Format>
+          <Include>
+            <ModulePath>.*Soma\.Platform\.Core\.dll$</ModulePath>
+            <ModulePath>.*Soma\.Platform\.Api\.dll$</ModulePath>
+            <ModulePath>.*Soma\.Platform\.Web\.dll$</ModulePath>
+          </Include>
+          <Exclude>
+            <ModulePath>.*Tests\.dll$</ModulePath>
+            <ModulePath>.*\.Tests\.dll$</ModulePath>
+          </Exclude>
+          <ExcludeByAttribute>
+            <Attribute>Obsolete</Attribute>
+            <Attribute>GeneratedCodeAttribute</Attribute>
+            <Attribute>CompilerGeneratedAttribute</Attribute>
+          </ExcludeByAttribute>
+          <ExcludeByFile>
+            <Path>.*\\Migrations\\.*</Path>
+            <Path>.*\\Program\.cs</Path>
+            <Path>.*\\Startup\.cs</Path>
+          </ExcludeByFile>
+        </Configuration>
+      </DataCollector>
+    </DataCollectors>
+  </DataCollectionRunSettings>
+</RunSettings>

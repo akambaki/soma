@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "8Lf+BqwnQFPxcZ9PeCzULAWmSFjKf2lhu/Sz9+4j1Hg=",
+  "Source": "Soma.Platform.Api",
+  "BasePath": "_content/Soma.Platform.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

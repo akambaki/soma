@@ -1,0 +1,6 @@
+@Soma.Platform.Api_HostAddress = http://localhost:5051
+
+GET {{Soma.Platform.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
