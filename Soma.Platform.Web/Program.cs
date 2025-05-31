@@ -1,10 +1,24 @@
+using Microsoft.AspNetCore.Components.Authorization;
 using Soma.Platform.Web.Components;
+using Soma.Platform.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+// Add HTTP client
+builder.Services.AddHttpClient<IApiService, ApiService>();
+
+// Add authentication services
+builder.Services.AddScoped<ILocalStorageService, LocalStorageService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
+builder.Services.AddCascadingAuthenticationState();
+
+// Add authorization
+builder.Services.AddAuthorizationCore();
 
 var app = builder.Build();
 
