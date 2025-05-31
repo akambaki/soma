@@ -93,7 +93,7 @@ jobs:
           --results-directory ./test-results/pr-validation/
 
     - name: Upload PR validation results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: pr-validation-results
@@ -224,7 +224,7 @@ jobs:
         fi
 
     - name: Upload analysis report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: changes-analysis
         path: analysis-report.md

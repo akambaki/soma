@@ -110,7 +110,7 @@ jobs:
           --collect:"XPlat Code Coverage"
 
     - name: Upload test results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: unit-test-results
@@ -193,7 +193,7 @@ jobs:
           --collect:"XPlat Code Coverage"
 
     - name: Upload test results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: integration-test-results
@@ -281,14 +281,14 @@ jobs:
           --collect:"XPlat Code Coverage"
 
     - name: Upload test results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: e2e-test-results
         path: ./test-results/e2e-tests/
 
     - name: Upload E2E screenshots
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: e2e-screenshots
@@ -344,7 +344,7 @@ jobs:
           --results-directory ./coverage/
 
     - name: Upload coverage reports
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: code-coverage
         path: ./coverage/
@@ -357,7 +357,7 @@ jobs:
     
     steps:
     - name: Download all test results
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         path: ./all-test-results/
 

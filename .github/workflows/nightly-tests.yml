@@ -94,7 +94,7 @@ jobs:
           /p:CoverletOutput=./coverage/
 
     - name: Upload comprehensive test results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: nightly-test-results
@@ -121,7 +121,7 @@ jobs:
         fi
 
     - name: Upload test report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: nightly-test-report
@@ -160,7 +160,7 @@ jobs:
       continue-on-error: true
 
     - name: Upload security scan results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: security-scan-results
@@ -235,7 +235,7 @@ jobs:
         echo "Basic load testing completed. See artifacts for detailed results." >> performance-report.md
 
     - name: Upload performance results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: performance-test-results
