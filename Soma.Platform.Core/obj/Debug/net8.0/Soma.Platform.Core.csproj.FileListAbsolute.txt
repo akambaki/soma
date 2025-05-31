@@ -1,0 +1,13 @@
+/home/runner/work/soma/soma/Soma.Platform.Core/bin/Debug/net8.0/Soma.Platform.Core.deps.json
+/home/runner/work/soma/soma/Soma.Platform.Core/bin/Debug/net8.0/Soma.Platform.Core.dll
+/home/runner/work/soma/soma/Soma.Platform.Core/bin/Debug/net8.0/Soma.Platform.Core.pdb
+/home/runner/work/soma/soma/Soma.Platform.Core/obj/Debug/net8.0/Soma.Platform.Core.GeneratedMSBuildEditorConfig.editorconfig
+/home/runner/work/soma/soma/Soma.Platform.Core/obj/Debug/net8.0/Soma.Platform.Core.AssemblyInfoInputs.cache
+/home/runner/work/soma/soma/Soma.Platform.Core/obj/Debug/net8.0/Soma.Platform.Core.AssemblyInfo.cs
+/home/runner/work/soma/soma/Soma.Platform.Core/obj/Debug/net8.0/Soma.Platform.Core.csproj.CoreCompileInputs.cache
+/home/runner/work/soma/soma/Soma.Platform.Core/obj/Debug/net8.0/Soma.Platform.Core.sourcelink.json
+/home/runner/work/soma/soma/Soma.Platform.Core/obj/Debug/net8.0/Soma.Platform.Core.dll
+/home/runner/work/soma/soma/Soma.Platform.Core/obj/Debug/net8.0/refint/Soma.Platform.Core.dll
+/home/runner/work/soma/soma/Soma.Platform.Core/obj/Debug/net8.0/Soma.Platform.Core.pdb
+/home/runner/work/soma/soma/Soma.Platform.Core/obj/Debug/net8.0/ref/Soma.Platform.Core.dll
+/home/runner/work/soma/soma/Soma.Platform.Core/obj/Debug/net8.0/Soma.Platform.Core.csproj.AssemblyReference.cache
