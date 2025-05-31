@@ -1,18 +1,32 @@
 # SOMA Platform - Kubernetes Deployment
 
-This directory contains Kubernetes manifests and deployment scripts to run the SOMA Platform locally with frontend, backend, and database.
+This directory contains Kubernetes manifests and deployment scripts to run the SOMA Platform locally with frontend, backend, and PostgreSQL database.
 
 ## Architecture
 
-The SOMA Platform consists of three main components:
+The SOMA Platform consists of four main components:
 
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Blazor Web    │    │   Web API       │    │   SQLite DB     │
+│   Blazor Web    │    │   Web API       │    │  PostgreSQL DB  │
 │   (Frontend)    │◄──►│   (Backend)     │◄──►│   (Storage)     │
-│   Port: 30080   │    │   Port: 8080    │    │   Volume Mount  │
+│   Port: 30080   │    │   Port: 8080    │    │   Port: 5432    │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
+                                │                        ▲
+                                ▼                        │
+                       ┌─────────────────┐      ┌─────────────────┐
+                       │  Init Container │      │  Init Container │
+                       │   (Migration)   │─────►│    (Seeding)    │
+                       └─────────────────┘      └─────────────────┘
 ```
+
+## Features
+
+- **PostgreSQL Database**: Production-ready database with persistent storage
+- **Automatic Migrations**: EF Core migrations run automatically on startup
+- **Data Seeding**: Initial data (admin user, roles) seeded automatically
+- **Health Checks**: All services include health monitoring
+- **Persistent Storage**: Database data persists across deployments
 
 ## Prerequisites
 
@@ -35,7 +49,8 @@ The SOMA Platform consists of three main components:
 
 3. **Access the application**:
    - Frontend: http://localhost:30080
-   - The backend API is accessible internally via ClusterIP
+   - Admin login: admin@soma.com / Admin123!
+   - The backend API and database are accessible internally
 
 ## Manual Deployment
 
@@ -45,13 +60,17 @@ If you prefer to deploy manually:
 # Build Docker images
 docker build -t soma-api:latest -f Soma.Platform.Api/Dockerfile .
 docker build -t soma-web:latest -f Soma.Platform.Web/Dockerfile .
+docker build -t soma-migrate:latest -f Dockerfile.migrate .
+docker build -t soma-seed:latest -f Dockerfile.seed .
 
 # Deploy to Kubernetes
 kubectl apply -f k8s/00-namespace-storage.yaml
+kubectl apply -f k8s/00-postgres-deployment.yaml
 kubectl apply -f k8s/01-api-deployment.yaml
 kubectl apply -f k8s/02-web-deployment.yaml
 
 # Wait for deployments
+kubectl wait --for=condition=available --timeout=300s deployment/soma-postgres -n soma-platform
 kubectl wait --for=condition=available --timeout=300s deployment/soma-api -n soma-platform
 kubectl wait --for=condition=available --timeout=300s deployment/soma-web -n soma-platform
 ```
@@ -60,24 +79,44 @@ kubectl wait --for=condition=available --timeout=300s deployment/soma-web -n som
 
 ### Environment Variables
 
-The application uses ConfigMaps for configuration:
+The application uses ConfigMaps and Secrets for configuration:
 
 **API Configuration (`soma-api-config`)**:
-- `ConnectionStrings__DefaultConnection`: Database connection string
+- `ConnectionStrings__DefaultConnection`: PostgreSQL connection string
+- `DatabaseProvider`: Set to "postgresql"
 - `Jwt__Key`: JWT signing key
 - `Jwt__Issuer`: JWT issuer
 - `Jwt__Audience`: JWT audience
+
+**Database Secrets (`soma-postgres-secret`)**:
+- `username`: Database username (soma)
+- `password`: Database password (SomaPass123!)
+- `database`: Database name (soma)
 
 **Web Configuration (`soma-web-config`)**:
 - `ApiService__BaseUrl`: Backend API URL (internal service)
 
 ### Storage
 
-- **SQLite Database**: Persisted using a PersistentVolume mounted at `/tmp/soma-db`
+- **PostgreSQL Database**: Persisted using a PersistentVolume mounted at `/tmp/soma-postgres`
 - **Storage Class**: `local-storage` for development
-- **Volume Size**: 1Gi
+- **Volume Size**: 5Gi
+
+### Database Initialization
+
+The API deployment includes init containers that run before the main application:
+
+1. **Migration Container**: Runs EF Core migrations to create/update database schema
+2. **Seeding Container**: Populates initial data (admin user, roles)
 
 ## Services
+
+### PostgreSQL Service (`soma-postgres-service`)
+- **Type**: ClusterIP (internal only)
+- **Port**: 5432
+- **Database**: soma
+- **Username**: soma
+- **Password**: SomaPass123!
 
 ### API Service (`soma-api-service`)
 - **Type**: ClusterIP (internal only)
@@ -92,6 +131,12 @@ The application uses ConfigMaps for configuration:
 - **Port**: 8080
 - **NodePort**: 30080
 - **Access**: http://localhost:30080
+
+## Default Admin Account
+
+After deployment, you can login with:
+- **Email**: admin@soma.com
+- **Password**: Admin123!
 
 ## Monitoring and Debugging
 
@@ -114,12 +159,24 @@ kubectl logs -f deployment/soma-api -n soma-platform
 
 # Web logs
 kubectl logs -f deployment/soma-web -n soma-platform
+
+# PostgreSQL logs
+kubectl logs -f deployment/soma-postgres -n soma-platform
+
+# Init container logs (migrations)
+kubectl logs -f deployment/soma-api -c soma-migrate -n soma-platform
+
+# Init container logs (seeding)
+kubectl logs -f deployment/soma-api -c soma-seed -n soma-platform
 ```
 
 ### Port Forwarding (Optional)
 ```bash
 # Access API directly
 kubectl port-forward service/soma-api-service 7073:8080 -n soma-platform
+
+# Access PostgreSQL directly
+kubectl port-forward service/soma-postgres-service 5432:5432 -n soma-platform
 
 # Access Web directly (alternative to NodePort)
 kubectl port-forward service/soma-web-service 5001:8080 -n soma-platform
@@ -131,6 +188,7 @@ The deployments include liveness and readiness probes:
 
 - **API Health**: `GET /health`
 - **Web Health**: `GET /` (root page)
+- **PostgreSQL Health**: `pg_isready` command
 
 ## Cleanup
 

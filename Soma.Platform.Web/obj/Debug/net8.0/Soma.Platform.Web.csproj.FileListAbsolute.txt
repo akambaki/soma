@@ -79,3 +79,5 @@
 /home/runner/work/soma/soma/Soma.Platform.Web/bin/Debug/net8.0/Soma.Platform.Core.pdb
 /home/runner/work/soma/soma/Soma.Platform.Web/obj/Debug/net8.0/Soma.Platform.Web.csproj.AssemblyReference.cache
 /home/runner/work/soma/soma/Soma.Platform.Web/obj/Debug/net8.0/Soma.Platform.Web.csproj.CopyComplete
+/home/runner/work/soma/soma/Soma.Platform.Web/bin/Debug/net8.0/Npgsql.dll
+/home/runner/work/soma/soma/Soma.Platform.Web/bin/Debug/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll

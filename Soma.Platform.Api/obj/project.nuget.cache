@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "K+bQm/DkqvQFDmdycIPlVpiZGu0zJgx3cduTNCbh4lFfxvxC+zp3lIv4TPn17urg1CophfrpRbXRXCujVTAmeg==",
+  "dgSpecHash": "OfH5qbWL5KmAMLKlGqCdhGzXYv6mGtb1v+62muPrR49qAx3VWFHbsQovYHR09th3dHOKJIlacjH3UZAhUGgI4A==",
   "success": true,
   "projectFilePath": "/home/runner/work/soma/soma/Soma.Platform.Api/Soma.Platform.Api.csproj",
   "expectedPackageFiles": [
@@ -46,6 +46,8 @@
     "/home/runner/.nuget/packages/microsoft.identitymodel.tokens/7.1.2/microsoft.identitymodel.tokens.7.1.2.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.openapi/1.6.14/microsoft.openapi.1.6.14.nupkg.sha512",
     "/home/runner/.nuget/packages/mono.texttemplating/2.2.1/mono.texttemplating.2.2.1.nupkg.sha512",
+    "/home/runner/.nuget/packages/npgsql/8.0.4/npgsql.8.0.4.nupkg.sha512",
+    "/home/runner/.nuget/packages/npgsql.entityframeworkcore.postgresql/8.0.8/npgsql.entityframeworkcore.postgresql.8.0.8.nupkg.sha512",
     "/home/runner/.nuget/packages/sqlitepclraw.bundle_e_sqlite3/2.1.6/sqlitepclraw.bundle_e_sqlite3.2.1.6.nupkg.sha512",
     "/home/runner/.nuget/packages/sqlitepclraw.core/2.1.6/sqlitepclraw.core.2.1.6.nupkg.sha512",
     "/home/runner/.nuget/packages/sqlitepclraw.lib.e_sqlite3/2.1.6/sqlitepclraw.lib.e_sqlite3.2.1.6.nupkg.sha512",

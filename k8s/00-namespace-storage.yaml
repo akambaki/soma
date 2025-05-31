@@ -6,18 +6,18 @@ metadata:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: soma-db-pv
+  name: soma-postgres-pv
   namespace: soma-platform
 spec:
   capacity:
-    storage: 1Gi
+    storage: 5Gi
   volumeMode: Filesystem
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
   local:
-    path: /tmp/soma-db
+    path: /tmp/soma-postgres
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -30,7 +30,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: soma-db-pvc
+  name: soma-postgres-pvc
   namespace: soma-platform
 spec:
   accessModes:
@@ -38,8 +38,23 @@ spec:
   volumeMode: Filesystem
   resources:
     requests:
-      storage: 1Gi
+      storage: 5Gi
   storageClassName: local-storage
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: soma-postgres-secret
+  namespace: soma-platform
+type: Opaque
+data:
+  # Base64 encoded values
+  # username: soma (c29tYQ==)
+  # password: SomaPass123! (U29tYVBhc3MxMjMh)
+  # database: soma (c29tYQ==)
+  username: c29tYQ==
+  password: U29tYVBhc3MxMjMh
+  database: c29tYQ==
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -47,7 +62,8 @@ metadata:
   name: soma-api-config
   namespace: soma-platform
 data:
-  ConnectionStrings__DefaultConnection: "Data Source=/app/data/soma.db"
+  ConnectionStrings__DefaultConnection: "Host=soma-postgres-service;Database=soma;Username=soma;Password=SomaPass123!;Port=5432"
+  DatabaseProvider: "postgresql"
   Jwt__Key: "SomaSecretKeyForJWTTokenGeneration2024!"
   Jwt__Issuer: "Soma.Platform"
   Jwt__Audience: "Soma.Platform.Users"

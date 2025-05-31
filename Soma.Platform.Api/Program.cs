@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
 using Soma.Platform.Api.Services;
 using Soma.Platform.Core.Data;
 using Soma.Platform.Core.Models;
@@ -16,9 +17,22 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Database configuration
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var databaseProvider = builder.Configuration.GetValue<string>("DatabaseProvider", "sqlite");
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection") ?? 
-                     "Data Source=soma.db"));
+{
+    if (databaseProvider.ToLower() == "postgresql")
+    {
+        options.UseNpgsql(connectionString ?? "Host=localhost;Database=soma;Username=soma;Password=soma",
+            b => b.MigrationsAssembly("Soma.Platform.Api"));
+    }
+    else
+    {
+        options.UseSqlite(connectionString ?? "Data Source=soma.db",
+            b => b.MigrationsAssembly("Soma.Platform.Api"));
+    }
+});
 
 // Identity configuration
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
@@ -113,11 +127,27 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// Create database if it doesn't exist
+// Initialize database
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    context.Database.EnsureCreated();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+    
+    try
+    {
+        // Apply any pending migrations
+        context.Database.Migrate();
+        logger.LogInformation("Database migrations applied successfully");
+        
+        // Seed initial data
+        await DataSeeder.SeedAsync(scope.ServiceProvider, logger);
+    }
+    catch (Exception ex)
+    {
+        logger.LogError(ex, "An error occurred while initializing the database");
+        throw;
+    }
 }
 
 app.Run();

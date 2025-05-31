@@ -1,0 +1,44 @@
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+
+WORKDIR /src
+
+# Copy solution and project files
+COPY Soma.Platform.sln ./
+COPY Soma.Platform.Core/Soma.Platform.Core.csproj Soma.Platform.Core/
+COPY Soma.Platform.Api/Soma.Platform.Api.csproj Soma.Platform.Api/
+
+# Restore dependencies
+RUN dotnet restore
+
+# Copy source code
+COPY . .
+
+# Build the application
+RUN dotnet build -c Release --no-restore
+
+# Install EF tool
+RUN dotnet tool install --global dotnet-ef
+ENV PATH="$PATH:/root/.dotnet/tools"
+
+# Create migration script
+RUN echo '#!/bin/bash\n\
+set -e\n\
+echo "Starting database migration..."\n\
+echo "Waiting for database to be ready..."\n\
+\n\
+# Wait for PostgreSQL to be ready\n\
+until pg_isready -h $DB_HOST -p 5432 -U $DB_USER; do\n\
+    echo "PostgreSQL is unavailable - sleeping"\n\
+    sleep 2\n\
+done\n\
+\n\
+echo "PostgreSQL is up - executing migrations"\n\
+cd /src/Soma.Platform.Api\n\
+dotnet ef database update --no-build --verbose\n\
+echo "Migration completed successfully"\n\
+' > /usr/local/bin/migrate.sh && chmod +x /usr/local/bin/migrate.sh
+
+# Install postgresql-client for pg_isready
+RUN apt-get update && apt-get install -y postgresql-client && rm -rf /var/lib/apt/lists/*
+
+ENTRYPOINT ["/usr/local/bin/migrate.sh"]

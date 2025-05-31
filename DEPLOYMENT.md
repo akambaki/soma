@@ -17,6 +17,11 @@ docker-compose up --build
 - Frontend (Blazor Web): http://localhost:5001
 - Backend API: http://localhost:7073
 - API Documentation: http://localhost:7073/swagger
+- PostgreSQL Database: localhost:5432
+
+**Default Admin Login:**
+- Email: admin@soma.com
+- Password: Admin123!
 
 ### Option 2: Kubernetes (Production-like Local Environment)
 
@@ -29,6 +34,7 @@ cd k8s
 **Access URLs:**
 - Frontend: http://localhost:30080
 - Health Checks: Automatic via probes
+- Admin Login: admin@soma.com / Admin123!
 
 **Clean up:**
 ```bash
@@ -40,11 +46,24 @@ cd k8s
 
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Blazor Web    │    │   Web API       │    │   SQLite DB     │
+│   Blazor Web    │    │   Web API       │    │  PostgreSQL DB  │
 │   (Frontend)    │◄──►│   (Backend)     │◄──►│   (Storage)     │
-│   Port: 30080   │    │   Port: 8080    │    │   Volume Mount  │
+│   Port: 30080   │    │   Port: 8080    │    │   Port: 5432    │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
+                                │                        ▲
+                                ▼                        │
+                       ┌─────────────────┐      ┌─────────────────┐
+                       │  Init Container │      │  Init Container │
+                       │   (Migration)   │─────►│    (Seeding)    │
+                       └─────────────────┘      └─────────────────┘
 ```
+
+**Key Features:**
+- **PostgreSQL Database**: Production-ready RDBMS with ACID compliance
+- **Automatic Migrations**: EF Core migrations applied on startup
+- **Data Seeding**: Default admin user and roles created automatically
+- **Health Monitoring**: Comprehensive health checks for all services
+- **Persistent Storage**: Database data survives container restarts
 
 ## 🔧 Configuration
 

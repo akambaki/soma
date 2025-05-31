@@ -15,6 +15,53 @@ spec:
       labels:
         app: soma-api
     spec:
+      initContainers:
+      - name: soma-migrate
+        image: soma-migrate:latest
+        imagePullPolicy: Never
+        env:
+        - name: ConnectionStrings__DefaultConnection
+          valueFrom:
+            configMapKeyRef:
+              name: soma-api-config
+              key: ConnectionStrings__DefaultConnection
+        - name: DatabaseProvider
+          valueFrom:
+            configMapKeyRef:
+              name: soma-api-config
+              key: DatabaseProvider
+        - name: DB_HOST
+          value: "soma-postgres-service"
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: soma-postgres-secret
+              key: username
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Development"
+      - name: soma-seed
+        image: soma-seed:latest
+        imagePullPolicy: Never
+        env:
+        - name: ConnectionStrings__DefaultConnection
+          valueFrom:
+            configMapKeyRef:
+              name: soma-api-config
+              key: ConnectionStrings__DefaultConnection
+        - name: DatabaseProvider
+          valueFrom:
+            configMapKeyRef:
+              name: soma-api-config
+              key: DatabaseProvider
+        - name: DB_HOST
+          value: "soma-postgres-service"
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: soma-postgres-secret
+              key: username
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Development"
       containers:
       - name: soma-api
         image: soma-api:latest
@@ -28,6 +75,11 @@ spec:
             configMapKeyRef:
               name: soma-api-config
               key: ConnectionStrings__DefaultConnection
+        - name: DatabaseProvider
+          valueFrom:
+            configMapKeyRef:
+              name: soma-api-config
+              key: DatabaseProvider
         - name: Jwt__Key
           valueFrom:
             configMapKeyRef:
@@ -53,9 +105,6 @@ spec:
             configMapKeyRef:
               name: soma-api-config
               key: ASPNETCORE_URLS
-        volumeMounts:
-        - name: soma-db-storage
-          mountPath: /app/data
         livenessProbe:
           httpGet:
             path: /health
@@ -77,10 +126,6 @@ spec:
           limits:
             memory: "512Mi"
             cpu: "500m"
-      volumes:
-      - name: soma-db-storage
-        persistentVolumeClaim:
-          claimName: soma-db-pvc
 ---
 apiVersion: v1
 kind: Service
