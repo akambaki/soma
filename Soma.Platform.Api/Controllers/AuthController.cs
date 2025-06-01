@@ -123,7 +123,7 @@ public class AuthController : ControllerBase
             {
                 if (!user.EmailConfirmed)
                 {
-                    return BadRequest(new 
+                    return Ok(new 
                     { 
                         message = "Email not verified. Please check your email for verification link.",
                         requiresEmailVerification = true,

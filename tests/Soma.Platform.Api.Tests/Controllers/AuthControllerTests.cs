@@ -215,4 +215,45 @@ public class AuthControllerTests
         // Assert
         result.Should().BeOfType<UnauthorizedObjectResult>();
     }
+
+    [Fact]
+    public async Task Login_WithUnconfirmedEmail_ShouldReturnOkWithEmailVerificationRequired()
+    {
+        // Arrange
+        var loginDto = new LoginDto
+        {
+            EmailOrPhone = "test@example.com",
+            Password = "Password123!",
+            RememberMe = false
+        };
+
+        var user = new ApplicationUser
+        {
+            Id = "user-id",
+            Email = "test@example.com",
+            UserName = "test@example.com",
+            EmailConfirmed = false // Email not confirmed
+        };
+
+        _mockUserManager.Setup(x => x.FindByEmailAsync(loginDto.EmailOrPhone))
+            .ReturnsAsync(user);
+
+        _mockSignInManager.Setup(x => x.CheckPasswordSignInAsync(user, loginDto.Password, true))
+            .ReturnsAsync(Microsoft.AspNetCore.Identity.SignInResult.Success);
+
+        // Act
+        var result = await _controller.Login(loginDto);
+
+        // Assert
+        result.Should().BeOfType<OkObjectResult>();
+        var okResult = result as OkObjectResult;
+        okResult!.Value.Should().NotBeNull();
+        
+        // Verify the response contains email verification requirement
+        var responseValue = okResult.Value;
+        var responseType = responseValue!.GetType();
+        var requiresEmailVerificationProperty = responseType.GetProperty("requiresEmailVerification");
+        requiresEmailVerificationProperty.Should().NotBeNull();
+        requiresEmailVerificationProperty!.GetValue(responseValue).Should().Be(true);
+    }
 }
