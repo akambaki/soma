@@ -421,7 +421,7 @@ public class AuthController : ControllerBase
             issuer: _configuration["Jwt:Issuer"] ?? "Soma.Platform",
             audience: _configuration["Jwt:Audience"] ?? "Soma.Platform.Users",
             claims: claims,
-            expires: DateTime.Now.AddHours(24),
+            expires: DateTime.UtcNow.AddHours(24),
             signingCredentials: credentials);
 
         return new JwtSecurityTokenHandler().WriteToken(token);

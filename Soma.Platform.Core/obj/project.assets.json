@@ -1434,19 +1434,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/e.bongo/.nuget/packages/": {}
+    "/home/runner/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/e.bongo/Documents/soma/Soma.Platform.Core/Soma.Platform.Core.csproj",
+      "projectUniqueName": "/home/runner/work/soma/soma/Soma.Platform.Core/Soma.Platform.Core.csproj",
       "projectName": "Soma.Platform.Core",
-      "projectPath": "/Users/e.bongo/Documents/soma/Soma.Platform.Core/Soma.Platform.Core.csproj",
-      "packagesPath": "/Users/e.bongo/.nuget/packages/",
-      "outputPath": "/Users/e.bongo/Documents/soma/Soma.Platform.Core/obj/",
+      "projectPath": "/home/runner/work/soma/soma/Soma.Platform.Core/Soma.Platform.Core.csproj",
+      "packagesPath": "/home/runner/.nuget/packages/",
+      "outputPath": "/home/runner/work/soma/soma/Soma.Platform.Core/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/e.bongo/.nuget/NuGet/NuGet.Config"
+        "/home/runner/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -1464,13 +1464,7 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.300"
+      }
     },
     "frameworks": {
       "net8.0": {
@@ -1500,22 +1494,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[8.0.16, 8.0.16]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[8.0.16, 8.0.16]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.300/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.116/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
