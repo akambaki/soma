@@ -1,8 +1,10 @@
 @page "/login"
+@using Microsoft.AspNetCore.Components.Authorization
 @using Soma.Platform.Core.DTOs
 @using Soma.Platform.Web.Services
 @inject IAuthService AuthService
 @inject NavigationManager Navigation
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @rendermode InteractiveServer
 
 <div class="min-vh-100 d-flex align-items-center justify-content-center bg-light">
@@ -105,6 +107,16 @@
     private LoginDto loginModel = new();
     private string? errorMessage;
     private bool isLoading = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Redirect authenticated users to home page
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        if (authState.User.Identity?.IsAuthenticated == true)
+        {
+            Navigation.NavigateTo("/", true);
+        }
+    }
 
     private async Task HandleLogin()
     {
