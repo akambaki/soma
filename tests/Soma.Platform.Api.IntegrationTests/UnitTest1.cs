@@ -203,4 +203,119 @@ public class AuthIntegrationTests : IClassFixture<WebApplicationFactory<Program>
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
+
+    [Fact]
+    public async Task POST_Register_Then_Login_WithUnverifiedEmail_ShouldReturnEmailVerificationRequired()
+    {
+        // Arrange
+        var email = $"unverifiedtest{Guid.NewGuid()}@example.com";
+        var password = "Password123!";
+        
+        var registerDto = new RegisterDto
+        {
+            Email = email,
+            Password = password,
+            FirstName = "Unverified",
+            LastName = "Test",
+            AcceptTerms = true
+        };
+
+        // First, register the user
+        var registerResponse = await _client.PostAsJsonAsync("/api/auth/register", registerDto);
+        registerResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        // Verify user was created but email is NOT confirmed
+        using var scope = _factory.Services.CreateScope();
+        var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        var user = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
+        user.Should().NotBeNull();
+        user!.EmailConfirmed.Should().BeFalse(); // Email should NOT be confirmed by default
+
+        var loginDto = new LoginDto
+        {
+            EmailOrPhone = email,
+            Password = password
+        };
+
+        // Act - Try to login with unverified email
+        var loginResponse = await _client.PostAsJsonAsync("/api/auth/login", loginDto);
+
+        // Assert
+        loginResponse.StatusCode.Should().Be(HttpStatusCode.OK); // Should return 200 OK, not 401 Unauthorized
+        
+        var content = await loginResponse.Content.ReadAsStringAsync();
+        var result = JsonSerializer.Deserialize<JsonElement>(content);
+        
+        // Should not have a token
+        result.TryGetProperty("token", out _).Should().BeFalse();
+        
+        // Should have requiresEmailVerification flag
+        result.GetProperty("requiresEmailVerification").GetBoolean().Should().BeTrue();
+        
+        // Should have proper message
+        result.GetProperty("message").GetString().Should().Contain("Email not verified");
+    }
+
+    [Fact]
+    public async Task Complete_UserRegistration_LoginFlow_ShouldWork()
+    {
+        // Arrange
+        var email = $"fulltest{Guid.NewGuid()}@example.com";
+        var password = "Password123!";
+        
+        var registerDto = new RegisterDto
+        {
+            Email = email,
+            Password = password,
+            FirstName = "Full",
+            LastName = "Test",
+            AcceptTerms = true
+        };
+
+        // Step 1: Register the user
+        var registerResponse = await _client.PostAsJsonAsync("/api/auth/register", registerDto);
+        registerResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var registerContent = await registerResponse.Content.ReadAsStringAsync();
+        var registerResult = JsonSerializer.Deserialize<JsonElement>(registerContent);
+        registerResult.GetProperty("requiresEmailVerification").GetBoolean().Should().BeTrue();
+
+        var loginDto = new LoginDto
+        {
+            EmailOrPhone = email,
+            Password = password
+        };
+
+        // Step 2: Try to login with unverified email - should get email verification message
+        var unverifiedLoginResponse = await _client.PostAsJsonAsync("/api/auth/login", loginDto);
+        unverifiedLoginResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+        
+        var unverifiedContent = await unverifiedLoginResponse.Content.ReadAsStringAsync();
+        var unverifiedResult = JsonSerializer.Deserialize<JsonElement>(unverifiedContent);
+        
+        unverifiedResult.TryGetProperty("token", out _).Should().BeFalse();
+        unverifiedResult.GetProperty("requiresEmailVerification").GetBoolean().Should().BeTrue();
+        unverifiedResult.GetProperty("message").GetString().Should().Contain("Email not verified");
+
+        // Step 3: Manually verify the email (simulate email verification click)
+        using var scope = _factory.Services.CreateScope();
+        var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        var user = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
+        user.Should().NotBeNull();
+        user!.EmailConfirmed = true;
+        await dbContext.SaveChangesAsync();
+
+        // Step 4: Login again with verified email - should succeed and get token
+        var verifiedLoginResponse = await _client.PostAsJsonAsync("/api/auth/login", loginDto);
+        verifiedLoginResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var verifiedContent = await verifiedLoginResponse.Content.ReadAsStringAsync();
+        var verifiedResult = JsonSerializer.Deserialize<JsonElement>(verifiedContent);
+        
+        // Should have a token now
+        verifiedResult.GetProperty("token").GetString().Should().NotBeNullOrEmpty();
+        verifiedResult.GetProperty("email").GetString().Should().Be(email);
+        verifiedResult.GetProperty("firstName").GetString().Should().Be("Full");
+        verifiedResult.GetProperty("lastName").GetString().Should().Be("Test");
+    }
 }

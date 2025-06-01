@@ -114,53 +114,47 @@ public class AuthController : ControllerBase
 
             if (user == null)
             {
+                _logger.LogWarning("Login failed: User not found for {EmailOrPhone}", model.EmailOrPhone);
                 return Unauthorized(new { message = "Invalid credentials" });
             }
 
-            var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, lockoutOnFailure: true);
+            _logger.LogInformation("User found: {Email}, EmailConfirmed: {EmailConfirmed}", user.Email, user.EmailConfirmed);
 
-            if (result.Succeeded)
+            // First check if the password is correct
+            var passwordValid = await _userManager.CheckPasswordAsync(user, model.Password);
+            
+            if (!passwordValid)
             {
-                if (!user.EmailConfirmed)
-                {
-                    return Ok(new 
-                    { 
-                        message = "Email not verified. Please check your email for verification link.",
-                        requiresEmailVerification = true,
-                        userId = user.Id
-                    });
-                }
-
-                if (user.Is2FARequired && user.TwoFactorEnabled)
-                {
-                    return Ok(new 
-                    { 
-                        message = "Two-factor authentication required",
-                        requiresTwoFactor = true,
-                        userId = user.Id
-                    });
-                }
-
-                var token = await GenerateJwtToken(user);
-                user.LastLoginAt = DateTime.UtcNow;
-                await _userManager.UpdateAsync(user);
-
-                return Ok(new 
-                { 
-                    token = token,
-                    userId = user.Id,
-                    firstName = user.FirstName,
-                    lastName = user.LastName,
-                    email = user.Email
-                });
+                // Increment failed access count for security
+                await _userManager.AccessFailedAsync(user);
+                _logger.LogWarning("Invalid password for user {Email}", user.Email);
+                return Unauthorized(new { message = "Invalid credentials" });
             }
 
-            if (result.IsLockedOut)
+            // Check if account is locked out
+            if (await _userManager.IsLockedOutAsync(user))
             {
+                _logger.LogWarning("Account locked out for user {Email}", user.Email);
                 return BadRequest(new { message = "Account locked due to multiple failed attempts" });
             }
 
-            if (result.RequiresTwoFactor)
+            // Reset access failed count on successful password verification
+            await _userManager.ResetAccessFailedCountAsync(user);
+
+            // Now check email confirmation
+            if (!user.EmailConfirmed)
+            {
+                _logger.LogInformation("Login blocked due to unverified email for user {Email}", user.Email);
+                return Ok(new 
+                { 
+                    message = "Email not verified. Please check your email for verification link.",
+                    requiresEmailVerification = true,
+                    userId = user.Id
+                });
+            }
+
+            // Check 2FA requirement
+            if (user.Is2FARequired && user.TwoFactorEnabled)
             {
                 return Ok(new 
                 { 
@@ -170,7 +164,19 @@ public class AuthController : ControllerBase
                 });
             }
 
-            return Unauthorized(new { message = "Invalid credentials" });
+            // Successful login - generate token
+            var token = await GenerateJwtToken(user);
+            user.LastLoginAt = DateTime.UtcNow;
+            await _userManager.UpdateAsync(user);
+
+            return Ok(new 
+            { 
+                token = token,
+                userId = user.Id,
+                firstName = user.FirstName,
+                lastName = user.LastName,
+                email = user.Email
+            });
         }
         catch (Exception ex)
         {
