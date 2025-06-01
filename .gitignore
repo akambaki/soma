@@ -58,4 +58,13 @@ nuget-cache/
 # Windows
 Thumbs.db
 ehthumbs.db
-Desktop.ini/tmp/
+Desktop.ini
+
+# Test Results
+TestResults/
+*.trx
+coverage/
+test-results/
+
+# Temporary files
+/tmp/
