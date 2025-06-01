@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "FzGYH5W2k2Ilq06cmJVKKQwpMMQS7N6PHlBtEcue+QP/PajFAdAedQZq8+s5Uz2wKmFW0c9Hmlx/ZHXYdDrrDw==",
+  "dgSpecHash": "/spYaIa0PBY=",
   "success": true,
   "projectFilePath": "/Users/e.bongo/Documents/soma/Soma.Platform.Core/Soma.Platform.Core.csproj",
   "expectedPackageFiles": [
@@ -34,7 +34,9 @@
     "/Users/e.bongo/.nuget/packages/sqlitepclraw.provider.e_sqlite3/2.1.6/sqlitepclraw.provider.e_sqlite3.2.1.6.nupkg.sha512",
     "/Users/e.bongo/.nuget/packages/system.memory/4.5.3/system.memory.4.5.3.nupkg.sha512",
     "/Users/e.bongo/.nuget/packages/system.text.encodings.web/8.0.0/system.text.encodings.web.8.0.0.nupkg.sha512",
-    "/Users/e.bongo/.nuget/packages/system.text.json/8.0.4/system.text.json.8.0.4.nupkg.sha512"
+    "/Users/e.bongo/.nuget/packages/system.text.json/8.0.4/system.text.json.8.0.4.nupkg.sha512",
+    "/Users/e.bongo/.nuget/packages/microsoft.netcore.app.ref/8.0.16/microsoft.netcore.app.ref.8.0.16.nupkg.sha512",
+    "/Users/e.bongo/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.16/microsoft.aspnetcore.app.ref.8.0.16.nupkg.sha512"
   ],
   "logs": []
 }

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "zECWjZ8YxyxHZni0D2RElUpzRCHU26LC4XxXqns00UzPi5bWDWQ9W99GPQQsa7yQW8kyG4FCGtrtftZ5NHxZIA==",
+  "dgSpecHash": "Sxqn0JzM70A=",
   "success": true,
   "projectFilePath": "/Users/e.bongo/Documents/soma/Soma.Platform.Api/Soma.Platform.Api.csproj",
   "expectedPackageFiles": [
@@ -72,7 +72,10 @@
     "/Users/e.bongo/.nuget/packages/system.text.encoding.codepages/6.0.0/system.text.encoding.codepages.6.0.0.nupkg.sha512",
     "/Users/e.bongo/.nuget/packages/system.text.encodings.web/8.0.0/system.text.encodings.web.8.0.0.nupkg.sha512",
     "/Users/e.bongo/.nuget/packages/system.text.json/8.0.4/system.text.json.8.0.4.nupkg.sha512",
-    "/Users/e.bongo/.nuget/packages/system.threading.channels/6.0.0/system.threading.channels.6.0.0.nupkg.sha512"
+    "/Users/e.bongo/.nuget/packages/system.threading.channels/6.0.0/system.threading.channels.6.0.0.nupkg.sha512",
+    "/Users/e.bongo/.nuget/packages/microsoft.netcore.app.ref/8.0.16/microsoft.netcore.app.ref.8.0.16.nupkg.sha512",
+    "/Users/e.bongo/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.16/microsoft.aspnetcore.app.ref.8.0.16.nupkg.sha512",
+    "/Users/e.bongo/.nuget/packages/microsoft.netcore.app.host.osx-arm64/8.0.16/microsoft.netcore.app.host.osx-arm64.8.0.16.nupkg.sha512"
   ],
   "logs": []
 }

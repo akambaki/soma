@@ -1851,19 +1851,19 @@
     ]
   },
   "packageFolders": {
-    "/home/runner/.nuget/packages/": {}
+    "/Users/e.bongo/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/runner/work/soma/soma/Soma.Platform.Web/Soma.Platform.Web.csproj",
+      "projectUniqueName": "/Users/e.bongo/Documents/soma/Soma.Platform.Web/Soma.Platform.Web.csproj",
       "projectName": "Soma.Platform.Web",
-      "projectPath": "/home/runner/work/soma/soma/Soma.Platform.Web/Soma.Platform.Web.csproj",
-      "packagesPath": "/home/runner/.nuget/packages/",
-      "outputPath": "/home/runner/work/soma/soma/Soma.Platform.Web/obj/",
+      "projectPath": "/Users/e.bongo/Documents/soma/Soma.Platform.Web/Soma.Platform.Web.csproj",
+      "packagesPath": "/Users/e.bongo/.nuget/packages/",
+      "outputPath": "/Users/e.bongo/Documents/soma/Soma.Platform.Web/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/runner/.nuget/NuGet/NuGet.Config"
+        "/Users/e.bongo/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -1875,8 +1875,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/home/runner/work/soma/soma/Soma.Platform.Core/Soma.Platform.Core.csproj": {
-              "projectPath": "/home/runner/work/soma/soma/Soma.Platform.Core/Soma.Platform.Core.csproj"
+            "/Users/e.bongo/Documents/soma/Soma.Platform.Core/Soma.Platform.Core.csproj": {
+              "projectPath": "/Users/e.bongo/Documents/soma/Soma.Platform.Core/Soma.Platform.Core.csproj"
             }
           }
         }
@@ -1885,7 +1885,13 @@
         "warnAsError": [
           "NU1605"
         ]
-      }
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -1911,6 +1917,20 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[8.0.16, 8.0.16]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.osx-arm64",
+            "version": "[8.0.16, 8.0.16]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[8.0.16, 8.0.16]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -1919,7 +1939,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.116/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.300/PortableRuntimeIdentifierGraph.json"
       }
     }
   },
@@ -1928,7 +1948,7 @@
       "code": "NU1603",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Soma.Platform.Web depends on System.IdentityModel.Tokens.Jwt (>= 8.0.8) but System.IdentityModel.Tokens.Jwt 8.0.8 was not found. An approximate best match of System.IdentityModel.Tokens.Jwt 8.1.0 was resolved.",
+      "message": "Soma.Platform.Web depends on System.IdentityModel.Tokens.Jwt (>= 8.0.8) but System.IdentityModel.Tokens.Jwt 8.0.8 was not found. System.IdentityModel.Tokens.Jwt 8.1.0 was resolved instead.",
       "libraryId": "System.IdentityModel.Tokens.Jwt",
       "targetGraphs": [
         "net8.0"

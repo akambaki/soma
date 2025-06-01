@@ -162,7 +162,7 @@ namespace Soma.Platform.Api.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DATE");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -186,7 +186,7 @@ namespace Soma.Platform.Api.Migrations
                         .HasColumnType("BOOLEAN");
 
                     b.Property<DateTime?>("LastLoginAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DATE");
 
                     b.Property<string>("LastName")
                         .HasMaxLength(100)
@@ -195,8 +195,8 @@ namespace Soma.Platform.Api.Migrations
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("BOOLEAN");
 
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("TEXT");
+                    b.Property<DateTime?>("LockoutEnd")
+                        .HasColumnType("DATE");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -237,7 +237,7 @@ namespace Soma.Platform.Api.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("VerificationTokenExpiry")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DATE");
 
                     b.HasKey("Id");
 
