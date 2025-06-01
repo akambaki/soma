@@ -36,14 +36,10 @@ public class AuthService : IAuthService
 
     public async Task<AuthenticationResult> LoginAsync(LoginDto loginDto)
     {
-        Console.WriteLine($"AuthService.LoginAsync called for: {loginDto.EmailOrPhone}");
         var response = await _apiService.PostAsync<LoginResponse>("api/auth/login", loginDto);
-        Console.WriteLine($"API response - Success: {response.Success}, Error: {response.ErrorMessage}");
         
         if (response.Success && response.Data != null)
         {
-            Console.WriteLine($"API response data - Token: {(string.IsNullOrEmpty(response.Data.Token) ? "null" : "present")}, RequiresTwoFactor: {response.Data.RequiresTwoFactor}, RequiresEmailVerification: {response.Data.RequiresEmailVerification}");
-            
             if (response.Data.RequiresTwoFactor)
             {
                 return new AuthenticationResult 
@@ -66,13 +62,11 @@ public class AuthService : IAuthService
 
             if (!string.IsNullOrEmpty(response.Data.Token))
             {
-                Console.WriteLine("Saving token and updating authentication state");
                 await SaveTokenAsync(response.Data.Token);
                 return new AuthenticationResult { Success = true };
             }
         }
 
-        Console.WriteLine($"Login failed - returning error: {response.ErrorMessage ?? "Login failed"}");
         return new AuthenticationResult 
         { 
             Success = false, 
@@ -116,22 +110,14 @@ public class AuthService : IAuthService
 
     private async Task SaveTokenAsync(string token)
     {
-        Console.WriteLine($"SaveTokenAsync called with token length: {token?.Length ?? 0}");
         CurrentToken = token;
         await _localStorage.SetItemAsync("authToken", token);
         _apiService.SetAuthToken(token);
         
-        Console.WriteLine("Token saved to localStorage and API service");
-        
         // Notify authentication state has changed
         if (_authenticationStateProvider is CustomAuthenticationStateProvider customProvider)
         {
-            Console.WriteLine("Notifying authentication state provider");
             await customProvider.NotifyUserAuthentication(token);
-        }
-        else
-        {
-            Console.WriteLine("Warning: Authentication state provider is not CustomAuthenticationStateProvider");
         }
     }
 
@@ -150,14 +136,11 @@ public class AuthService : IAuthService
 
     public async Task InitializeAsync()
     {
-        Console.WriteLine("AuthService.InitializeAsync called");
         var token = await _localStorage.GetItemAsync<string>("authToken");
-        Console.WriteLine($"Retrieved token from storage: {(string.IsNullOrEmpty(token) ? "null/empty" : "present")}");
         if (!string.IsNullOrEmpty(token))
         {
             CurrentToken = token;
             _apiService.SetAuthToken(token);
-            Console.WriteLine("Token set in API service");
         }
     }
 }
@@ -224,19 +207,15 @@ public class LocalStorageService : ILocalStorageService
         {
             if (!_storage.TryGetValue(key, out var value) || string.IsNullOrEmpty(value))
             {
-                Console.WriteLine($"LocalStorageService.GetItemAsync - Key: {key}, Value: null/empty");
                 return Task.FromResult<T?>(default);
             }
-
-            Console.WriteLine($"LocalStorageService.GetItemAsync - Key: {key}, Value: present");
             
             try
             {
                 return Task.FromResult(JsonSerializer.Deserialize<T>(value));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine($"Error deserializing from storage: {ex.Message}");
                 return Task.FromResult<T?>(default);
             }
         }
@@ -250,11 +229,10 @@ public class LocalStorageService : ILocalStorageService
             {
                 var serializedValue = JsonSerializer.Serialize(value);
                 _storage[key] = serializedValue;
-                Console.WriteLine($"LocalStorageService.SetItemAsync - Key: {key}, Value stored successfully");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine($"Error serializing to storage: {ex.Message}");
+                // Silently handle serialization errors
             }
         }
         
@@ -266,7 +244,6 @@ public class LocalStorageService : ILocalStorageService
         lock (_lock)
         {
             _storage.Remove(key);
-            Console.WriteLine($"LocalStorageService.RemoveItemAsync - Key: {key} removed");
         }
         return Task.CompletedTask;
     }

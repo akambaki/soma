@@ -125,32 +125,26 @@
             isLoading = true;
             errorMessage = null;
 
-            Console.WriteLine($"Starting login for: {loginModel.EmailOrPhone}");
             var result = await AuthService.LoginAsync(loginModel);
-            Console.WriteLine($"Login result - Success: {result.Success}, Error: {result.ErrorMessage}, RequiresTwoFactor: {result.RequiresTwoFactor}, RequiresEmailVerification: {result.RequiresEmailVerification}");
 
             if (result.Success)
             {
                 if (result.RequiresTwoFactor)
                 {
-                    Console.WriteLine("Redirecting to two-factor authentication");
                     Navigation.NavigateTo($"/two-factor?userId={result.UserId}");
                 }
                 else
                 {
-                    Console.WriteLine("Redirecting to profile page");
                     Navigation.NavigateTo("/profile");
                 }
             }
             else
             {
-                Console.WriteLine($"Login failed: {result.ErrorMessage}");
                 errorMessage = result.ErrorMessage;
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            Console.WriteLine($"Login exception: {ex.Message}");
             errorMessage = "An unexpected error occurred. Please try again.";
         }
         finally
