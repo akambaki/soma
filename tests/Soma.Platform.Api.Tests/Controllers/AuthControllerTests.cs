@@ -162,8 +162,14 @@ public class AuthControllerTests
         _mockUserManager.Setup(x => x.FindByEmailAsync(loginDto.EmailOrPhone))
             .ReturnsAsync(user);
 
-        _mockSignInManager.Setup(x => x.CheckPasswordSignInAsync(user, loginDto.Password, true))
-            .ReturnsAsync(Microsoft.AspNetCore.Identity.SignInResult.Success);
+        _mockUserManager.Setup(x => x.CheckPasswordAsync(user, loginDto.Password))
+            .ReturnsAsync(true);
+
+        _mockUserManager.Setup(x => x.IsLockedOutAsync(user))
+            .ReturnsAsync(false);
+
+        _mockUserManager.Setup(x => x.ResetAccessFailedCountAsync(user))
+            .ReturnsAsync(IdentityResult.Success);
 
         _mockUserManager.Setup(x => x.GetRolesAsync(user))
             .ReturnsAsync(new List<string> { "User" });
@@ -206,8 +212,11 @@ public class AuthControllerTests
         _mockUserManager.Setup(x => x.FindByEmailAsync(loginDto.EmailOrPhone))
             .ReturnsAsync(user);
 
-        _mockSignInManager.Setup(x => x.CheckPasswordSignInAsync(user, loginDto.Password, true))
-            .ReturnsAsync(Microsoft.AspNetCore.Identity.SignInResult.Failed);
+        _mockUserManager.Setup(x => x.CheckPasswordAsync(user, loginDto.Password))
+            .ReturnsAsync(false);
+
+        _mockUserManager.Setup(x => x.AccessFailedAsync(user))
+            .ReturnsAsync(IdentityResult.Success);
 
         // Act
         var result = await _controller.Login(loginDto);
@@ -238,8 +247,14 @@ public class AuthControllerTests
         _mockUserManager.Setup(x => x.FindByEmailAsync(loginDto.EmailOrPhone))
             .ReturnsAsync(user);
 
-        _mockSignInManager.Setup(x => x.CheckPasswordSignInAsync(user, loginDto.Password, true))
-            .ReturnsAsync(Microsoft.AspNetCore.Identity.SignInResult.Success);
+        _mockUserManager.Setup(x => x.CheckPasswordAsync(user, loginDto.Password))
+            .ReturnsAsync(true);
+
+        _mockUserManager.Setup(x => x.IsLockedOutAsync(user))
+            .ReturnsAsync(false);
+
+        _mockUserManager.Setup(x => x.ResetAccessFailedCountAsync(user))
+            .ReturnsAsync(IdentityResult.Success);
 
         // Act
         var result = await _controller.Login(loginDto);
