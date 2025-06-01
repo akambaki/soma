@@ -1,0 +1,155 @@
+@page "/login"
+@using Microsoft.AspNetCore.Components.Authorization
+@using Soma.Platform.Core.DTOs
+@using Soma.Platform.Web.Services
+@inject IAuthService AuthService
+@inject NavigationManager Navigation
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@rendermode InteractiveServer
+
+<div class="min-vh-100 d-flex align-items-center justify-content-center bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="card shadow-sm">
+                    <div class="card-body p-5">
+                        <div class="text-center mb-4">
+                            <h2 class="fw-bold">Welcome to SOMA</h2>
+                            <p class="text-muted">Sign in to your account</p>
+                        </div>
+
+                        <EditForm Model="@loginModel" OnValidSubmit="@HandleLogin" FormName="LoginForm">
+                            <DataAnnotationsValidator />
+                            <ValidationSummary class="text-danger mb-3" />
+
+                            @if (!string.IsNullOrEmpty(errorMessage))
+                            {
+                                <div class="alert alert-danger" role="alert">
+                                    @errorMessage
+                                </div>
+                            }
+
+                            <div class="mb-3">
+                                <label for="emailOrPhone" class="form-label">Email or Phone Number</label>
+                                <InputText @bind-Value="loginModel.EmailOrPhone" 
+                                          class="form-control" 
+                                          id="emailOrPhone" 
+                                          placeholder="Enter your email or phone number" />
+                                <ValidationMessage For="@(() => loginModel.EmailOrPhone)" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <InputText @bind-Value="loginModel.Password" 
+                                          type="password" 
+                                          class="form-control" 
+                                          id="password" 
+                                          placeholder="Enter your password" />
+                                <ValidationMessage For="@(() => loginModel.Password)" />
+                            </div>
+
+                            <div class="mb-3 form-check">
+                                <InputCheckbox @bind-Value="loginModel.RememberMe" 
+                                              class="form-check-input" 
+                                              id="rememberMe" />
+                                <label class="form-check-label" for="rememberMe">
+                                    Remember me
+                                </label>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg" disabled="@isLoading">
+                                    @if (isLoading)
+                                    {
+                                        <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                                        <span>Signing in...</span>
+                                    }
+                                    else
+                                    {
+                                        <span>Sign In</span>
+                                    }
+                                </button>
+                            </div>
+                        </EditForm>
+
+                        <div class="text-center mt-4">
+                            <a href="/forgot-password" class="text-decoration-none">Forgot your password?</a>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="text-center">
+                            <p class="mb-2">Or sign in with</p>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-danger" disabled>
+                                    <i class="fab fa-google me-2"></i>
+                                    Continue with Google
+                                </button>
+                                <button class="btn btn-outline-dark" disabled>
+                                    <i class="fab fa-apple me-2"></i>
+                                    Continue with Apple
+                                </button>
+                            </div>
+                            <small class="text-muted d-block mt-2">OAuth providers coming soon</small>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <p class="mb-0">Don't have an account? <a href="/register" class="text-decoration-none fw-bold">Sign up</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private LoginDto loginModel = new();
+    private string? errorMessage;
+    private bool isLoading = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Redirect authenticated users to home page
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        if (authState.User.Identity?.IsAuthenticated == true)
+        {
+            Navigation.NavigateTo("/", true);
+        }
+    }
+
+    private async Task HandleLogin()
+    {
+        try
+        {
+            isLoading = true;
+            errorMessage = null;
+
+            var result = await AuthService.LoginAsync(loginModel);
+
+            if (result.Success)
+            {
+                if (result.RequiresTwoFactor)
+                {
+                    Navigation.NavigateTo($"/two-factor?userId={result.UserId}");
+                }
+                else
+                {
+                    Navigation.NavigateTo("/profile");
+                }
+            }
+            else
+            {
+                errorMessage = result.ErrorMessage;
+            }
+        }
+        catch (Exception)
+        {
+            errorMessage = "An unexpected error occurred. Please try again.";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+}

@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="2d5f899a-8e41-44bd-85ed-52d931fe4235" name="@fv-az788-431 2025-06-01 18:36:45" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2025-06-01T18:36:45.6518665+00:00" queuing="2025-06-01T18:36:45.6518666+00:00" start="2025-06-01T18:36:43.1312869+00:00" finish="2025-06-01T18:36:45.7418250+00:00" />
+  <TestSettings name="default" id="daf83975-1a0a-4540-b398-cddae63048e4">
+    <Deployment runDeploymentRoot="_fv-az788-431_2025-06-01_18_36_45" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="ae745503-c0bb-4ebf-929a-5feca872ed9d" testId="8ee2095f-950b-7b7b-5949-f81d778904d7" testName="Soma.Platform.Core.Tests.Models.ApplicationUserTests.ApplicationUser_WhenCreated_ShouldHaveDefaultValues" computerName="fv-az788-431" duration="00:00:00.0135829" startTime="2025-06-01T18:36:45.5840539+00:00" endTime="2025-06-01T18:36:45.5840540+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ae745503-c0bb-4ebf-929a-5feca872ed9d" />
+    <UnitTestResult executionId="dee8dc08-ad47-4b8b-a09e-547802d2ab02" testId="a1a2da30-0fe3-c329-8cc0-913e8b39b0a0" testName="Soma.Platform.Core.Tests.Models.ApplicationUserTests.ApplicationUser_WhenSetProperties_ShouldRetainValues" computerName="fv-az788-431" duration="00:00:00.0169766" startTime="2025-06-01T18:36:45.5698439+00:00" endTime="2025-06-01T18:36:45.5698440+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dee8dc08-ad47-4b8b-a09e-547802d2ab02" />
+    <UnitTestResult executionId="5bda784b-03df-478c-b647-d870c4e629dd" testId="e9701c0f-c179-70b9-3e82-252e4c722bdb" testName="Soma.Platform.Core.Tests.DtoValidationTests.ForgotPasswordDto_WithValidEmail_ShouldPassValidation" computerName="fv-az788-431" duration="00:00:00.0293626" startTime="2025-06-01T18:36:45.5693997+00:00" endTime="2025-06-01T18:36:45.5694005+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5bda784b-03df-478c-b647-d870c4e629dd" />
+    <UnitTestResult executionId="e0dd08d6-9378-448a-b317-87c4bb8663ec" testId="4379415d-24d9-7b26-017a-0e3bd3e9cfa8" testName="Soma.Platform.Core.Tests.DtoValidationTests.LoginDto_WithEmptyEmailOrPhone_ShouldFailValidation" computerName="fv-az788-431" duration="00:00:00.0015701" startTime="2025-06-01T18:36:45.5898682+00:00" endTime="2025-06-01T18:36:45.5898682+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e0dd08d6-9378-448a-b317-87c4bb8663ec" />
+    <UnitTestResult executionId="3d34ee0d-c74d-4c91-9bce-ce043bcd4993" testId="93ec799a-7d93-ac42-6422-19acc52d429d" testName="Soma.Platform.Core.Tests.DtoValidationTests.ResetPasswordDto_WithValidData_ShouldPassValidation" computerName="fv-az788-431" duration="00:00:00.0200376" startTime="2025-06-01T18:36:45.6288999+00:00" endTime="2025-06-01T18:36:45.6288999+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3d34ee0d-c74d-4c91-9bce-ce043bcd4993" />
+    <UnitTestResult executionId="24bc0054-f165-4d7a-aa51-54c87b4cd57b" testId="8444311b-620f-7bbb-db8e-fda608c407e6" testName="Soma.Platform.Core.Tests.Models.ApplicationUserTests.ApplicationUser_WithDifferentNameCombinations_ShouldAcceptValues(firstName: &quot;John&quot;, lastName: &quot;&quot;)" computerName="fv-az788-431" duration="00:00:00.0277073" startTime="2025-06-01T18:36:45.5514572+00:00" endTime="2025-06-01T18:36:45.5515038+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="24bc0054-f165-4d7a-aa51-54c87b4cd57b" />
+    <UnitTestResult executionId="1d74bbe1-f44e-483f-adfb-5e90999f48a5" testId="191070e3-ce83-9f61-8133-03477a38627e" testName="Soma.Platform.Core.Tests.DtoValidationTests.RegisterDto_WithWeakPassword_ShouldFailValidation" computerName="fv-az788-431" duration="00:00:00.0046525" startTime="2025-06-01T18:36:45.6285998+00:00" endTime="2025-06-01T18:36:45.6285999+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1d74bbe1-f44e-483f-adfb-5e90999f48a5" />
+    <UnitTestResult executionId="31c46005-e78a-480a-9af4-16b443c0207b" testId="a4b78f86-9c5a-a8c7-cb22-c46fe0bff28c" testName="Soma.Platform.Core.Tests.Models.ApplicationUserTests.ApplicationUser_WithDifferentNameCombinations_ShouldAcceptValues(firstName: &quot;&quot;, lastName: &quot;&quot;)" computerName="fv-az788-431" duration="00:00:00.0000210" startTime="2025-06-01T18:36:45.5693206+00:00" endTime="2025-06-01T18:36:45.5693207+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="31c46005-e78a-480a-9af4-16b443c0207b" />
+    <UnitTestResult executionId="e1e26728-d2ca-4b93-815f-55fb64947d6f" testId="0c26683c-37e9-f909-eca2-29b7890d23b2" testName="Soma.Platform.Core.Tests.DtoValidationTests.RegisterDto_WithValidData_ShouldPassValidation" computerName="fv-az788-431" duration="00:00:00.0005072" startTime="2025-06-01T18:36:45.6290210+00:00" endTime="2025-06-01T18:36:45.6290211+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e1e26728-d2ca-4b93-815f-55fb64947d6f" />
+    <UnitTestResult executionId="d8faf6df-5a80-44e0-9e76-9610784aa2bb" testId="0076a16b-52e5-f7fb-6b7c-c4f987e72e1e" testName="Soma.Platform.Core.Tests.DtoValidationTests.RegisterDto_WithoutAcceptingTerms_ShouldFailValidation" computerName="fv-az788-431" duration="00:00:00.0415604" startTime="2025-06-01T18:36:45.5897889+00:00" endTime="2025-06-01T18:36:45.5897890+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d8faf6df-5a80-44e0-9e76-9610784aa2bb" />
+    <UnitTestResult executionId="01c958cc-2246-4852-ae8e-e7a520f38198" testId="cee6f677-c309-57ae-23d1-1f7e77a3228c" testName="Soma.Platform.Core.Tests.DtoValidationTests.TwoFactorDto_WithInvalidCode_ShouldFailValidation" computerName="fv-az788-431" duration="00:00:00.0075909" startTime="2025-06-01T18:36:45.6287095+00:00" endTime="2025-06-01T18:36:45.6287096+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="01c958cc-2246-4852-ae8e-e7a520f38198" />
+    <UnitTestResult executionId="2432a09a-57d7-4cc9-a5b3-f4150a06f714" testId="08473a0c-ef4b-77ef-9204-611cdf8f77ff" testName="Soma.Platform.Core.Tests.Models.ApplicationUserTests.ApplicationUser_WithDifferentNameCombinations_ShouldAcceptValues(firstName: &quot;&quot;, lastName: &quot;Doe&quot;)" computerName="fv-az788-431" duration="00:00:00.0002384" startTime="2025-06-01T18:36:45.5687036+00:00" endTime="2025-06-01T18:36:45.5687038+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2432a09a-57d7-4cc9-a5b3-f4150a06f714" />
+    <UnitTestResult executionId="c1fca3fb-8bad-4817-adf1-66688d3f4080" testId="4e97e457-c54f-7968-79bd-b4e3030a4174" testName="Soma.Platform.Core.Tests.DtoValidationTests.LoginDto_WithValidData_ShouldPassValidation" computerName="fv-az788-431" duration="00:00:00.0005130" startTime="2025-06-01T18:36:45.6287756+00:00" endTime="2025-06-01T18:36:45.6287756+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c1fca3fb-8bad-4817-adf1-66688d3f4080" />
+    <UnitTestResult executionId="208f2ce2-2c93-453a-a5d6-d3df5e8a0063" testId="54a0663c-5ef9-9ebb-efa2-c3f9bc4b9b48" testName="Soma.Platform.Core.Tests.Models.ApplicationUserTests.ApplicationUser_WithDifferentNameCombinations_ShouldAcceptValues(firstName: &quot;John&quot;, lastName: &quot;Doe&quot;)" computerName="fv-az788-431" duration="00:00:00.0000245" startTime="2025-06-01T18:36:45.5692589+00:00" endTime="2025-06-01T18:36:45.5692590+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="208f2ce2-2c93-453a-a5d6-d3df5e8a0063" />
+    <UnitTestResult executionId="bd02fb56-b224-4189-a5fd-f705bd9d354d" testId="c6f25fed-4e25-4d06-0a84-252b255353b4" testName="Soma.Platform.Core.Tests.DtoValidationTests.TwoFactorDto_WithValidCode_ShouldPassValidation" computerName="fv-az788-431" duration="00:00:00.0004811" startTime="2025-06-01T18:36:45.6289611+00:00" endTime="2025-06-01T18:36:45.6289611+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bd02fb56-b224-4189-a5fd-f705bd9d354d" />
+    <UnitTestResult executionId="53d5bbbf-6075-4941-bd8e-4c6b400b2d43" testId="1a7189ff-4be0-60d7-cda1-d9a83f2ea60d" testName="Soma.Platform.Core.Tests.DtoValidationTests.RegisterDto_WithInvalidEmail_ShouldFailValidation" computerName="fv-az788-431" duration="00:00:00.0007563" startTime="2025-06-01T18:36:45.6288316+00:00" endTime="2025-06-01T18:36:45.6288317+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="53d5bbbf-6075-4941-bd8e-4c6b400b2d43" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="Soma.Platform.Core.Tests.DtoValidationTests.ResetPasswordDto_WithValidData_ShouldPassValidation" storage="/home/runner/work/soma/soma/tests/soma.platform.core.tests/bin/debug/net8.0/soma.platform.core.tests.dll" id="93ec799a-7d93-ac42-6422-19acc52d429d">
+      <Execution id="3d34ee0d-c74d-4c91-9bce-ce043bcd4993" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Core.Tests/bin/Debug/net8.0/Soma.Platform.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Core.Tests.DtoValidationTests" name="ResetPasswordDto_WithValidData_ShouldPassValidation" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Core.Tests.DtoValidationTests.RegisterDto_WithWeakPassword_ShouldFailValidation" storage="/home/runner/work/soma/soma/tests/soma.platform.core.tests/bin/debug/net8.0/soma.platform.core.tests.dll" id="191070e3-ce83-9f61-8133-03477a38627e">
+      <Execution id="1d74bbe1-f44e-483f-adfb-5e90999f48a5" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Core.Tests/bin/Debug/net8.0/Soma.Platform.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Core.Tests.DtoValidationTests" name="RegisterDto_WithWeakPassword_ShouldFailValidation" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Core.Tests.DtoValidationTests.LoginDto_WithEmptyEmailOrPhone_ShouldFailValidation" storage="/home/runner/work/soma/soma/tests/soma.platform.core.tests/bin/debug/net8.0/soma.platform.core.tests.dll" id="4379415d-24d9-7b26-017a-0e3bd3e9cfa8">
+      <Execution id="e0dd08d6-9378-448a-b317-87c4bb8663ec" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Core.Tests/bin/Debug/net8.0/Soma.Platform.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Core.Tests.DtoValidationTests" name="LoginDto_WithEmptyEmailOrPhone_ShouldFailValidation" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Core.Tests.Models.ApplicationUserTests.ApplicationUser_WithDifferentNameCombinations_ShouldAcceptValues(firstName: &quot;&quot;, lastName: &quot;Doe&quot;)" storage="/home/runner/work/soma/soma/tests/soma.platform.core.tests/bin/debug/net8.0/soma.platform.core.tests.dll" id="08473a0c-ef4b-77ef-9204-611cdf8f77ff">
+      <Execution id="2432a09a-57d7-4cc9-a5b3-f4150a06f714" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Core.Tests/bin/Debug/net8.0/Soma.Platform.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Core.Tests.Models.ApplicationUserTests" name="ApplicationUser_WithDifferentNameCombinations_ShouldAcceptValues" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Core.Tests.DtoValidationTests.ForgotPasswordDto_WithValidEmail_ShouldPassValidation" storage="/home/runner/work/soma/soma/tests/soma.platform.core.tests/bin/debug/net8.0/soma.platform.core.tests.dll" id="e9701c0f-c179-70b9-3e82-252e4c722bdb">
+      <Execution id="5bda784b-03df-478c-b647-d870c4e629dd" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Core.Tests/bin/Debug/net8.0/Soma.Platform.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Core.Tests.DtoValidationTests" name="ForgotPasswordDto_WithValidEmail_ShouldPassValidation" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Core.Tests.DtoValidationTests.RegisterDto_WithValidData_ShouldPassValidation" storage="/home/runner/work/soma/soma/tests/soma.platform.core.tests/bin/debug/net8.0/soma.platform.core.tests.dll" id="0c26683c-37e9-f909-eca2-29b7890d23b2">
+      <Execution id="e1e26728-d2ca-4b93-815f-55fb64947d6f" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Core.Tests/bin/Debug/net8.0/Soma.Platform.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Core.Tests.DtoValidationTests" name="RegisterDto_WithValidData_ShouldPassValidation" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Core.Tests.DtoValidationTests.LoginDto_WithValidData_ShouldPassValidation" storage="/home/runner/work/soma/soma/tests/soma.platform.core.tests/bin/debug/net8.0/soma.platform.core.tests.dll" id="4e97e457-c54f-7968-79bd-b4e3030a4174">
+      <Execution id="c1fca3fb-8bad-4817-adf1-66688d3f4080" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Core.Tests/bin/Debug/net8.0/Soma.Platform.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Core.Tests.DtoValidationTests" name="LoginDto_WithValidData_ShouldPassValidation" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Core.Tests.Models.ApplicationUserTests.ApplicationUser_WithDifferentNameCombinations_ShouldAcceptValues(firstName: &quot;John&quot;, lastName: &quot;&quot;)" storage="/home/runner/work/soma/soma/tests/soma.platform.core.tests/bin/debug/net8.0/soma.platform.core.tests.dll" id="8444311b-620f-7bbb-db8e-fda608c407e6">
+      <Execution id="24bc0054-f165-4d7a-aa51-54c87b4cd57b" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Core.Tests/bin/Debug/net8.0/Soma.Platform.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Core.Tests.Models.ApplicationUserTests" name="ApplicationUser_WithDifferentNameCombinations_ShouldAcceptValues" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Core.Tests.DtoValidationTests.TwoFactorDto_WithValidCode_ShouldPassValidation" storage="/home/runner/work/soma/soma/tests/soma.platform.core.tests/bin/debug/net8.0/soma.platform.core.tests.dll" id="c6f25fed-4e25-4d06-0a84-252b255353b4">
+      <Execution id="bd02fb56-b224-4189-a5fd-f705bd9d354d" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Core.Tests/bin/Debug/net8.0/Soma.Platform.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Core.Tests.DtoValidationTests" name="TwoFactorDto_WithValidCode_ShouldPassValidation" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Core.Tests.DtoValidationTests.RegisterDto_WithInvalidEmail_ShouldFailValidation" storage="/home/runner/work/soma/soma/tests/soma.platform.core.tests/bin/debug/net8.0/soma.platform.core.tests.dll" id="1a7189ff-4be0-60d7-cda1-d9a83f2ea60d">
+      <Execution id="53d5bbbf-6075-4941-bd8e-4c6b400b2d43" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Core.Tests/bin/Debug/net8.0/Soma.Platform.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Core.Tests.DtoValidationTests" name="RegisterDto_WithInvalidEmail_ShouldFailValidation" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Core.Tests.Models.ApplicationUserTests.ApplicationUser_WhenCreated_ShouldHaveDefaultValues" storage="/home/runner/work/soma/soma/tests/soma.platform.core.tests/bin/debug/net8.0/soma.platform.core.tests.dll" id="8ee2095f-950b-7b7b-5949-f81d778904d7">
+      <Execution id="ae745503-c0bb-4ebf-929a-5feca872ed9d" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Core.Tests/bin/Debug/net8.0/Soma.Platform.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Core.Tests.Models.ApplicationUserTests" name="ApplicationUser_WhenCreated_ShouldHaveDefaultValues" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Core.Tests.DtoValidationTests.RegisterDto_WithoutAcceptingTerms_ShouldFailValidation" storage="/home/runner/work/soma/soma/tests/soma.platform.core.tests/bin/debug/net8.0/soma.platform.core.tests.dll" id="0076a16b-52e5-f7fb-6b7c-c4f987e72e1e">
+      <Execution id="d8faf6df-5a80-44e0-9e76-9610784aa2bb" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Core.Tests/bin/Debug/net8.0/Soma.Platform.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Core.Tests.DtoValidationTests" name="RegisterDto_WithoutAcceptingTerms_ShouldFailValidation" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Core.Tests.Models.ApplicationUserTests.ApplicationUser_WhenSetProperties_ShouldRetainValues" storage="/home/runner/work/soma/soma/tests/soma.platform.core.tests/bin/debug/net8.0/soma.platform.core.tests.dll" id="a1a2da30-0fe3-c329-8cc0-913e8b39b0a0">
+      <Execution id="dee8dc08-ad47-4b8b-a09e-547802d2ab02" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Core.Tests/bin/Debug/net8.0/Soma.Platform.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Core.Tests.Models.ApplicationUserTests" name="ApplicationUser_WhenSetProperties_ShouldRetainValues" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Core.Tests.Models.ApplicationUserTests.ApplicationUser_WithDifferentNameCombinations_ShouldAcceptValues(firstName: &quot;John&quot;, lastName: &quot;Doe&quot;)" storage="/home/runner/work/soma/soma/tests/soma.platform.core.tests/bin/debug/net8.0/soma.platform.core.tests.dll" id="54a0663c-5ef9-9ebb-efa2-c3f9bc4b9b48">
+      <Execution id="208f2ce2-2c93-453a-a5d6-d3df5e8a0063" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Core.Tests/bin/Debug/net8.0/Soma.Platform.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Core.Tests.Models.ApplicationUserTests" name="ApplicationUser_WithDifferentNameCombinations_ShouldAcceptValues" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Core.Tests.DtoValidationTests.TwoFactorDto_WithInvalidCode_ShouldFailValidation" storage="/home/runner/work/soma/soma/tests/soma.platform.core.tests/bin/debug/net8.0/soma.platform.core.tests.dll" id="cee6f677-c309-57ae-23d1-1f7e77a3228c">
+      <Execution id="01c958cc-2246-4852-ae8e-e7a520f38198" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Core.Tests/bin/Debug/net8.0/Soma.Platform.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Core.Tests.DtoValidationTests" name="TwoFactorDto_WithInvalidCode_ShouldFailValidation" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Core.Tests.Models.ApplicationUserTests.ApplicationUser_WithDifferentNameCombinations_ShouldAcceptValues(firstName: &quot;&quot;, lastName: &quot;&quot;)" storage="/home/runner/work/soma/soma/tests/soma.platform.core.tests/bin/debug/net8.0/soma.platform.core.tests.dll" id="a4b78f86-9c5a-a8c7-cb22-c46fe0bff28c">
+      <Execution id="31c46005-e78a-480a-9af4-16b443c0207b" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Core.Tests/bin/Debug/net8.0/Soma.Platform.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Core.Tests.Models.ApplicationUserTests" name="ApplicationUser_WithDifferentNameCombinations_ShouldAcceptValues" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="8ee2095f-950b-7b7b-5949-f81d778904d7" executionId="ae745503-c0bb-4ebf-929a-5feca872ed9d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a1a2da30-0fe3-c329-8cc0-913e8b39b0a0" executionId="dee8dc08-ad47-4b8b-a09e-547802d2ab02" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e9701c0f-c179-70b9-3e82-252e4c722bdb" executionId="5bda784b-03df-478c-b647-d870c4e629dd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4379415d-24d9-7b26-017a-0e3bd3e9cfa8" executionId="e0dd08d6-9378-448a-b317-87c4bb8663ec" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="93ec799a-7d93-ac42-6422-19acc52d429d" executionId="3d34ee0d-c74d-4c91-9bce-ce043bcd4993" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8444311b-620f-7bbb-db8e-fda608c407e6" executionId="24bc0054-f165-4d7a-aa51-54c87b4cd57b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="191070e3-ce83-9f61-8133-03477a38627e" executionId="1d74bbe1-f44e-483f-adfb-5e90999f48a5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a4b78f86-9c5a-a8c7-cb22-c46fe0bff28c" executionId="31c46005-e78a-480a-9af4-16b443c0207b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0c26683c-37e9-f909-eca2-29b7890d23b2" executionId="e1e26728-d2ca-4b93-815f-55fb64947d6f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0076a16b-52e5-f7fb-6b7c-c4f987e72e1e" executionId="d8faf6df-5a80-44e0-9e76-9610784aa2bb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cee6f677-c309-57ae-23d1-1f7e77a3228c" executionId="01c958cc-2246-4852-ae8e-e7a520f38198" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="08473a0c-ef4b-77ef-9204-611cdf8f77ff" executionId="2432a09a-57d7-4cc9-a5b3-f4150a06f714" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4e97e457-c54f-7968-79bd-b4e3030a4174" executionId="c1fca3fb-8bad-4817-adf1-66688d3f4080" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="54a0663c-5ef9-9ebb-efa2-c3f9bc4b9b48" executionId="208f2ce2-2c93-453a-a5d6-d3df5e8a0063" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c6f25fed-4e25-4d06-0a84-252b255353b4" executionId="bd02fb56-b224-4189-a5fd-f705bd9d354d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1a7189ff-4be0-60d7-cda1-d9a83f2ea60d" executionId="53d5bbbf-6075-4941-bd8e-4c6b400b2d43" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="16" executed="16" passed="16" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.4.5+1caef2f33e (64-bit .NET 8.0.16)
+[xUnit.net 00:00:01.53]   Discovering: Soma.Platform.Core.Tests
+[xUnit.net 00:00:01.60]   Discovered:  Soma.Platform.Core.Tests
+[xUnit.net 00:00:01.60]   Starting:    Soma.Platform.Core.Tests
+[xUnit.net 00:00:01.81]   Finished:    Soma.Platform.Core.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

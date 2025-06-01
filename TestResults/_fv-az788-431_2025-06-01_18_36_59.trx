@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="82e57d9c-17f7-4f9f-b2a4-828cb233e119" name="@fv-az788-431 2025-06-01 18:36:59" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2025-06-01T18:36:59.5399206+00:00" queuing="2025-06-01T18:36:59.5399207+00:00" start="2025-06-01T18:36:57.8849932+00:00" finish="2025-06-01T18:36:59.5494190+00:00" />
+  <TestSettings name="default" id="ded82b4b-4d94-4b09-be53-38a69615692e">
+    <Deployment runDeploymentRoot="_fv-az788-431_2025-06-01_18_36_59" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="77923db2-16dd-44cb-92dc-d15e5313c27f" testId="edf36f0c-e1ca-a124-bfce-e5308246e7f8" testName="Soma.Platform.Api.Tests.Controllers.AuthControllerTests.Login_WithValidCredentials_ShouldReturnToken" computerName="fv-az788-431" duration="00:00:00.0092468" startTime="2025-06-01T18:36:59.3982850+00:00" endTime="2025-06-01T18:36:59.3982851+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="77923db2-16dd-44cb-92dc-d15e5313c27f">
+      <Output>
+        <ErrorInfo>
+          <Message>Expected type to be Microsoft.AspNetCore.Mvc.OkObjectResult, but found Microsoft.AspNetCore.Mvc.UnauthorizedObjectResult.</Message>
+          <StackTrace>   at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message)
+   at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message)
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+   at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+   at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+   at FluentAssertions.Execution.AssertionScope.FailWith(String message)
+   at FluentAssertions.Types.TypeAssertions.Be(Type expected, String because, Object[] becauseArgs)
+   at FluentAssertions.Primitives.ReferenceTypeAssertions`2.BeOfType(Type expectedType, String because, Object[] becauseArgs)
+   at FluentAssertions.Primitives.ReferenceTypeAssertions`2.BeOfType[T](String because, Object[] becauseArgs)
+   at Soma.Platform.Api.Tests.Controllers.AuthControllerTests.Login_WithValidCredentials_ShouldReturnToken() in /home/runner/work/soma/soma/tests/Soma.Platform.Api.Tests/Controllers/AuthControllerTests.cs:line 186
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="810b8237-7ef7-41d9-9798-bc069bc247c9" testId="f9e82349-ec17-cd5c-87fd-8e1087c70452" testName="Soma.Platform.Api.Tests.Controllers.AuthControllerTests.Register_WhenUserCreationFails_ShouldReturnBadRequest" computerName="fv-az788-431" duration="00:00:00.0259477" startTime="2025-06-01T18:36:59.3134899+00:00" endTime="2025-06-01T18:36:59.3134901+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="810b8237-7ef7-41d9-9798-bc069bc247c9" />
+    <UnitTestResult executionId="001d6f76-e806-4a57-9c3f-dccc42364050" testId="e48d39d2-fad5-926a-c8a5-e48d22124b94" testName="Soma.Platform.Api.Tests.Controllers.AuthControllerTests.Register_WithInvalidModel_ShouldReturnBadRequest" computerName="fv-az788-431" duration="00:00:00.1447726" startTime="2025-06-01T18:36:59.2883957+00:00" endTime="2025-06-01T18:36:59.2884414+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="001d6f76-e806-4a57-9c3f-dccc42364050" />
+    <UnitTestResult executionId="5b0a8a7b-eec2-4cde-a6a3-901ead51f38f" testId="c8f3bfca-0034-22eb-393d-3ec097827dda" testName="Soma.Platform.Api.Tests.Controllers.AuthControllerTests.Login_WithInvalidCredentials_ShouldReturnUnauthorized" computerName="fv-az788-431" duration="00:00:00.0025510" startTime="2025-06-01T18:36:59.4034549+00:00" endTime="2025-06-01T18:36:59.4034550+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5b0a8a7b-eec2-4cde-a6a3-901ead51f38f" />
+    <UnitTestResult executionId="3b84d357-d3d5-42ce-9cb3-437b227c54bf" testId="0a9d7178-3d01-02a9-8045-03ff63bbccc1" testName="Soma.Platform.Api.Tests.Controllers.AuthControllerTests.Register_WithExistingUser_ShouldReturnBadRequest" computerName="fv-az788-431" duration="00:00:00.0017078" startTime="2025-06-01T18:36:59.3926965+00:00" endTime="2025-06-01T18:36:59.3926966+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3b84d357-d3d5-42ce-9cb3-437b227c54bf" />
+    <UnitTestResult executionId="7e5effa2-4d23-45c9-9d11-c7e3ab57f9a8" testId="de638e90-54ab-8b4d-067c-8cfdea0d61f8" testName="Soma.Platform.Api.Tests.Controllers.AuthControllerTests.Login_WithUnconfirmedEmail_ShouldReturnOkWithEmailVerificationRequired" computerName="fv-az788-431" duration="00:00:00.0699176" startTime="2025-06-01T18:36:59.3923256+00:00" endTime="2025-06-01T18:36:59.3923257+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7e5effa2-4d23-45c9-9d11-c7e3ab57f9a8">
+      <Output>
+        <ErrorInfo>
+          <Message>Expected type to be Microsoft.AspNetCore.Mvc.OkObjectResult, but found Microsoft.AspNetCore.Mvc.UnauthorizedObjectResult.</Message>
+          <StackTrace>   at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message)
+   at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message)
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+   at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+   at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+   at FluentAssertions.Execution.AssertionScope.FailWith(String message)
+   at FluentAssertions.Types.TypeAssertions.Be(Type expected, String because, Object[] becauseArgs)
+   at FluentAssertions.Primitives.ReferenceTypeAssertions`2.BeOfType(Type expectedType, String because, Object[] becauseArgs)
+   at FluentAssertions.Primitives.ReferenceTypeAssertions`2.BeOfType[T](String because, Object[] becauseArgs)
+   at Soma.Platform.Api.Tests.Controllers.AuthControllerTests.Login_WithUnconfirmedEmail_ShouldReturnOkWithEmailVerificationRequired() in /home/runner/work/soma/soma/tests/Soma.Platform.Api.Tests/Controllers/AuthControllerTests.cs:line 248
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9820866b-8902-4733-af40-8dbdbf8f41a1" testId="ce24962e-95b7-e03c-a3eb-15618c120596" testName="Soma.Platform.Api.Tests.Controllers.AuthControllerTests.Register_WithValidModel_ShouldReturnOk" computerName="fv-az788-431" duration="00:00:00.0038313" startTime="2025-06-01T18:36:59.4008400+00:00" endTime="2025-06-01T18:36:59.4008401+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9820866b-8902-4733-af40-8dbdbf8f41a1" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="Soma.Platform.Api.Tests.Controllers.AuthControllerTests.Login_WithUnconfirmedEmail_ShouldReturnOkWithEmailVerificationRequired" storage="/home/runner/work/soma/soma/tests/soma.platform.api.tests/bin/debug/net8.0/soma.platform.api.tests.dll" id="de638e90-54ab-8b4d-067c-8cfdea0d61f8">
+      <Execution id="7e5effa2-4d23-45c9-9d11-c7e3ab57f9a8" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Api.Tests/bin/Debug/net8.0/Soma.Platform.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Api.Tests.Controllers.AuthControllerTests" name="Login_WithUnconfirmedEmail_ShouldReturnOkWithEmailVerificationRequired" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Api.Tests.Controllers.AuthControllerTests.Login_WithInvalidCredentials_ShouldReturnUnauthorized" storage="/home/runner/work/soma/soma/tests/soma.platform.api.tests/bin/debug/net8.0/soma.platform.api.tests.dll" id="c8f3bfca-0034-22eb-393d-3ec097827dda">
+      <Execution id="5b0a8a7b-eec2-4cde-a6a3-901ead51f38f" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Api.Tests/bin/Debug/net8.0/Soma.Platform.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Api.Tests.Controllers.AuthControllerTests" name="Login_WithInvalidCredentials_ShouldReturnUnauthorized" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Api.Tests.Controllers.AuthControllerTests.Register_WithValidModel_ShouldReturnOk" storage="/home/runner/work/soma/soma/tests/soma.platform.api.tests/bin/debug/net8.0/soma.platform.api.tests.dll" id="ce24962e-95b7-e03c-a3eb-15618c120596">
+      <Execution id="9820866b-8902-4733-af40-8dbdbf8f41a1" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Api.Tests/bin/Debug/net8.0/Soma.Platform.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Api.Tests.Controllers.AuthControllerTests" name="Register_WithValidModel_ShouldReturnOk" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Api.Tests.Controllers.AuthControllerTests.Register_WithExistingUser_ShouldReturnBadRequest" storage="/home/runner/work/soma/soma/tests/soma.platform.api.tests/bin/debug/net8.0/soma.platform.api.tests.dll" id="0a9d7178-3d01-02a9-8045-03ff63bbccc1">
+      <Execution id="3b84d357-d3d5-42ce-9cb3-437b227c54bf" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Api.Tests/bin/Debug/net8.0/Soma.Platform.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Api.Tests.Controllers.AuthControllerTests" name="Register_WithExistingUser_ShouldReturnBadRequest" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Api.Tests.Controllers.AuthControllerTests.Register_WithInvalidModel_ShouldReturnBadRequest" storage="/home/runner/work/soma/soma/tests/soma.platform.api.tests/bin/debug/net8.0/soma.platform.api.tests.dll" id="e48d39d2-fad5-926a-c8a5-e48d22124b94">
+      <Execution id="001d6f76-e806-4a57-9c3f-dccc42364050" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Api.Tests/bin/Debug/net8.0/Soma.Platform.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Api.Tests.Controllers.AuthControllerTests" name="Register_WithInvalidModel_ShouldReturnBadRequest" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Api.Tests.Controllers.AuthControllerTests.Register_WhenUserCreationFails_ShouldReturnBadRequest" storage="/home/runner/work/soma/soma/tests/soma.platform.api.tests/bin/debug/net8.0/soma.platform.api.tests.dll" id="f9e82349-ec17-cd5c-87fd-8e1087c70452">
+      <Execution id="810b8237-7ef7-41d9-9798-bc069bc247c9" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Api.Tests/bin/Debug/net8.0/Soma.Platform.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Api.Tests.Controllers.AuthControllerTests" name="Register_WhenUserCreationFails_ShouldReturnBadRequest" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Api.Tests.Controllers.AuthControllerTests.Login_WithValidCredentials_ShouldReturnToken" storage="/home/runner/work/soma/soma/tests/soma.platform.api.tests/bin/debug/net8.0/soma.platform.api.tests.dll" id="edf36f0c-e1ca-a124-bfce-e5308246e7f8">
+      <Execution id="77923db2-16dd-44cb-92dc-d15e5313c27f" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Api.Tests/bin/Debug/net8.0/Soma.Platform.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Api.Tests.Controllers.AuthControllerTests" name="Login_WithValidCredentials_ShouldReturnToken" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="edf36f0c-e1ca-a124-bfce-e5308246e7f8" executionId="77923db2-16dd-44cb-92dc-d15e5313c27f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f9e82349-ec17-cd5c-87fd-8e1087c70452" executionId="810b8237-7ef7-41d9-9798-bc069bc247c9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e48d39d2-fad5-926a-c8a5-e48d22124b94" executionId="001d6f76-e806-4a57-9c3f-dccc42364050" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c8f3bfca-0034-22eb-393d-3ec097827dda" executionId="5b0a8a7b-eec2-4cde-a6a3-901ead51f38f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0a9d7178-3d01-02a9-8045-03ff63bbccc1" executionId="3b84d357-d3d5-42ce-9cb3-437b227c54bf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="de638e90-54ab-8b4d-067c-8cfdea0d61f8" executionId="7e5effa2-4d23-45c9-9d11-c7e3ab57f9a8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ce24962e-95b7-e03c-a3eb-15618c120596" executionId="9820866b-8902-4733-af40-8dbdbf8f41a1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="7" executed="7" passed="5" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.4.5+1caef2f33e (64-bit .NET 8.0.16)
+[xUnit.net 00:00:00.69]   Discovering: Soma.Platform.Api.Tests
+[xUnit.net 00:00:00.72]   Discovered:  Soma.Platform.Api.Tests
+[xUnit.net 00:00:00.73]   Starting:    Soma.Platform.Api.Tests
+[xUnit.net 00:00:01.02]       Expected type to be Microsoft.AspNetCore.Mvc.OkObjectResult, but found Microsoft.AspNetCore.Mvc.UnauthorizedObjectResult.
+[xUnit.net 00:00:01.03]       Stack Trace:
+[xUnit.net 00:00:01.03]            at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message)
+[xUnit.net 00:00:01.03]            at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message)
+[xUnit.net 00:00:01.03]            at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+[xUnit.net 00:00:01.03]            at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+[xUnit.net 00:00:01.03]            at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+[xUnit.net 00:00:01.03]            at FluentAssertions.Execution.AssertionScope.FailWith(String message)
+[xUnit.net 00:00:01.03]            at FluentAssertions.Types.TypeAssertions.Be(Type expected, String because, Object[] becauseArgs)
+[xUnit.net 00:00:01.03]            at FluentAssertions.Primitives.ReferenceTypeAssertions`2.BeOfType(Type expectedType, String because, Object[] becauseArgs)
+[xUnit.net 00:00:01.03]            at FluentAssertions.Primitives.ReferenceTypeAssertions`2.BeOfType[T](String because, Object[] becauseArgs)
+[xUnit.net 00:00:01.03]         /home/runner/work/soma/soma/tests/Soma.Platform.Api.Tests/Controllers/AuthControllerTests.cs(248,0): at Soma.Platform.Api.Tests.Controllers.AuthControllerTests.Login_WithUnconfirmedEmail_ShouldReturnOkWithEmailVerificationRequired()
+[xUnit.net 00:00:01.03]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.03]       Expected type to be Microsoft.AspNetCore.Mvc.OkObjectResult, but found Microsoft.AspNetCore.Mvc.UnauthorizedObjectResult.
+[xUnit.net 00:00:01.03]       Stack Trace:
+[xUnit.net 00:00:01.03]            at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message)
+[xUnit.net 00:00:01.03]            at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message)
+[xUnit.net 00:00:01.03]            at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+[xUnit.net 00:00:01.03]            at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+[xUnit.net 00:00:01.03]            at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+[xUnit.net 00:00:01.03]            at FluentAssertions.Execution.AssertionScope.FailWith(String message)
+[xUnit.net 00:00:01.03]            at FluentAssertions.Types.TypeAssertions.Be(Type expected, String because, Object[] becauseArgs)
+[xUnit.net 00:00:01.03]            at FluentAssertions.Primitives.ReferenceTypeAssertions`2.BeOfType(Type expectedType, String because, Object[] becauseArgs)
+[xUnit.net 00:00:01.03]            at FluentAssertions.Primitives.ReferenceTypeAssertions`2.BeOfType[T](String because, Object[] becauseArgs)
+[xUnit.net 00:00:01.03]         /home/runner/work/soma/soma/tests/Soma.Platform.Api.Tests/Controllers/AuthControllerTests.cs(186,0): at Soma.Platform.Api.Tests.Controllers.AuthControllerTests.Login_WithValidCredentials_ShouldReturnToken()
+[xUnit.net 00:00:01.03]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.04]   Finished:    Soma.Platform.Api.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="fv-az788-431" outcome="Error" timestamp="2025-06-01T18:36:59.3893826+00:00">
+        <Text>[xUnit.net 00:00:01.02]     Soma.Platform.Api.Tests.Controllers.AuthControllerTests.Login_WithUnconfirmedEmail_ShouldReturnOkWithEmailVerificationRequired [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="fv-az788-431" outcome="Error" timestamp="2025-06-01T18:36:59.3981795+00:00">
+        <Text>[xUnit.net 00:00:01.03]     Soma.Platform.Api.Tests.Controllers.AuthControllerTests.Login_WithValidCredentials_ShouldReturnToken [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

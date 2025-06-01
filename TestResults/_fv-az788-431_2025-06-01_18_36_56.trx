@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="8012eaeb-d124-4824-8d87-cc88dec66037" name="@fv-az788-431 2025-06-01 18:36:56" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2025-06-01T18:36:56.6368655+00:00" queuing="2025-06-01T18:36:56.6368656+00:00" start="2025-06-01T18:36:54.5870695+00:00" finish="2025-06-01T18:36:57.0043299+00:00" />
+  <TestSettings name="default" id="7f37e798-6ee1-45a3-8077-a4c9f9a4b0a7">
+    <Deployment runDeploymentRoot="_fv-az788-431_2025-06-01_18_36_56" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="27dbadec-2d6f-4dd6-bf83-466d0c1ed848" testId="535faca5-da77-442e-5b7e-d19592f0f4b0" testName="Soma.Platform.Web.IntegrationTests.BlazorComponentIntegrationTests.RegisterComponent_ShouldRenderRegistrationForm" computerName="fv-az788-431" duration="00:00:00.1471450" startTime="2025-06-01T18:36:56.3119228+00:00" endTime="2025-06-01T18:36:56.3119619+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="27dbadec-2d6f-4dd6-bf83-466d0c1ed848" />
+    <UnitTestResult executionId="0a649c44-27cd-4ee5-8f5d-febc99500c48" testId="7cc68ca9-d9fc-6172-f72f-238b8cf5fa82" testName="Soma.Platform.Web.IntegrationTests.BlazorComponentIntegrationTests.AuthService_Integration_ShouldCallApiCorrectly" computerName="fv-az788-431" duration="00:00:00.0686462" startTime="2025-06-01T18:36:56.3797042+00:00" endTime="2025-06-01T18:36:56.3797043+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0a649c44-27cd-4ee5-8f5d-febc99500c48" />
+    <UnitTestResult executionId="3e0e1bd3-b811-4aae-81ab-57f5035b9c63" testId="b11c6e57-8861-e0dc-3e5e-39761ccda58a" testName="Soma.Platform.Web.IntegrationTests.BlazorComponentIntegrationTests.LoginComponent_ShouldRenderLoginForm" computerName="fv-az788-431" duration="00:00:00.0009592" startTime="2025-06-01T18:36:56.3815932+00:00" endTime="2025-06-01T18:36:56.3815933+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3e0e1bd3-b811-4aae-81ab-57f5035b9c63" />
+    <UnitTestResult executionId="ae0e489d-78e7-4134-af81-788b444c0826" testId="c1efd72e-3cbc-5569-0551-c6163dea920c" testName="Soma.Platform.Web.IntegrationTests.DataProtectionTests.AntiforgeryToken_ShouldBeIncludedInLoginPage" computerName="fv-az788-431" duration="00:00:00.2940812" startTime="2025-06-01T18:36:56.8417229+00:00" endTime="2025-06-01T18:36:56.8417230+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ae0e489d-78e7-4134-af81-788b444c0826" />
+    <UnitTestResult executionId="8650c609-8e4c-4ab9-8499-00658818de27" testId="11c1964e-7bc8-d757-dcae-470477be12c7" testName="Soma.Platform.Web.IntegrationTests.DataProtectionTests.DataProtection_ShouldPersistKeysToFileSystem" computerName="fv-az788-431" duration="00:00:00.0010201" startTime="2025-06-01T18:36:56.8444787+00:00" endTime="2025-06-01T18:36:56.8444788+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8650c609-8e4c-4ab9-8499-00658818de27" />
+    <UnitTestResult executionId="f3ef3e77-df20-49f6-ba94-afc3ddd51ff4" testId="212d88b6-048a-3ebb-b6c5-d4470dcef385" testName="Soma.Platform.Web.IntegrationTests.BlazorComponentIntegrationTests.RegisterPage_AuthenticatedUser_ShouldRedirectToHome" computerName="fv-az788-431" duration="00:00:00.0014326" startTime="2025-06-01T18:36:56.3868676+00:00" endTime="2025-06-01T18:36:56.3868677+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f3ef3e77-df20-49f6-ba94-afc3ddd51ff4" />
+    <UnitTestResult executionId="6481eaed-4cb2-4da4-9ed6-99f8b14f0fe0" testId="1ca3a745-f94d-0d74-f4d9-493dec4f73a8" testName="Soma.Platform.Web.IntegrationTests.DataProtectionTests.DataProtectionKeyDirectory_ShouldExist" computerName="fv-az788-431" duration="00:00:00.0002473" startTime="2025-06-01T18:36:56.8431503+00:00" endTime="2025-06-01T18:36:56.8431504+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6481eaed-4cb2-4da4-9ed6-99f8b14f0fe0" />
+    <UnitTestResult executionId="e90be02f-951c-4d75-999f-e26b8af9c3b0" testId="50dff4dc-1d48-9c7e-a0c5-b5af2e7471da" testName="Soma.Platform.Web.IntegrationTests.DataProtectionTests.DataProtection_ApplicationName_ShouldBeSet" computerName="fv-az788-431" duration="00:00:00.0055954" startTime="2025-06-01T18:36:56.5420026+00:00" endTime="2025-06-01T18:36:56.5420028+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e90be02f-951c-4d75-999f-e26b8af9c3b0" />
+    <UnitTestResult executionId="596524a3-0e11-460a-a3bc-9c57c3692798" testId="c380fa8d-95d1-da34-b665-831ab8610c11" testName="Soma.Platform.Web.IntegrationTests.BlazorComponentIntegrationTests.LoginPage_AuthenticatedUser_ShouldRedirectToHome" computerName="fv-az788-431" duration="00:00:00.0029473" startTime="2025-06-01T18:36:56.3850287+00:00" endTime="2025-06-01T18:36:56.3850289+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="596524a3-0e11-460a-a3bc-9c57c3692798" />
+    <UnitTestResult executionId="a441318b-be5b-4cd0-96fc-68b3cca689d9" testId="d6bdaaa2-991e-51d3-2220-2aae7c6e1b45" testName="Soma.Platform.Web.IntegrationTests.DataProtectionTests.DataProtection_ShouldBeConfigured" computerName="fv-az788-431" duration="00:00:00.3721569" startTime="2025-06-01T18:36:56.5358989+00:00" endTime="2025-06-01T18:36:56.5358991+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a441318b-be5b-4cd0-96fc-68b3cca689d9" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="Soma.Platform.Web.IntegrationTests.DataProtectionTests.DataProtection_ApplicationName_ShouldBeSet" storage="/home/runner/work/soma/soma/tests/soma.platform.web.integrationtests/bin/debug/net8.0/soma.platform.web.integrationtests.dll" id="50dff4dc-1d48-9c7e-a0c5-b5af2e7471da">
+      <Execution id="e90be02f-951c-4d75-999f-e26b8af9c3b0" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Web.IntegrationTests/bin/Debug/net8.0/Soma.Platform.Web.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Web.IntegrationTests.DataProtectionTests" name="DataProtection_ApplicationName_ShouldBeSet" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Web.IntegrationTests.BlazorComponentIntegrationTests.LoginComponent_ShouldRenderLoginForm" storage="/home/runner/work/soma/soma/tests/soma.platform.web.integrationtests/bin/debug/net8.0/soma.platform.web.integrationtests.dll" id="b11c6e57-8861-e0dc-3e5e-39761ccda58a">
+      <Execution id="3e0e1bd3-b811-4aae-81ab-57f5035b9c63" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Web.IntegrationTests/bin/Debug/net8.0/Soma.Platform.Web.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Web.IntegrationTests.BlazorComponentIntegrationTests" name="LoginComponent_ShouldRenderLoginForm" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Web.IntegrationTests.DataProtectionTests.DataProtection_ShouldBeConfigured" storage="/home/runner/work/soma/soma/tests/soma.platform.web.integrationtests/bin/debug/net8.0/soma.platform.web.integrationtests.dll" id="d6bdaaa2-991e-51d3-2220-2aae7c6e1b45">
+      <Execution id="a441318b-be5b-4cd0-96fc-68b3cca689d9" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Web.IntegrationTests/bin/Debug/net8.0/Soma.Platform.Web.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Web.IntegrationTests.DataProtectionTests" name="DataProtection_ShouldBeConfigured" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Web.IntegrationTests.DataProtectionTests.DataProtection_ShouldPersistKeysToFileSystem" storage="/home/runner/work/soma/soma/tests/soma.platform.web.integrationtests/bin/debug/net8.0/soma.platform.web.integrationtests.dll" id="11c1964e-7bc8-d757-dcae-470477be12c7">
+      <Execution id="8650c609-8e4c-4ab9-8499-00658818de27" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Web.IntegrationTests/bin/Debug/net8.0/Soma.Platform.Web.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Web.IntegrationTests.DataProtectionTests" name="DataProtection_ShouldPersistKeysToFileSystem" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Web.IntegrationTests.BlazorComponentIntegrationTests.RegisterPage_AuthenticatedUser_ShouldRedirectToHome" storage="/home/runner/work/soma/soma/tests/soma.platform.web.integrationtests/bin/debug/net8.0/soma.platform.web.integrationtests.dll" id="212d88b6-048a-3ebb-b6c5-d4470dcef385">
+      <Execution id="f3ef3e77-df20-49f6-ba94-afc3ddd51ff4" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Web.IntegrationTests/bin/Debug/net8.0/Soma.Platform.Web.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Web.IntegrationTests.BlazorComponentIntegrationTests" name="RegisterPage_AuthenticatedUser_ShouldRedirectToHome" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Web.IntegrationTests.DataProtectionTests.DataProtectionKeyDirectory_ShouldExist" storage="/home/runner/work/soma/soma/tests/soma.platform.web.integrationtests/bin/debug/net8.0/soma.platform.web.integrationtests.dll" id="1ca3a745-f94d-0d74-f4d9-493dec4f73a8">
+      <Execution id="6481eaed-4cb2-4da4-9ed6-99f8b14f0fe0" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Web.IntegrationTests/bin/Debug/net8.0/Soma.Platform.Web.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Web.IntegrationTests.DataProtectionTests" name="DataProtectionKeyDirectory_ShouldExist" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Web.IntegrationTests.DataProtectionTests.AntiforgeryToken_ShouldBeIncludedInLoginPage" storage="/home/runner/work/soma/soma/tests/soma.platform.web.integrationtests/bin/debug/net8.0/soma.platform.web.integrationtests.dll" id="c1efd72e-3cbc-5569-0551-c6163dea920c">
+      <Execution id="ae0e489d-78e7-4134-af81-788b444c0826" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Web.IntegrationTests/bin/Debug/net8.0/Soma.Platform.Web.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Web.IntegrationTests.DataProtectionTests" name="AntiforgeryToken_ShouldBeIncludedInLoginPage" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Web.IntegrationTests.BlazorComponentIntegrationTests.AuthService_Integration_ShouldCallApiCorrectly" storage="/home/runner/work/soma/soma/tests/soma.platform.web.integrationtests/bin/debug/net8.0/soma.platform.web.integrationtests.dll" id="7cc68ca9-d9fc-6172-f72f-238b8cf5fa82">
+      <Execution id="0a649c44-27cd-4ee5-8f5d-febc99500c48" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Web.IntegrationTests/bin/Debug/net8.0/Soma.Platform.Web.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Web.IntegrationTests.BlazorComponentIntegrationTests" name="AuthService_Integration_ShouldCallApiCorrectly" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Web.IntegrationTests.BlazorComponentIntegrationTests.RegisterComponent_ShouldRenderRegistrationForm" storage="/home/runner/work/soma/soma/tests/soma.platform.web.integrationtests/bin/debug/net8.0/soma.platform.web.integrationtests.dll" id="535faca5-da77-442e-5b7e-d19592f0f4b0">
+      <Execution id="27dbadec-2d6f-4dd6-bf83-466d0c1ed848" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Web.IntegrationTests/bin/Debug/net8.0/Soma.Platform.Web.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Web.IntegrationTests.BlazorComponentIntegrationTests" name="RegisterComponent_ShouldRenderRegistrationForm" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Web.IntegrationTests.BlazorComponentIntegrationTests.LoginPage_AuthenticatedUser_ShouldRedirectToHome" storage="/home/runner/work/soma/soma/tests/soma.platform.web.integrationtests/bin/debug/net8.0/soma.platform.web.integrationtests.dll" id="c380fa8d-95d1-da34-b665-831ab8610c11">
+      <Execution id="596524a3-0e11-460a-a3bc-9c57c3692798" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Web.IntegrationTests/bin/Debug/net8.0/Soma.Platform.Web.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Web.IntegrationTests.BlazorComponentIntegrationTests" name="LoginPage_AuthenticatedUser_ShouldRedirectToHome" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="535faca5-da77-442e-5b7e-d19592f0f4b0" executionId="27dbadec-2d6f-4dd6-bf83-466d0c1ed848" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7cc68ca9-d9fc-6172-f72f-238b8cf5fa82" executionId="0a649c44-27cd-4ee5-8f5d-febc99500c48" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b11c6e57-8861-e0dc-3e5e-39761ccda58a" executionId="3e0e1bd3-b811-4aae-81ab-57f5035b9c63" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c1efd72e-3cbc-5569-0551-c6163dea920c" executionId="ae0e489d-78e7-4134-af81-788b444c0826" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="11c1964e-7bc8-d757-dcae-470477be12c7" executionId="8650c609-8e4c-4ab9-8499-00658818de27" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="212d88b6-048a-3ebb-b6c5-d4470dcef385" executionId="f3ef3e77-df20-49f6-ba94-afc3ddd51ff4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1ca3a745-f94d-0d74-f4d9-493dec4f73a8" executionId="6481eaed-4cb2-4da4-9ed6-99f8b14f0fe0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="50dff4dc-1d48-9c7e-a0c5-b5af2e7471da" executionId="e90be02f-951c-4d75-999f-e26b8af9c3b0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c380fa8d-95d1-da34-b665-831ab8610c11" executionId="596524a3-0e11-460a-a3bc-9c57c3692798" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d6bdaaa2-991e-51d3-2220-2aae7c6e1b45" executionId="a441318b-be5b-4cd0-96fc-68b3cca689d9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="10" executed="10" passed="10" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.4.5+1caef2f33e (64-bit .NET 8.0.16)
+[xUnit.net 00:00:00.91]   Discovering: Soma.Platform.Web.IntegrationTests
+[xUnit.net 00:00:00.95]   Discovered:  Soma.Platform.Web.IntegrationTests
+[xUnit.net 00:00:00.96]   Starting:    Soma.Platform.Web.IntegrationTests
+[xUnit.net 00:00:01.72]   Finished:    Soma.Platform.Web.IntegrationTests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: soma-web
+  namespace: soma-platform
+  labels:
+    app: soma-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: soma-web
+  template:
+    metadata:
+      labels:
+        app: soma-web
+    spec:
+      containers:
+      - name: soma-web
+        image: soma-web:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+          name: http
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          valueFrom:
+            configMapKeyRef:
+              name: soma-web-config
+              key: ASPNETCORE_ENVIRONMENT
+        - name: ASPNETCORE_URLS
+          valueFrom:
+            configMapKeyRef:
+              name: soma-web-config
+              key: ASPNETCORE_URLS
+        - name: ApiService__BaseUrl
+          valueFrom:
+            configMapKeyRef:
+              name: soma-web-config
+              key: ApiService__BaseUrl
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          failureThreshold: 3
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: soma-web-service
+  namespace: soma-platform
+  labels:
+    app: soma-web
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  selector:
+    app: soma-web

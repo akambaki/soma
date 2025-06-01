@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="6f1719be-7b6e-47e1-9e1d-ebc65213932a" name="@fv-az788-431 2025-06-01 18:40:11" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2025-06-01T18:40:11.6845215+00:00" queuing="2025-06-01T18:40:11.6845216+00:00" start="2025-06-01T18:40:09.8568974+00:00" finish="2025-06-01T18:40:11.6955532+00:00" />
+  <TestSettings name="default" id="2be1b80c-9208-4069-a9ac-5527891cbf4b">
+    <Deployment runDeploymentRoot="_fv-az788-431_2025-06-01_18_40_11" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="6cdc4061-57b0-48c1-b357-a3eba9cef9a3" testId="f416e3ee-8d8f-a08c-0e30-8f12f5959115" testName="Soma.Platform.Web.Tests.Services.AuthServiceTests.CurrentToken_WhenNoToken_ShouldReturnNull" computerName="fv-az788-431" duration="00:00:00.0011796" startTime="2025-06-01T18:40:11.5466023+00:00" endTime="2025-06-01T18:40:11.5466024+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6cdc4061-57b0-48c1-b357-a3eba9cef9a3" />
+    <UnitTestResult executionId="04fcb979-8ef1-44b1-ae79-06749da09c70" testId="fdae5040-b77a-22b7-09f9-97ea8b13dd61" testName="Soma.Platform.Web.Tests.Services.EmailVerificationLoginTests.LoginAsync_WithUnverifiedEmail_ShouldReturnCorrectErrorMessage" computerName="fv-az788-431" duration="00:00:00.1046708" startTime="2025-06-01T18:40:11.5198886+00:00" endTime="2025-06-01T18:40:11.5199403+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="04fcb979-8ef1-44b1-ae79-06749da09c70" />
+    <UnitTestResult executionId="1acf7dea-3478-4d92-9104-7c7de3e17382" testId="d4153468-b0d3-0e9b-ec51-4d0c68a8dffc" testName="Soma.Platform.Web.Tests.Services.AuthServiceTests.RegisterAsync_WithValidData_ShouldReturnSuccess" computerName="fv-az788-431" duration="00:00:00.0046326" startTime="2025-06-01T18:40:11.5453379+00:00" endTime="2025-06-01T18:40:11.5453381+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1acf7dea-3478-4d92-9104-7c7de3e17382" />
+    <UnitTestResult executionId="2e5e00b4-696c-438d-87cf-d625a64787da" testId="9cf4e35b-900a-48fb-9ff9-6e68624f7fe0" testName="Soma.Platform.Web.Tests.Services.AuthServiceTests.LoginAsync_WithValidCredentials_ShouldReturnSuccess" computerName="fv-az788-431" duration="00:00:00.1303721" startTime="2025-06-01T18:40:11.5406311+00:00" endTime="2025-06-01T18:40:11.5406312+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2e5e00b4-696c-438d-87cf-d625a64787da" />
+    <UnitTestResult executionId="fef3b1c7-a4df-4913-a320-04839d004911" testId="655140b0-eac7-a31a-0a4c-c8a0f520f5da" testName="Soma.Platform.Web.Tests.Services.EmailVerificationLoginTests.LoginAsync_WithBackendError_ShouldReturnApiErrorMessage" computerName="fv-az788-431" duration="00:00:00.0028030" startTime="2025-06-01T18:40:11.5258382+00:00" endTime="2025-06-01T18:40:11.5258383+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fef3b1c7-a4df-4913-a320-04839d004911" />
+    <UnitTestResult executionId="3690e11f-e5c3-4e63-887e-c2d8eb24db17" testId="13fa97dd-c4a4-6036-e647-3c903f4a8990" testName="Soma.Platform.Web.Tests.Services.AuthServiceTests.IsAuthenticated_WhenNoToken_ShouldReturnFalse" computerName="fv-az788-431" duration="00:00:00.0004837" startTime="2025-06-01T18:40:11.5472220+00:00" endTime="2025-06-01T18:40:11.5472221+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3690e11f-e5c3-4e63-887e-c2d8eb24db17" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="Soma.Platform.Web.Tests.Services.EmailVerificationLoginTests.LoginAsync_WithBackendError_ShouldReturnApiErrorMessage" storage="/home/runner/work/soma/soma/tests/soma.platform.web.tests/bin/debug/net8.0/soma.platform.web.tests.dll" id="655140b0-eac7-a31a-0a4c-c8a0f520f5da">
+      <Execution id="fef3b1c7-a4df-4913-a320-04839d004911" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Web.Tests/bin/Debug/net8.0/Soma.Platform.Web.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Web.Tests.Services.EmailVerificationLoginTests" name="LoginAsync_WithBackendError_ShouldReturnApiErrorMessage" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Web.Tests.Services.AuthServiceTests.IsAuthenticated_WhenNoToken_ShouldReturnFalse" storage="/home/runner/work/soma/soma/tests/soma.platform.web.tests/bin/debug/net8.0/soma.platform.web.tests.dll" id="13fa97dd-c4a4-6036-e647-3c903f4a8990">
+      <Execution id="3690e11f-e5c3-4e63-887e-c2d8eb24db17" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Web.Tests/bin/Debug/net8.0/Soma.Platform.Web.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Web.Tests.Services.AuthServiceTests" name="IsAuthenticated_WhenNoToken_ShouldReturnFalse" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Web.Tests.Services.AuthServiceTests.CurrentToken_WhenNoToken_ShouldReturnNull" storage="/home/runner/work/soma/soma/tests/soma.platform.web.tests/bin/debug/net8.0/soma.platform.web.tests.dll" id="f416e3ee-8d8f-a08c-0e30-8f12f5959115">
+      <Execution id="6cdc4061-57b0-48c1-b357-a3eba9cef9a3" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Web.Tests/bin/Debug/net8.0/Soma.Platform.Web.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Web.Tests.Services.AuthServiceTests" name="CurrentToken_WhenNoToken_ShouldReturnNull" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Web.Tests.Services.AuthServiceTests.RegisterAsync_WithValidData_ShouldReturnSuccess" storage="/home/runner/work/soma/soma/tests/soma.platform.web.tests/bin/debug/net8.0/soma.platform.web.tests.dll" id="d4153468-b0d3-0e9b-ec51-4d0c68a8dffc">
+      <Execution id="1acf7dea-3478-4d92-9104-7c7de3e17382" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Web.Tests/bin/Debug/net8.0/Soma.Platform.Web.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Web.Tests.Services.AuthServiceTests" name="RegisterAsync_WithValidData_ShouldReturnSuccess" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Web.Tests.Services.EmailVerificationLoginTests.LoginAsync_WithUnverifiedEmail_ShouldReturnCorrectErrorMessage" storage="/home/runner/work/soma/soma/tests/soma.platform.web.tests/bin/debug/net8.0/soma.platform.web.tests.dll" id="fdae5040-b77a-22b7-09f9-97ea8b13dd61">
+      <Execution id="04fcb979-8ef1-44b1-ae79-06749da09c70" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Web.Tests/bin/Debug/net8.0/Soma.Platform.Web.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Web.Tests.Services.EmailVerificationLoginTests" name="LoginAsync_WithUnverifiedEmail_ShouldReturnCorrectErrorMessage" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Web.Tests.Services.AuthServiceTests.LoginAsync_WithValidCredentials_ShouldReturnSuccess" storage="/home/runner/work/soma/soma/tests/soma.platform.web.tests/bin/debug/net8.0/soma.platform.web.tests.dll" id="9cf4e35b-900a-48fb-9ff9-6e68624f7fe0">
+      <Execution id="2e5e00b4-696c-438d-87cf-d625a64787da" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Web.Tests/bin/Debug/net8.0/Soma.Platform.Web.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Web.Tests.Services.AuthServiceTests" name="LoginAsync_WithValidCredentials_ShouldReturnSuccess" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="f416e3ee-8d8f-a08c-0e30-8f12f5959115" executionId="6cdc4061-57b0-48c1-b357-a3eba9cef9a3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fdae5040-b77a-22b7-09f9-97ea8b13dd61" executionId="04fcb979-8ef1-44b1-ae79-06749da09c70" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d4153468-b0d3-0e9b-ec51-4d0c68a8dffc" executionId="1acf7dea-3478-4d92-9104-7c7de3e17382" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9cf4e35b-900a-48fb-9ff9-6e68624f7fe0" executionId="2e5e00b4-696c-438d-87cf-d625a64787da" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="655140b0-eac7-a31a-0a4c-c8a0f520f5da" executionId="fef3b1c7-a4df-4913-a320-04839d004911" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="13fa97dd-c4a4-6036-e647-3c903f4a8990" executionId="3690e11f-e5c3-4e63-887e-c2d8eb24db17" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="6" executed="6" passed="6" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.4.5+1caef2f33e (64-bit .NET 8.0.16)
+[xUnit.net 00:00:00.80]   Discovering: Soma.Platform.Web.Tests
+[xUnit.net 00:00:00.83]   Discovered:  Soma.Platform.Web.Tests
+[xUnit.net 00:00:00.84]   Starting:    Soma.Platform.Web.Tests
+[xUnit.net 00:00:01.03]   Finished:    Soma.Platform.Web.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

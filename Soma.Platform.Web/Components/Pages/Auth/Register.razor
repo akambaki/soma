@@ -1,0 +1,197 @@
+@page "/register"
+@using Microsoft.AspNetCore.Components.Authorization
+@using Soma.Platform.Core.DTOs
+@using Soma.Platform.Web.Services
+@inject IAuthService AuthService
+@inject NavigationManager Navigation
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@rendermode InteractiveServer
+
+<div class="min-vh-100 d-flex align-items-center justify-content-center bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-7">
+                <div class="card shadow-sm">
+                    <div class="card-body p-5">
+                        <div class="text-center mb-4">
+                            <h2 class="fw-bold">Join SOMA</h2>
+                            <p class="text-muted">Create your account to get started</p>
+                        </div>
+
+                        @if (registrationSuccess)
+                        {
+                            <div class="alert alert-success" role="alert">
+                                <h5 class="alert-heading">Registration Successful!</h5>
+                                <p>Your account has been created successfully. Please check your email for a verification link to activate your account.</p>
+                                <hr>
+                                <p class="mb-0">
+                                    <a href="/login" class="btn btn-outline-success">Go to Login</a>
+                                </p>
+                            </div>
+                        }
+                        else
+                        {
+                            <EditForm Model="@registerModel" OnValidSubmit="@HandleRegister" FormName="RegisterForm">
+                                <DataAnnotationsValidator />
+                                <ValidationSummary class="text-danger mb-3" />
+
+                                @if (!string.IsNullOrEmpty(errorMessage))
+                                {
+                                    <div class="alert alert-danger" role="alert">
+                                        @errorMessage
+                                    </div>
+                                }
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="firstName" class="form-label">First Name</label>
+                                        <InputText @bind-Value="registerModel.FirstName" 
+                                                  class="form-control" 
+                                                  id="firstName" 
+                                                  placeholder="Enter your first name" />
+                                        <ValidationMessage For="@(() => registerModel.FirstName)" />
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="lastName" class="form-label">Last Name</label>
+                                        <InputText @bind-Value="registerModel.LastName" 
+                                                  class="form-control" 
+                                                  id="lastName" 
+                                                  placeholder="Enter your last name" />
+                                        <ValidationMessage For="@(() => registerModel.LastName)" />
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+                                    <InputText @bind-Value="registerModel.Email" 
+                                              type="email" 
+                                              class="form-control" 
+                                              id="email" 
+                                              placeholder="Enter your email address" />
+                                    <ValidationMessage For="@(() => registerModel.Email)" />
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="phoneNumber" class="form-label">Phone Number (Optional)</label>
+                                    <InputText @bind-Value="registerModel.PhoneNumber" 
+                                              type="tel" 
+                                              class="form-control" 
+                                              id="phoneNumber" 
+                                              placeholder="Enter your phone number" />
+                                    <ValidationMessage For="@(() => registerModel.PhoneNumber)" />
+                                    <div class="form-text">You can use your phone number to log in as an alternative to email</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <InputText @bind-Value="registerModel.Password" 
+                                              type="password" 
+                                              class="form-control" 
+                                              id="password" 
+                                              placeholder="Create a strong password" />
+                                    <ValidationMessage For="@(() => registerModel.Password)" />
+                                    <div class="form-text">
+                                        Password must contain at least 8 characters with uppercase, lowercase, number, and special character
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <div class="form-check">
+                                        <InputCheckbox @bind-Value="registerModel.AcceptTerms" 
+                                                      class="form-check-input" 
+                                                      id="acceptTerms" />
+                                        <label class="form-check-label" for="acceptTerms">
+                                            I accept the <a href="/terms" class="text-decoration-none" target="_blank">Terms of Service</a> 
+                                            and <a href="/privacy" class="text-decoration-none" target="_blank">Privacy Policy</a>
+                                        </label>
+                                        <ValidationMessage For="@(() => registerModel.AcceptTerms)" />
+                                    </div>
+                                </div>
+
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary btn-lg" disabled="@isLoading">
+                                        @if (isLoading)
+                                        {
+                                            <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                                            <span>Creating account...</span>
+                                        }
+                                        else
+                                        {
+                                            <span>Create Account</span>
+                                        }
+                                    </button>
+                                </div>
+                            </EditForm>
+
+                            <hr class="my-4">
+
+                            <div class="text-center">
+                                <p class="mb-2">Or sign up with</p>
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-outline-danger" disabled>
+                                        <i class="fab fa-google me-2"></i>
+                                        Continue with Google
+                                    </button>
+                                    <button class="btn btn-outline-dark" disabled>
+                                        <i class="fab fa-apple me-2"></i>
+                                        Continue with Apple
+                                    </button>
+                                </div>
+                                <small class="text-muted d-block mt-2">OAuth providers coming soon</small>
+                            </div>
+
+                            <div class="text-center mt-4">
+                                <p class="mb-0">Already have an account? <a href="/login" class="text-decoration-none fw-bold">Sign in</a></p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private RegisterDto registerModel = new();
+    private string? errorMessage;
+    private bool isLoading = false;
+    private bool registrationSuccess = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Redirect authenticated users to home page
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        if (authState.User.Identity?.IsAuthenticated == true)
+        {
+            Navigation.NavigateTo("/", true);
+        }
+    }
+
+    private async Task HandleRegister()
+    {
+        try
+        {
+            isLoading = true;
+            errorMessage = null;
+
+            var result = await AuthService.RegisterAsync(registerModel);
+
+            if (result.Success)
+            {
+                registrationSuccess = true;
+            }
+            else
+            {
+                errorMessage = result.ErrorMessage;
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "An unexpected error occurred. Please try again.";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+}

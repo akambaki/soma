@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/Soma.Platform.Web.props" />
+</Project>

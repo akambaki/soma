@@ -1,0 +1,73 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: soma-platform
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: soma-postgres-pv
+  namespace: soma-platform
+spec:
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  hostPath:
+    path: /Users/e.bongo/Documents/soma/soma-volume/postgres
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: soma-postgres-pvc
+  namespace: soma-platform
+spec:
+  accessModes:
+  - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: local-storage
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: soma-postgres-secret
+  namespace: soma-platform
+type: Opaque
+data:
+  # Base64 encoded values
+  # username: soma (c29tYQ==)
+  # password: SomaPass123! (U29tYVBhc3MxMjMh)
+  # database: soma (c29tYQ==)
+  username: c29tYQ==
+  password: U29tYVBhc3MxMjMh
+  database: c29tYQ==
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: soma-api-config
+  namespace: soma-platform
+data:
+  ConnectionStrings__DefaultConnection: "Host=soma-postgres-service;Database=soma;Username=soma;Password=SomaPass123!;Port=5432"
+  DatabaseProvider: "postgresql"
+  Jwt__Key: "SomaSecretKeyForJWTTokenGeneration2024!"
+  Jwt__Issuer: "Soma.Platform"
+  Jwt__Audience: "Soma.Platform.Users"
+  ASPNETCORE_ENVIRONMENT: "Development"
+  ASPNETCORE_URLS: "http://+:8080"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: soma-web-config
+  namespace: soma-platform
+data:
+  ASPNETCORE_ENVIRONMENT: "Development"
+  ASPNETCORE_URLS: "http://+:8080"
+  ApiService__BaseUrl: "http://soma-api-service:8080"

@@ -6,6 +6,24 @@
 
 ---
 
+## 🔄 CI/CD Status
+
+The SOMA platform includes comprehensive automated testing and deployment pipelines:
+
+[![CI/CD Pipeline](https://github.com/akambaki/soma/actions/workflows/ci.yml/badge.svg)](https://github.com/akambaki/soma/actions/workflows/ci.yml)
+[![PR Validation](https://github.com/akambaki/soma/actions/workflows/pr-validation.yml/badge.svg)](https://github.com/akambaki/soma/actions/workflows/pr-validation.yml)
+[![Nightly Tests](https://github.com/akambaki/soma/actions/workflows/nightly-tests.yml/badge.svg)](https://github.com/akambaki/soma/actions/workflows/nightly-tests.yml)
+
+- **✅ Continuous Integration**: Automated testing on every commit (Unit, Integration, E2E)
+- **🚀 Pull Request Validation**: Fast feedback for code contributions  
+- **🌙 Nightly Regression Tests**: Comprehensive testing and security scans
+- **📊 Test Coverage**: Code coverage tracking and reporting
+- **🛡️ Security Scanning**: Automated vulnerability detection
+
+See [GitHub Actions Documentation](.github/GITHUB_ACTIONS.md) for detailed CI/CD information.
+
+---
+
 ## Quick Jump (sidebar)
 
 1. Rationale & Vision
