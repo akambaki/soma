@@ -36,10 +36,14 @@ public class AuthService : IAuthService
 
     public async Task<AuthenticationResult> LoginAsync(LoginDto loginDto)
     {
+        Console.WriteLine($"AuthService.LoginAsync called for: {loginDto.EmailOrPhone}");
         var response = await _apiService.PostAsync<LoginResponse>("api/auth/login", loginDto);
+        Console.WriteLine($"API response - Success: {response.Success}, Error: {response.ErrorMessage}");
         
         if (response.Success && response.Data != null)
         {
+            Console.WriteLine($"API response data - Token: {(string.IsNullOrEmpty(response.Data.Token) ? "null" : "present")}, RequiresTwoFactor: {response.Data.RequiresTwoFactor}, RequiresEmailVerification: {response.Data.RequiresEmailVerification}");
+            
             if (response.Data.RequiresTwoFactor)
             {
                 return new AuthenticationResult 
@@ -62,11 +66,13 @@ public class AuthService : IAuthService
 
             if (!string.IsNullOrEmpty(response.Data.Token))
             {
+                Console.WriteLine("Saving token and updating authentication state");
                 await SaveTokenAsync(response.Data.Token);
                 return new AuthenticationResult { Success = true };
             }
         }
 
+        Console.WriteLine($"Login failed - returning error: {response.ErrorMessage ?? "Login failed"}");
         return new AuthenticationResult 
         { 
             Success = false, 
@@ -110,14 +116,22 @@ public class AuthService : IAuthService
 
     private async Task SaveTokenAsync(string token)
     {
+        Console.WriteLine($"SaveTokenAsync called with token length: {token?.Length ?? 0}");
         CurrentToken = token;
         await _localStorage.SetItemAsync("authToken", token);
         _apiService.SetAuthToken(token);
         
+        Console.WriteLine("Token saved to localStorage and API service");
+        
         // Notify authentication state has changed
         if (_authenticationStateProvider is CustomAuthenticationStateProvider customProvider)
         {
+            Console.WriteLine("Notifying authentication state provider");
             await customProvider.NotifyUserAuthentication(token);
+        }
+        else
+        {
+            Console.WriteLine("Warning: Authentication state provider is not CustomAuthenticationStateProvider");
         }
     }
 
@@ -136,11 +150,14 @@ public class AuthService : IAuthService
 
     public async Task InitializeAsync()
     {
+        Console.WriteLine("AuthService.InitializeAsync called");
         var token = await _localStorage.GetItemAsync<string>("authToken");
+        Console.WriteLine($"Retrieved token from storage: {(string.IsNullOrEmpty(token) ? "null/empty" : "present")}");
         if (!string.IsNullOrEmpty(token))
         {
             CurrentToken = token;
             _apiService.SetAuthToken(token);
+            Console.WriteLine("Token set in API service");
         }
     }
 }
@@ -195,29 +212,78 @@ public interface ILocalStorageService
     Task RemoveItemAsync(string key);
 }
 
-// Simple in-memory implementation for now
+// Session-based implementation for Blazor Server
 public class LocalStorageService : ILocalStorageService
 {
-    private readonly Dictionary<string, string> _storage = new();
+    private readonly IHttpContextAccessor _httpContextAccessor;
+
+    public LocalStorageService(IHttpContextAccessor httpContextAccessor)
+    {
+        _httpContextAccessor = httpContextAccessor;
+    }
 
     public Task<T?> GetItemAsync<T>(string key)
     {
-        if (_storage.TryGetValue(key, out var value))
+        var session = _httpContextAccessor.HttpContext?.Session;
+        if (session == null)
+        {
+            Console.WriteLine("Warning: Session is null in LocalStorageService.GetItemAsync");
+            return Task.FromResult<T?>(default);
+        }
+
+        var value = session.GetString(key);
+        Console.WriteLine($"LocalStorageService.GetItemAsync - Key: {key}, Value: {(string.IsNullOrEmpty(value) ? "null/empty" : "present")}");
+        
+        if (string.IsNullOrEmpty(value))
+        {
+            return Task.FromResult<T?>(default);
+        }
+        
+        try
         {
             return Task.FromResult(JsonSerializer.Deserialize<T>(value));
         }
-        return Task.FromResult<T?>(default);
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error deserializing from session: {ex.Message}");
+            return Task.FromResult<T?>(default);
+        }
     }
 
     public Task SetItemAsync<T>(string key, T value)
     {
-        _storage[key] = JsonSerializer.Serialize(value);
+        var session = _httpContextAccessor.HttpContext?.Session;
+        if (session == null)
+        {
+            Console.WriteLine("Warning: Session is null in LocalStorageService.SetItemAsync");
+            return Task.CompletedTask;
+        }
+
+        try
+        {
+            var serializedValue = JsonSerializer.Serialize(value);
+            session.SetString(key, serializedValue);
+            Console.WriteLine($"LocalStorageService.SetItemAsync - Key: {key}, Value stored successfully");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error serializing to session: {ex.Message}");
+        }
+        
         return Task.CompletedTask;
     }
 
     public Task RemoveItemAsync(string key)
     {
-        _storage.Remove(key);
+        var session = _httpContextAccessor.HttpContext?.Session;
+        if (session == null)
+        {
+            Console.WriteLine("Warning: Session is null in LocalStorageService.RemoveItemAsync");
+            return Task.CompletedTask;
+        }
+
+        session.Remove(key);
+        Console.WriteLine($"LocalStorageService.RemoveItemAsync - Key: {key} removed");
         return Task.CompletedTask;
     }
 }

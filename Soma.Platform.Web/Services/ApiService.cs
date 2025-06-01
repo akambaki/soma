@@ -23,7 +23,8 @@ public class ApiService : IApiService
         _httpClient = httpClient;
         _configuration = configuration;
         
-        var baseUrl = _configuration["ApiService:BaseUrl"] ?? "https://localhost:7073";
+        var baseUrl = _configuration["ApiService:BaseUrl"] ?? "https://localhost:7222";
+        Console.WriteLine($"ApiService configured with base URL: {baseUrl}");
         _httpClient.BaseAddress = new Uri(baseUrl);
     }
 
@@ -45,8 +46,12 @@ public class ApiService : IApiService
             var json = JsonSerializer.Serialize(data);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             
+            Console.WriteLine($"Making API call to: {_httpClient.BaseAddress}{endpoint}");
             var response = await _httpClient.PostAsync(endpoint, content);
             var responseContent = await response.Content.ReadAsStringAsync();
+            
+            Console.WriteLine($"API Response - Status: {response.StatusCode}, IsSuccess: {response.IsSuccessStatusCode}");
+            Console.WriteLine($"API Response Content: {responseContent}");
 
             if (response.IsSuccessStatusCode)
             {
@@ -71,6 +76,7 @@ public class ApiService : IApiService
         }
         catch (Exception ex)
         {
+            Console.WriteLine($"API Exception: {ex.Message}");
             return new ApiResponse<T> 
             { 
                 Success = false, 
