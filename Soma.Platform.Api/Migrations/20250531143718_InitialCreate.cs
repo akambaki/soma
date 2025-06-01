@@ -53,7 +53,7 @@ namespace Soma.Platform.Api.Migrations
                     PhoneNumber = table.Column<string>(type: "TEXT", nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(type: "BOOLEAN", nullable: false),
                     TwoFactorEnabled = table.Column<bool>(type: "BOOLEAN", nullable: false),
-                    LockoutEnd = table.Column<DateTime>(type: "DATE", nullable: true),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "DATE", nullable: true),
                     LockoutEnabled = table.Column<bool>(type: "BOOLEAN", nullable: false),
                     AccessFailedCount = table.Column<int>(type: "INTEGER", nullable: false)
                 },

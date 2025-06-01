@@ -195,7 +195,7 @@ namespace Soma.Platform.Api.Migrations
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("BOOLEAN");
 
-                    b.Property<DateTime?>("LockoutEnd")
+                    b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("DATE");
 
                     b.Property<string>("NormalizedEmail")
