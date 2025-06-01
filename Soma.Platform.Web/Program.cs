@@ -27,18 +27,8 @@ builder.Logging.SetMinimumLevel(LogLevel.Information);
 // Add HTTP client
 builder.Services.AddHttpClient<IApiService, ApiService>();
 
-// Add session support for Blazor Server
-builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(options =>
-{
-    options.IdleTimeout = TimeSpan.FromMinutes(30);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
-});
-builder.Services.AddHttpContextAccessor();
-
 // Add authentication services
-builder.Services.AddScoped<ILocalStorageService, LocalStorageService>();
+builder.Services.AddSingleton<ILocalStorageService, LocalStorageService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 builder.Services.AddCascadingAuthenticationState();
@@ -64,9 +54,6 @@ if (!app.Environment.IsProduction() && Environment.GetEnvironmentVariable("DOTNE
 
 app.UseStaticFiles();
 app.UseAntiforgery();
-
-// Use session before authentication
-app.UseSession();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();

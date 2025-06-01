@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="2bd93e0b-f3f0-4926-9a27-14a3d19c2366" name="@fv-az788-431 2025-06-01 18:36:55" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2025-06-01T18:36:55.2344875+00:00" queuing="2025-06-01T18:36:55.2344876+00:00" start="2025-06-01T18:36:49.8313823+00:00" finish="2025-06-01T18:36:57.0927346+00:00" />
+  <TestSettings name="default" id="443ea64f-6492-4420-a136-e4713dc540b8">
+    <Deployment runDeploymentRoot="_fv-az788-431_2025-06-01_18_36_55" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="21b0c0e4-7a8b-47b1-84b4-3947991491b1" testId="fd060d58-4a39-61d9-42da-05ffd13e9307" testName="Soma.Platform.Api.IntegrationTests.AuthIntegrationTests.POST_Register_WithDuplicateEmail_ReturnsBadRequest" computerName="fv-az788-431" duration="00:00:00.2012440" startTime="2025-06-01T18:36:56.9757589+00:00" endTime="2025-06-01T18:36:56.9757591+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="21b0c0e4-7a8b-47b1-84b4-3947991491b1" />
+    <UnitTestResult executionId="7d57f460-0a0b-4741-af8d-24abf1c9660c" testId="f39e6ddb-0ced-9e65-67d2-67c1227a8a11" testName="Soma.Platform.Api.IntegrationTests.AuthIntegrationTests.GET_Profile_WithoutAuthentication_ReturnsUnauthorized" computerName="fv-az788-431" duration="00:00:00.0468056" startTime="2025-06-01T18:36:55.9585865+00:00" endTime="2025-06-01T18:36:55.9585867+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7d57f460-0a0b-4741-af8d-24abf1c9660c" />
+    <UnitTestResult executionId="6081bd43-bdea-405b-9567-f6ec6e6cbf2a" testId="45f91183-902d-c44f-b6ed-cc3b2a338707" testName="Soma.Platform.Api.IntegrationTests.AuthIntegrationTests.POST_Register_WithInvalidData_ReturnsBadRequest" computerName="fv-az788-431" duration="00:00:00.0748244" startTime="2025-06-01T18:36:56.0335663+00:00" endTime="2025-06-01T18:36:56.0335666+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6081bd43-bdea-405b-9567-f6ec6e6cbf2a" />
+    <UnitTestResult executionId="b4e310ef-8445-4d91-b6b0-63aff53c4067" testId="6ced9ccd-4fa3-ff09-db53-7a94c637f0e6" testName="Soma.Platform.Api.IntegrationTests.AuthIntegrationTests.GET_Health_ReturnsOk" computerName="fv-az788-431" duration="00:00:00.1034341" startTime="2025-06-01T18:36:55.3024470+00:00" endTime="2025-06-01T18:36:55.3024472+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b4e310ef-8445-4d91-b6b0-63aff53c4067" />
+    <UnitTestResult executionId="54dcc3e0-cb26-4c81-a763-21709637e903" testId="be485be1-395e-ee28-6a62-38cc56bf33fe" testName="Soma.Platform.Api.IntegrationTests.AuthIntegrationTests.POST_Login_WithInvalidCredentials_ReturnsUnauthorized" computerName="fv-az788-431" duration="00:00:02.0460747" startTime="2025-06-01T18:36:55.1941513+00:00" endTime="2025-06-01T18:36:55.1942067+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="54dcc3e0-cb26-4c81-a763-21709637e903" />
+    <UnitTestResult executionId="67e9170c-481f-4693-bcf3-893ac9970f7a" testId="765a3e59-8aad-5ca0-ffb8-96ae57a9c56b" testName="Soma.Platform.Api.IntegrationTests.AuthIntegrationTests.POST_Register_WithValidData_ReturnsOk" computerName="fv-az788-431" duration="00:00:00.2179202" startTime="2025-06-01T18:36:55.5212085+00:00" endTime="2025-06-01T18:36:55.5212088+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="67e9170c-481f-4693-bcf3-893ac9970f7a" />
+    <UnitTestResult executionId="9b40ae13-e3aa-469f-b5e7-79eea7da5c02" testId="abbc2744-87d9-08f4-8719-169152455655" testName="Soma.Platform.Api.IntegrationTests.AuthIntegrationTests.Complete_UserRegistration_LoginFlow_ShouldWork" computerName="fv-az788-431" duration="00:00:00.4594343" startTime="2025-06-01T18:36:56.4931727+00:00" endTime="2025-06-01T18:36:56.4931729+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9b40ae13-e3aa-469f-b5e7-79eea7da5c02" />
+    <UnitTestResult executionId="94c14414-e400-41d2-bdd3-d74c6b59d7cb" testId="5322c002-9fce-b1b0-7830-07e1c4c8c499" testName="Soma.Platform.Api.IntegrationTests.AuthIntegrationTests.POST_Register_Then_Login_WithUnverifiedEmail_ShouldReturnEmailVerificationRequired" computerName="fv-az788-431" duration="00:00:00.3910230" startTime="2025-06-01T18:36:55.9116214+00:00" endTime="2025-06-01T18:36:55.9116216+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="94c14414-e400-41d2-bdd3-d74c6b59d7cb" />
+    <UnitTestResult executionId="9a7529a8-5fbe-4e89-a54d-f4512ea7ee55" testId="8de29385-ea7a-b133-e444-f6d04e91b09f" testName="Soma.Platform.Api.IntegrationTests.AuthIntegrationTests.POST_Register_Then_Login_WithValidCredentials_ReturnsToken" computerName="fv-az788-431" duration="00:00:00.2796371" startTime="2025-06-01T18:36:56.7737494+00:00" endTime="2025-06-01T18:36:56.7737496+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9a7529a8-5fbe-4e89-a54d-f4512ea7ee55" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="Soma.Platform.Api.IntegrationTests.AuthIntegrationTests.POST_Register_WithDuplicateEmail_ReturnsBadRequest" storage="/home/runner/work/soma/soma/tests/soma.platform.api.integrationtests/bin/debug/net8.0/soma.platform.api.integrationtests.dll" id="fd060d58-4a39-61d9-42da-05ffd13e9307">
+      <Execution id="21b0c0e4-7a8b-47b1-84b4-3947991491b1" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Api.IntegrationTests/bin/Debug/net8.0/Soma.Platform.Api.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Api.IntegrationTests.AuthIntegrationTests" name="POST_Register_WithDuplicateEmail_ReturnsBadRequest" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Api.IntegrationTests.AuthIntegrationTests.POST_Register_Then_Login_WithValidCredentials_ReturnsToken" storage="/home/runner/work/soma/soma/tests/soma.platform.api.integrationtests/bin/debug/net8.0/soma.platform.api.integrationtests.dll" id="8de29385-ea7a-b133-e444-f6d04e91b09f">
+      <Execution id="9a7529a8-5fbe-4e89-a54d-f4512ea7ee55" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Api.IntegrationTests/bin/Debug/net8.0/Soma.Platform.Api.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Api.IntegrationTests.AuthIntegrationTests" name="POST_Register_Then_Login_WithValidCredentials_ReturnsToken" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Api.IntegrationTests.AuthIntegrationTests.GET_Profile_WithoutAuthentication_ReturnsUnauthorized" storage="/home/runner/work/soma/soma/tests/soma.platform.api.integrationtests/bin/debug/net8.0/soma.platform.api.integrationtests.dll" id="f39e6ddb-0ced-9e65-67d2-67c1227a8a11">
+      <Execution id="7d57f460-0a0b-4741-af8d-24abf1c9660c" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Api.IntegrationTests/bin/Debug/net8.0/Soma.Platform.Api.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Api.IntegrationTests.AuthIntegrationTests" name="GET_Profile_WithoutAuthentication_ReturnsUnauthorized" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Api.IntegrationTests.AuthIntegrationTests.POST_Register_WithInvalidData_ReturnsBadRequest" storage="/home/runner/work/soma/soma/tests/soma.platform.api.integrationtests/bin/debug/net8.0/soma.platform.api.integrationtests.dll" id="45f91183-902d-c44f-b6ed-cc3b2a338707">
+      <Execution id="6081bd43-bdea-405b-9567-f6ec6e6cbf2a" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Api.IntegrationTests/bin/Debug/net8.0/Soma.Platform.Api.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Api.IntegrationTests.AuthIntegrationTests" name="POST_Register_WithInvalidData_ReturnsBadRequest" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Api.IntegrationTests.AuthIntegrationTests.Complete_UserRegistration_LoginFlow_ShouldWork" storage="/home/runner/work/soma/soma/tests/soma.platform.api.integrationtests/bin/debug/net8.0/soma.platform.api.integrationtests.dll" id="abbc2744-87d9-08f4-8719-169152455655">
+      <Execution id="9b40ae13-e3aa-469f-b5e7-79eea7da5c02" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Api.IntegrationTests/bin/Debug/net8.0/Soma.Platform.Api.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Api.IntegrationTests.AuthIntegrationTests" name="Complete_UserRegistration_LoginFlow_ShouldWork" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Api.IntegrationTests.AuthIntegrationTests.POST_Login_WithInvalidCredentials_ReturnsUnauthorized" storage="/home/runner/work/soma/soma/tests/soma.platform.api.integrationtests/bin/debug/net8.0/soma.platform.api.integrationtests.dll" id="be485be1-395e-ee28-6a62-38cc56bf33fe">
+      <Execution id="54dcc3e0-cb26-4c81-a763-21709637e903" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Api.IntegrationTests/bin/Debug/net8.0/Soma.Platform.Api.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Api.IntegrationTests.AuthIntegrationTests" name="POST_Login_WithInvalidCredentials_ReturnsUnauthorized" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Api.IntegrationTests.AuthIntegrationTests.POST_Register_Then_Login_WithUnverifiedEmail_ShouldReturnEmailVerificationRequired" storage="/home/runner/work/soma/soma/tests/soma.platform.api.integrationtests/bin/debug/net8.0/soma.platform.api.integrationtests.dll" id="5322c002-9fce-b1b0-7830-07e1c4c8c499">
+      <Execution id="94c14414-e400-41d2-bdd3-d74c6b59d7cb" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Api.IntegrationTests/bin/Debug/net8.0/Soma.Platform.Api.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Api.IntegrationTests.AuthIntegrationTests" name="POST_Register_Then_Login_WithUnverifiedEmail_ShouldReturnEmailVerificationRequired" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Api.IntegrationTests.AuthIntegrationTests.POST_Register_WithValidData_ReturnsOk" storage="/home/runner/work/soma/soma/tests/soma.platform.api.integrationtests/bin/debug/net8.0/soma.platform.api.integrationtests.dll" id="765a3e59-8aad-5ca0-ffb8-96ae57a9c56b">
+      <Execution id="67e9170c-481f-4693-bcf3-893ac9970f7a" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Api.IntegrationTests/bin/Debug/net8.0/Soma.Platform.Api.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Api.IntegrationTests.AuthIntegrationTests" name="POST_Register_WithValidData_ReturnsOk" />
+    </UnitTest>
+    <UnitTest name="Soma.Platform.Api.IntegrationTests.AuthIntegrationTests.GET_Health_ReturnsOk" storage="/home/runner/work/soma/soma/tests/soma.platform.api.integrationtests/bin/debug/net8.0/soma.platform.api.integrationtests.dll" id="6ced9ccd-4fa3-ff09-db53-7a94c637f0e6">
+      <Execution id="b4e310ef-8445-4d91-b6b0-63aff53c4067" />
+      <TestMethod codeBase="/home/runner/work/soma/soma/tests/Soma.Platform.Api.IntegrationTests/bin/Debug/net8.0/Soma.Platform.Api.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Soma.Platform.Api.IntegrationTests.AuthIntegrationTests" name="GET_Health_ReturnsOk" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="fd060d58-4a39-61d9-42da-05ffd13e9307" executionId="21b0c0e4-7a8b-47b1-84b4-3947991491b1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f39e6ddb-0ced-9e65-67d2-67c1227a8a11" executionId="7d57f460-0a0b-4741-af8d-24abf1c9660c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="45f91183-902d-c44f-b6ed-cc3b2a338707" executionId="6081bd43-bdea-405b-9567-f6ec6e6cbf2a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6ced9ccd-4fa3-ff09-db53-7a94c637f0e6" executionId="b4e310ef-8445-4d91-b6b0-63aff53c4067" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="be485be1-395e-ee28-6a62-38cc56bf33fe" executionId="54dcc3e0-cb26-4c81-a763-21709637e903" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="765a3e59-8aad-5ca0-ffb8-96ae57a9c56b" executionId="67e9170c-481f-4693-bcf3-893ac9970f7a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="abbc2744-87d9-08f4-8719-169152455655" executionId="9b40ae13-e3aa-469f-b5e7-79eea7da5c02" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5322c002-9fce-b1b0-7830-07e1c4c8c499" executionId="94c14414-e400-41d2-bdd3-d74c6b59d7cb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8de29385-ea7a-b133-e444-f6d04e91b09f" executionId="9a7529a8-5fbe-4e89-a54d-f4512ea7ee55" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="9" executed="9" passed="9" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.4.5+1caef2f33e (64-bit .NET 8.0.16)
+[xUnit.net 00:00:02.60]   Discovering: Soma.Platform.Api.IntegrationTests
+[xUnit.net 00:00:02.63]   Discovered:  Soma.Platform.Api.IntegrationTests
+[xUnit.net 00:00:02.63]   Starting:    Soma.Platform.Api.IntegrationTests
+[xUnit.net 00:00:06.55]   Finished:    Soma.Platform.Api.IntegrationTests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

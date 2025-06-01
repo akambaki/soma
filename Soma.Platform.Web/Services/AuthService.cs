@@ -212,62 +212,50 @@ public interface ILocalStorageService
     Task RemoveItemAsync(string key);
 }
 
-// Session-based implementation for Blazor Server
+// In-memory implementation for Blazor Server to avoid session timing issues
 public class LocalStorageService : ILocalStorageService
 {
-    private readonly IHttpContextAccessor _httpContextAccessor;
-
-    public LocalStorageService(IHttpContextAccessor httpContextAccessor)
-    {
-        _httpContextAccessor = httpContextAccessor;
-    }
+    private readonly Dictionary<string, string> _storage = new();
+    private readonly object _lock = new();
 
     public Task<T?> GetItemAsync<T>(string key)
     {
-        var session = _httpContextAccessor.HttpContext?.Session;
-        if (session == null)
+        lock (_lock)
         {
-            Console.WriteLine("Warning: Session is null in LocalStorageService.GetItemAsync");
-            return Task.FromResult<T?>(default);
-        }
+            if (!_storage.TryGetValue(key, out var value) || string.IsNullOrEmpty(value))
+            {
+                Console.WriteLine($"LocalStorageService.GetItemAsync - Key: {key}, Value: null/empty");
+                return Task.FromResult<T?>(default);
+            }
 
-        var value = session.GetString(key);
-        Console.WriteLine($"LocalStorageService.GetItemAsync - Key: {key}, Value: {(string.IsNullOrEmpty(value) ? "null/empty" : "present")}");
-        
-        if (string.IsNullOrEmpty(value))
-        {
-            return Task.FromResult<T?>(default);
-        }
-        
-        try
-        {
-            return Task.FromResult(JsonSerializer.Deserialize<T>(value));
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error deserializing from session: {ex.Message}");
-            return Task.FromResult<T?>(default);
+            Console.WriteLine($"LocalStorageService.GetItemAsync - Key: {key}, Value: present");
+            
+            try
+            {
+                return Task.FromResult(JsonSerializer.Deserialize<T>(value));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deserializing from storage: {ex.Message}");
+                return Task.FromResult<T?>(default);
+            }
         }
     }
 
     public Task SetItemAsync<T>(string key, T value)
     {
-        var session = _httpContextAccessor.HttpContext?.Session;
-        if (session == null)
+        lock (_lock)
         {
-            Console.WriteLine("Warning: Session is null in LocalStorageService.SetItemAsync");
-            return Task.CompletedTask;
-        }
-
-        try
-        {
-            var serializedValue = JsonSerializer.Serialize(value);
-            session.SetString(key, serializedValue);
-            Console.WriteLine($"LocalStorageService.SetItemAsync - Key: {key}, Value stored successfully");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error serializing to session: {ex.Message}");
+            try
+            {
+                var serializedValue = JsonSerializer.Serialize(value);
+                _storage[key] = serializedValue;
+                Console.WriteLine($"LocalStorageService.SetItemAsync - Key: {key}, Value stored successfully");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error serializing to storage: {ex.Message}");
+            }
         }
         
         return Task.CompletedTask;
@@ -275,15 +263,11 @@ public class LocalStorageService : ILocalStorageService
 
     public Task RemoveItemAsync(string key)
     {
-        var session = _httpContextAccessor.HttpContext?.Session;
-        if (session == null)
+        lock (_lock)
         {
-            Console.WriteLine("Warning: Session is null in LocalStorageService.RemoveItemAsync");
-            return Task.CompletedTask;
+            _storage.Remove(key);
+            Console.WriteLine($"LocalStorageService.RemoveItemAsync - Key: {key} removed");
         }
-
-        session.Remove(key);
-        Console.WriteLine($"LocalStorageService.RemoveItemAsync - Key: {key} removed");
         return Task.CompletedTask;
     }
 }
