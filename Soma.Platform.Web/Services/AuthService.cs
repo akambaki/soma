@@ -55,7 +55,7 @@ public class AuthService : IAuthService
                 return new AuthenticationResult 
                 { 
                     Success = false, 
-                    ErrorMessage = "Please verify your email before logging in.",
+                    ErrorMessage = response.Data.Message ?? "Please verify your email before logging in.",
                     RequiresEmailVerification = true
                 };
             }
@@ -161,6 +161,7 @@ public class LoginResponse
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
     public string? Email { get; set; }
+    public string? Message { get; set; }
     public bool RequiresTwoFactor { get; set; }
     public bool RequiresEmailVerification { get; set; }
 }
