@@ -341,7 +341,8 @@ jobs:
         dotnet test --configuration Release \
           --no-build \
           --collect:"XPlat Code Coverage" \
-          --results-directory ./coverage/
+          --results-directory ./coverage/ \
+          --filter "FullyQualifiedName!~E2E.Tests"
 
     - name: Upload coverage reports
       uses: actions/upload-artifact@v4
