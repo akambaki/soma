@@ -1,12 +1,28 @@
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.DataProtection;
 using Soma.Platform.Web.Components;
 using Soma.Platform.Web.Services;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+// Configure Data Protection for containerized environment
+var dataProtectionKeyPath = Environment.GetEnvironmentVariable("DATA_PROTECTION_KEY_PATH") ?? "/tmp/dataprotection-keys";
+
+// Ensure the key directory exists
+Directory.CreateDirectory(dataProtectionKeyPath);
+
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo(dataProtectionKeyPath))
+    .SetApplicationName("Soma.Platform.Web");
+
+// Add logging for data protection
+builder.Logging.AddConsole();
+builder.Logging.SetMinimumLevel(LogLevel.Information);
 
 // Add HTTP client
 builder.Services.AddHttpClient<IApiService, ApiService>();

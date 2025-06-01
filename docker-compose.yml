@@ -58,6 +58,9 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8080
       - ApiService__BaseUrl=http://soma-api:8080
+      - DATA_PROTECTION_KEY_PATH=/app/dataprotection-keys
+    volumes:
+      - soma-web-keys:/app/dataprotection-keys
     depends_on:
       soma-api:
         condition: service_healthy
@@ -71,6 +74,8 @@ services:
 
 volumes:
   soma-postgres:
+    driver: local
+  soma-web-keys:
     driver: local
 
 networks:
