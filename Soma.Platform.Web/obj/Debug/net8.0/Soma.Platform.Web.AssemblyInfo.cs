@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Soma.Platform.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a28e5ec2cfa92ce2239cc6f054982bd781a5c265")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ced504e8fe88ad27a35f7addc81cfdc262d6f916")]
 [assembly: System.Reflection.AssemblyProductAttribute("Soma.Platform.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Soma.Platform.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
